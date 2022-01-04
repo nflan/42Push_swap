@@ -14,14 +14,14 @@ int	ft_swap(i_list *elem1, i_list *elem2)
 	return (0);
 }
 
-int	ft_push(i_list *pstart, i_list *pend, int i)
+int	ft_push(i_list *pstart, i_list *pend)
 {
 	i_list		*tmp;
 
 	tmp = NULL;
 	if (pstart)
 	{
-		if (i == 0 && pend->num == -1)
+		if (!pend->num)
 		{
 			*pend = *pstart;
 			pend->next = NULL;
@@ -61,50 +61,63 @@ int	ft_rotate(i_list *pstart)
 	return (0);
 }
 
-int	ft_reverse_rotate(i_list *pstart)
+/*int	ft_reverse_rotate(i_list *pstart)
 {
 	i_list	*tmp;
-	i_list	*save;
+	i_list	*ptr;
 
 	tmp = NULL;
-	save = NULL;
+	ptr = NULL;
 	if (pstart)
 	{
 		tmp = ft_calloc(sizeof(i_list), 1);
-		save = ft_calloc(sizeof(i_list), 1);
-		*save = *pstart;
-		ft_printf("save->num = %i \n", save->num);
-		save = save->next;
-		ft_printf("save->num = %i \n", save->num);
-		while (pstart->next)
+		ptr = ft_calloc(sizeof(i_list), 1);
+		*ptr = *pstart;
+		ft_printf("ptr->num = %i \n", ptr->num);
+		while (ptr->next)
 		{
-			tmp = pstart->next;
+			tmp = ptr->next;
 			if (!tmp->next)
 			{
-				ft_printf("pstart->num = %i \n", pstart->num);
-				pstart->next = NULL;
+				ft_printf("ptr->num = %i \n", pstart->num);
+				ptr->next = NULL;
 				ft_printf("tmp->num = %i \n", tmp->num);
-				tmp->next = save;
+				tmp->next = pstart;
 			}
 			else
-				pstart = pstart->next;
+				ptr = ptr->next;
 		}
-		*pstart = *tmp;
-		ft_printf("pstart->num = %i \n", pstart->num);
-		pstart = pstart->next;
-		ft_printf("pstart->num = %i \n", pstart->num);
-		pstart = pstart->next;
-		ft_printf("pstart->num = %i \n", pstart->num);
+//		*pstart = *tmp;
 		return (1);
 	}
 	return (0);
+}*/
+
+i_list	*ft_reverse_rotate(i_list *pstart)
+{
+	i_list	*tmp;
+
+	tmp = NULL;
+	if (pstart)
+	{
+		tmp = ft_calloc(sizeof(i_list), 1);
+		*tmp = *pstart;
+		while (tmp->next)
+			tmp = tmp->next;
+		ft_printf("tmp->num = %i\n", tmp->num);
+		ft_lstadd_front(&pstart, tmp);
+		while (tmp->next != pstart)
+			tmp = tmp->next;
+		tmp->next = NULL;
+		ft_printf("pstart->num = %i\n", pstart->num);
+	}
+	return (pstart);
 }
 
 //	ft_printf("OK\n\n");
 void	ft_choose_order(i_list *pa, i_list *pb)
 {
 	pb = ft_calloc(sizeof(i_list), 1);
-	pb->num = -1;
 	if (ft_swap(pa, pa->next))
 		ft_printf("sa\n");
 	/*	if (ft_push(pa, pb))
@@ -112,21 +125,21 @@ void	ft_choose_order(i_list *pa, i_list *pb)
 		ft_print_pile(pb);
 		ft_printf("pb\n");
 		}*/
-/*	ft_push(pa, pb, ft_lstsize(pb));
+	ft_push(pa, pb);
 	ft_printf("pb\n");
-	ft_push(pa, pb, ft_lstsize(pb));
+	ft_push(pa, pb);
 	ft_printf("pb\n");
-	ft_push(pa, pb, ft_lstsize(pb));
+	ft_push(pa, pb);
 	ft_printf("pb\n");
 	ft_rotate(pa);
 	ft_printf("ra\n");
 	ft_rotate(pb);
 	ft_printf("rb\n");
-	ft_reverse_rotate(pa);
+	pa = ft_reverse_rotate(pa);
 	ft_printf("rra\n");
-	ft_reverse_rotate(pb);
-	ft_printf("rrb\n");
-*/	//	ft_print_pile(pb);
+//	ft_reverse_rotate(pb);
+//	ft_printf("rrb\n");
+//	ft_print_pile(pb);
 }
 
 int	main(int ac, char **av)

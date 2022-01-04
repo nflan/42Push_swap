@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 12:40:30 by nflan             #+#    #+#             */
-/*   Updated: 2021/11/29 13:06:47 by nflan            ###   ########.fr       */
+/*   Created: 2021/11/29 11:35:19 by nflan             #+#    #+#             */
+/*   Updated: 2021/11/29 16:49:43 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(i_list **alst, i_list *new)
+t_pile	*ft_lstnew(int num)
 {
-	if (alst && new)
+	t_pile	*list;
+
+	list = NULL;
+	list = malloc(sizeof(t_pile));
+	if (list)
 	{
-		new->next = *alst;
-		*alst = new;
+		list->num = num;
+		list->next = NULL;
 	}
+	return (list);
 }
