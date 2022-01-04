@@ -29,6 +29,7 @@ void ft_print_pile(t_pile *pile)
 		ft_printf("%d\n", pile->num);
         pile = pile->next;
 	}
+	ft_printf("\n");
 }
 
 char	**ft_fill_argv(char **tab, int ac, char **av)
