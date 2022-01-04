@@ -1,22 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 12:40:30 by nflan             #+#    #+#             */
-/*   Updated: 2021/11/29 13:06:47 by nflan            ###   ########.fr       */
+/*   Created: 2021/11/22 17:18:26 by nflan             #+#    #+#             */
+/*   Updated: 2021/11/25 12:43:01 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(i_list **alst, i_list *new)
+int	ft_atoi(const char *str)
 {
-	if (alst && new)
+	unsigned int	i;
+	unsigned int	minus;
+	int				integer;
+
+	i = 0;
+	minus = 1;
+	integer = 0;
+	while ((str[i] > 8 && str[i] < 14) || str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
 	{
-		new->next = *alst;
-		*alst = new;
+		if (str[i] == '-')
+			minus *= -1;
+		i++;
 	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		integer = (integer * 10) + (str[i] - '0');
+		i++;
+	}
+	return (integer * minus);
 }
