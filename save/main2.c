@@ -156,13 +156,13 @@ int		ft_need_rotate(t_begin *begin, int pnb)
 		while (tmpb->next)
 			tmpb = tmpb->next;
 		if (pnb == 1)
-			if (begin->pile_a->next->num > tmpa->num)
+			if (begin->pile_a->next->num < tmpa->num)
 				return (1);
 		if (pnb == 2)
-			if (begin->pile_b->next->num < tmpb->num)
+			if (begin->pile_b->next->num > tmpb->num)
 				return (1);
 		if (pnb == 3)
-			if (begin->pile_a->next->num > tmpa->num && begin->pile_b->next->num < tmpb->num)
+			if (begin->pile_a->next->num < tmpa->num && begin->pile_b->next->num > tmpb->num)
 				return (1);
 	}
 	return (0);
@@ -185,7 +185,7 @@ int		ft_need_reverse_rotate(t_begin *begin, int pnb)
 			if (begin->pile_a->next->num < tmpa->num)
 				return (1);
 		if (pnb == 2)
-			if (begin->pile_b->next->num > tmpb->num)
+			if (begin->pile_b->next->num < tmpb->num)
 				return (1);
 		if (pnb == 3)
 			if (begin->pile_a->next->num < tmpa->num && begin->pile_b->next->num > tmpb->num)
@@ -218,13 +218,13 @@ void	ft_call_swap(t_begin *begin, int nb)
 int		ft_need_swap(t_begin *begin, int nb)
 {
 	if (nb == 1)
-		if (!ft_need_rotate(begin, 1) && !ft_need_reverse_rotate(begin, 1))
+		if (!ft_need_rotate(begin, 1))// && !ft_need_reverse_rotate(begin, 1))
 			return (1);
 	if (nb == 2)
-		if (!ft_need_rotate(begin, 2) && !ft_need_reverse_rotate(begin, 2))
+		if (!ft_need_rotate(begin, 2))// && !ft_need_reverse_rotate(begin, 2))
 			return (1);
 	if (nb == 3)
-		if (!ft_need_rotate(begin, 3) && !ft_need_reverse_rotate(begin, 3))
+		if (!ft_need_rotate(begin, 3))// && !ft_need_reverse_rotate(begin, 3))
 			return (1);
 	return (0);
 }
@@ -240,11 +240,11 @@ void	ft_do_swap(t_begin *begin)
 	tmpb = begin->pile_b;
 	if (tmpa && tmpb)
 	{
-		if (ft_need_swap(begin, 1) && ft_is_sort(begin) != 2)
+		if (tmpa->num > tmpa->next->num && ft_need_swap(begin, 1))
 			nb = 1;
-		if (ft_need_swap(begin, 2) && ft_is_sort(begin) != 1)
+		if (tmpb->num < tmpb->next->num && ft_need_swap(begin, 2))
 			nb = 2;
-		if (ft_need_swap(begin, 3) && ft_is_sort(begin) != 3)
+		if (tmpa->num > tmpa->next->num && tmpb->num < tmpb->next->num && ft_need_swap(begin, 3))
 			nb = 3;
 	}
 	if (nb)
@@ -290,11 +290,11 @@ void	ft_do_rotate(t_begin *begin)
 //		ft_printf("tmpa = %i\n", tmpa->num);
 //		ft_printf("begin b = %i\n", begin->pile_b->num);
 //		ft_printf("tmpb = %i\n", tmpb->num);
-		if (begin->pile_a->num > tmpa->num && ft_need_rotate(begin, 1) && ft_is_sort(begin) != 2)
+		if (begin->pile_a->num > tmpa->num && ft_need_rotate(begin, 1))
 			nb = 1;
-		if (begin->pile_b->num < tmpb->num && ft_need_rotate(begin, 2) && ft_is_sort(begin) != 1)
+		if (begin->pile_b->num < tmpb->num && ft_need_rotate(begin, 2))
 			nb = 2;
-		if (begin->pile_a->num > tmpa->num && begin->pile_b->num < tmpb->num && ft_need_rotate(begin, 3) && ft_is_sort(begin) != 3)
+		if (begin->pile_a->num > tmpa->num && begin->pile_b->num < tmpb->num && ft_need_rotate(begin, 3))
 			nb = 3;
 	}
 //	ft_printf("nb %i\n", nb);
@@ -337,11 +337,11 @@ void	ft_do_reverse_rotate(t_begin *begin)
 			tmpa = tmpa->next;
 		while (tmpb->next)
 			tmpb = tmpb->next;
-		if (begin->pile_a->num > tmpa->num && ft_need_reverse_rotate(begin, 1) && ft_is_sort(begin) != 2)
+		if (begin->pile_a->num > tmpa->num && ft_need_reverse_rotate(begin, 1))
 			nb = 1;
-		if (begin->pile_b->num < tmpb->num && ft_need_reverse_rotate(begin, 2) && ft_is_sort(begin) != 1)
+		if (begin->pile_b->num < tmpb->num && ft_need_reverse_rotate(begin, 2))
 			nb = 2;
-		if (begin->pile_a->num > tmpa->num && begin->pile_b->num < tmpb->num && ft_need_reverse_rotate(begin, 3) && ft_is_sort(begin) != 3)
+		if (begin->pile_a->num > tmpa->num && begin->pile_b->num < tmpb->num && ft_need_reverse_rotate(begin, 3))
 			nb = 3;
 	}
 	if (nb)
@@ -402,7 +402,7 @@ int	main(int ac, char **av)
 	begin->pile_a = ft_fill_pile(tab);
 //	ft_choose_order(begin);
 	ft_other_sort(begin);
-	ft_push_all_to_a(begin);
+//	ft_push_all_to_a(begin);
 	ft_print_pile(begin->pile_a);
 	ft_print_pile(begin->pile_b);
 	//	free(pa);
