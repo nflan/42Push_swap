@@ -26,9 +26,10 @@ int	ft_push(t_pile **pstart, t_pile **pend)
 
 	tmpstart = *pstart;
 	tmpend = *pend;
-	nbr = tmpstart->num;
-	if (pstart)
+	nbr = 0;
+	if (*pstart)
 	{
+		nbr = tmpstart->num;
 		tmpend = ft_pilenew(nbr);
 		tmpend->next = *pend;
 		*pend = tmpend;
@@ -45,7 +46,7 @@ int	ft_reverse_rotate(t_pile **pstart)
 
 	tmp = *pstart;
 	tmp2 = *pstart;
-	if (pstart)
+	if (*pstart)
 	{
 		while (tmp->next->next)
 			tmp = tmp->next;
@@ -65,7 +66,7 @@ int	ft_rotate(t_pile **pstart)
 	tmp = *pstart;
 	tmp2 = *pstart;
 	*pstart = tmp->next;
-	if (pstart)
+	if (*pstart)
 	{
 		while (tmp->next)
 			tmp = tmp->next;
