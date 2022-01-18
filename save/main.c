@@ -1,87 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
+/*   Updated: 2022/01/18 16:52:56 by nflan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-/*
-   if (ft_swap(&begin->pile_a))
-   ft_printf("sa\n");
-   ft_push(&begin->pile_a, &begin->pile_b);
-   ft_printf("pb\n");
-   ft_push(&begin->pile_a, &begin->pile_b);
-   ft_printf("pb\n");
-   ft_push(&begin->pile_a, &begin->pile_b);
-   ft_printf("pb\n");
-   ft_rotate(&begin->pile_a);
-   ft_printf("ra\n");
-   ft_rotate(&begin->pile_b);
-   ft_printf("rb\n");
-   ft_reverse_rotate(&begin->pile_a);
-   ft_printf("rra\n");
-   ft_reverse_rotate(&begin->pile_b);
-   ft_printf("rrb\n");
-   if (ft_swap(&begin->pile_a))
-   ft_printf("sa\n");
-   ft_push(&begin->pile_b, &begin->pile_a);
-   ft_printf("pa\n");
-   ft_push(&begin->pile_b, &begin->pile_a);
-   ft_printf("pa\n");
-   ft_push(&begin->pile_b, &begin->pile_a);
-   ft_printf("pa\n");
-   */
-
-int		ft_is_sort(t_begin *begin)
-{
-	t_pile	*tmp;
-	int		b;
-
-	b = 0;
-	tmp = begin->pile_a;
-	if (tmp)
-	{
-		while (tmp->next && tmp->num < tmp->next->num)
-			tmp = tmp->next;
-		if (!tmp->next)
-			b = 2;
-	}
-	tmp = begin->pile_b;
-	if (tmp)
-	{
-		while (tmp->next && tmp->num > tmp->next->num)
-			tmp = tmp->next;
-		if (!tmp->next)
-			b++;
-	}
-	else
-		b++;
-	return (b);
-}
-
-void	ft_push_all_to_a(t_begin *begin)
-{
-	while (begin->pile_b)
-		if (ft_push(&begin->pile_b, &begin->pile_a))
-			ft_printf("pa\n");
-}
-
-int		ft_median(t_begin *begin)
-{
-	t_pile	*tmp;
-	int		psize;
-	int		pnbr;
-
-	tmp = begin->pile_a;
-	psize = ft_lstsize(begin->pile_a);
-	pnbr = 0;
-	if (tmp)
-	{
-		while (tmp)
-		{
-			pnbr+= tmp->num;
-			tmp = tmp->next;
-		}
-		pnbr /= psize;
-		return (pnbr);
-	}
-	return (0);
-}
 /*
 void	ft_sort(t_begin *begin)
 {
@@ -218,18 +148,18 @@ void	ft_call_swap(t_begin *begin, int nb)
 int		ft_need_swap(t_begin *begin, int nb)
 {
 	if (nb == 1)
-		if (!ft_need_rotate(begin, 1) && !ft_need_reverse_rotate(begin, 1))
+		if (!ft_need_rotate(begin, nb) && !ft_need_reverse_rotate(begin, nb))
 			return (1);
 	if (nb == 2)
-		if (!ft_need_rotate(begin, 2) && !ft_need_reverse_rotate(begin, 2))
+		if (!ft_need_rotate(begin, nb) && !ft_need_reverse_rotate(begin, nb))
 			return (1);
 	if (nb == 3)
-		if (!ft_need_rotate(begin, 3) && !ft_need_reverse_rotate(begin, 3))
+		if (!ft_need_rotate(begin, nb) && !ft_need_reverse_rotate(begin, nb))
 			return (1);
 	return (0);
 }
 
-void	ft_do_swap(t_begin *begin)
+int	ft_do_swap(t_begin *begin)
 {
 	t_pile	*tmpa;
 	t_pile	*tmpb;
@@ -244,11 +174,12 @@ void	ft_do_swap(t_begin *begin)
 			nb = 1;
 		if (ft_need_swap(begin, 2) && ft_is_sort(begin) != 1)
 			nb = 2;
-		if (ft_need_swap(begin, 3) && ft_is_sort(begin) != 3)
+		if (ft_need_swap(begin, 3) && !ft_is_sort(begin))
 			nb = 3;
 	}
 	if (nb)
 		ft_call_swap(begin, nb);
+	return (nb);
 }
 
 void	ft_call_rotate(t_begin *begin, int nb)
@@ -271,7 +202,7 @@ void	ft_call_rotate(t_begin *begin, int nb)
 	}
 }
 
-void	ft_do_rotate(t_begin *begin)
+int	ft_do_rotate(t_begin *begin)
 {
 	t_pile	*tmpa;
 	t_pile	*tmpb;
@@ -300,6 +231,7 @@ void	ft_do_rotate(t_begin *begin)
 //	ft_printf("nb %i\n", nb);
 	if (nb)
 		ft_call_rotate(begin, nb);
+	return (nb);
 }
 
 void	ft_call_reverse_rotate(t_begin *begin, int nb)
@@ -322,7 +254,7 @@ void	ft_call_reverse_rotate(t_begin *begin, int nb)
 	}
 }
 
-void	ft_do_reverse_rotate(t_begin *begin)
+int	ft_do_reverse_rotate(t_begin *begin)
 {
 	t_pile	*tmpa;
 	t_pile	*tmpb;
@@ -346,6 +278,27 @@ void	ft_do_reverse_rotate(t_begin *begin)
 	}
 	if (nb)
 		ft_call_reverse_rotate(begin, nb);
+	return (nb);
+}
+
+int	ft_p_max(t_pile **pile)
+{
+	t_pile	*tmp;
+	int		max;
+
+	tmp = *pile;
+	max = 0;
+	if (tmp)
+	{
+		while (tmp)
+		{
+			if (max < tmp->num)
+				max = tmp->num;
+			tmp = tmp->next;
+		}
+	}
+	ft_printf("max = %d\n", max);
+	return (max);
 }
 
 void	ft_other_sort(t_begin *begin)
@@ -357,7 +310,7 @@ void	ft_other_sort(t_begin *begin)
 	tmp = begin->pile_a;
 	median = ft_median(begin);
 	mid = ft_lstsize(begin->pile_a) / 2;
-	if (tmp)
+	if (tmp && ft_is_sort(begin) != 3)
 	{
 		while (ft_lstsize(begin->pile_a) > mid)
 		{
@@ -369,23 +322,32 @@ void	ft_other_sort(t_begin *begin)
 			ft_push(&begin->pile_a, &begin->pile_b);
 			ft_printf("pb\n");
 		}
-	}
-	while (ft_is_sort(begin) != 3)
-	{
-		ft_do_rotate(begin);
-		ft_do_swap(begin);
-		ft_do_reverse_rotate(begin);
+		while (ft_is_sort(begin) != 3)
+		{
+			if (ft_do_rotate(begin))
+			{}
+			else if (ft_do_swap(begin))
+			{}
+			else if (ft_do_reverse_rotate(begin))
+			{}
+			ft_printf("begin->pile_b->num = %d\n", begin->pile_b->num);
+			if (ft_is_sort(begin) == 2 && begin->pile_b->num == ft_p_max(&begin->pile_b))
+			{
+				ft_push(&begin->pile_b, &begin->pile_a);
+				ft_printf("pa\n");
+			}
+		}
 	}
 }
 
-void	ft_choose_order(t_begin *begin)
+/*void	ft_choose_order(t_begin *begin)
 {
 	while (ft_is_sort(begin) != 3)
 	{
 	//	ft_sort(begin);
 	}
 //	ft_push_all_to_a(begin);
-}
+}*/
 
 int	main(int ac, char **av)
 {

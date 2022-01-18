@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_op.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 15:33:19 by nflan             #+#    #+#             */
+/*   Updated: 2022/01/18 15:33:49 by nflan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	ft_swap(t_pile **pile)
 {
 	t_pile	*elem1;
 	t_pile	*elem2;
-	int	tmp;
+	int		tmp;
 
 	elem1 = *pile;
 	elem2 = elem1->next;
 	tmp = elem1->num;
 	if (elem1 && elem2)
 	{
-		elem1->num = elem2->num;;
+		elem1->num = elem2->num;
 		elem2->num = tmp;
 		return (1);
 	}

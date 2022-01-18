@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_fill.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 15:33:14 by nflan             #+#    #+#             */
+/*   Updated: 2022/01/18 15:36:08 by nflan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 t_pile	*ft_fill_pile(char **tab)
@@ -21,13 +33,12 @@ t_pile	*ft_fill_pile(char **tab)
 	return (ptr);
 }
 
-void ft_print_pile(t_pile *pile)
+void	ft_print_pile(t_pile *pile)
 {
-
 	while (pile)
 	{
 		ft_printf("%d\n", pile->num);
-        pile = pile->next;
+		pile = pile->next;
 	}
 	ft_printf("\n");
 }
