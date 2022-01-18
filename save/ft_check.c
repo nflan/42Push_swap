@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_check.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 15:33:07 by nflan             #+#    #+#             */
+/*   Updated: 2022/01/18 15:36:55 by nflan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	ft_check_double(char **tab, int check)
@@ -19,7 +31,7 @@ int	ft_check_double(char **tab, int check)
 int	ft_check_tab(char **tab)
 {
 	int	i;
-	int j;
+	int	j;
 	int	check;
 
 	check = 1;
@@ -40,7 +52,7 @@ int	ft_check_tab(char **tab)
 	exit (EXIT_FAILURE);
 }
 
-t_pile		*ft_pilenew(int n)
+t_pile	*ft_pilenew(int n)
 {
 	t_pile		*new;
 
@@ -50,7 +62,7 @@ t_pile		*ft_pilenew(int n)
 	return (new);
 }
 
-int		ft_count_line(char **tab)
+int	ft_count_line(char **tab)
 {
 	int	i;
 

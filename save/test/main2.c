@@ -402,9 +402,9 @@ int	main(int ac, char **av)
 	begin->pile_a = ft_fill_pile(tab);
 //	ft_choose_order(begin);
 	ft_other_sort(begin);
-//	ft_push_all_to_a(begin);
+	ft_push_all_to_a(begin);
 	ft_print_pile(begin->pile_a);
-	ft_print_pile(begin->pile_b);
+//	ft_print_pile(begin->pile_b);
 	//	free(pa);
 	//	while (1){}
 	return (0);
