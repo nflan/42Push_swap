@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/18 15:47:22 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/19 17:56:46 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ typedef struct s_begin
 
 # include "libft/libft.h"
 
+// MAIN
+char	ft_next_to_move(t_pile **pile, int med);
+
 // CHECK
 int		ft_check_double(char **tab, int check);
 int		ft_check_tab(char **tab);
@@ -35,18 +38,34 @@ int		ft_count_line(char **tab);
 
 // FILL
 t_pile	*ft_fill_pile(char **tab);
+void	ft_fill_pile_b(t_begin *begin);
+char	ft_next_to_move(t_pile **pile, int med);
 void	ft_print_pile(t_pile *pile);
 char	**ft_fill_argv(char **tab, int ac, char **av);
 
 // OP
-int		ft_swap(t_pile **pile);
-int		ft_push(t_pile **pstart, t_pile **pend);
-int		ft_reverse_rotate(t_pile **pstart);
-int		ft_rotate(t_pile **pstart);
+int		ft_swap(t_pile **pile, int p);
+int		ft_push(t_pile **pstart, t_pile **pend, int p);
+int		ft_reverse_rotate(t_pile **pstart, int p);
+int		ft_rotate(t_pile **pstart, int p);
 
 // UTILS
 int		ft_is_sort(t_begin *begin);
 void	ft_push_all_to_a(t_begin *begin);
-int		ft_median(t_begin *begin);
+int		ft_is_median(t_begin *begin);
+int		ft_nb_rr(t_pile *pile, int med);
+int		ft_nb_r(t_pile *pile, int med);
+
+// SWAP
+int		ft_do_swap(t_begin *begin);
+void	ft_swappy(t_begin *begin);
+
+// ROTATE
+int		ft_do_rotate(t_begin *begin);
+void	ft_rotaty(t_begin *begin);
+
+// REVERSE ROTATE
+int		ft_do_reverse_rotate(t_begin *begin);
+void	ft_reverse_rotaty(t_begin *begin);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:19 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/18 15:33:49 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/19 18:00:18 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_swap(t_pile **pile)
+int	ft_swap(t_pile **pile, int p)
 {
 	t_pile	*elem1;
 	t_pile	*elem2;
@@ -25,12 +25,16 @@ int	ft_swap(t_pile **pile)
 	{
 		elem1->num = elem2->num;
 		elem2->num = tmp;
+		if (p == 1)
+			ft_printf("sa\n");
+		else if (p == 2)
+			ft_printf("sb\n");
 		return (1);
 	}
 	return (0);
 }
 
-int	ft_push(t_pile **pstart, t_pile **pend)
+int	ft_push(t_pile **pstart, t_pile **pend, int p)
 {
 	t_pile	*tmpstart;
 	t_pile	*tmpend;
@@ -46,12 +50,16 @@ int	ft_push(t_pile **pstart, t_pile **pend)
 		tmpend->next = *pend;
 		*pend = tmpend;
 		*pstart = tmpstart->next;
+		if (p == 1)
+			ft_printf("pb\n");
+		else if (p == 2)
+			ft_printf("pa\n");
 		return (1);
 	}
 	return (0);
 }
 
-int	ft_reverse_rotate(t_pile **pstart)
+int	ft_reverse_rotate(t_pile **pstart, int p)
 {
 	t_pile	*tmp;
 	t_pile	*tmp2;
@@ -65,12 +73,16 @@ int	ft_reverse_rotate(t_pile **pstart)
 		tmp->next->next = tmp2;
 		*pstart = tmp->next;
 		tmp->next = NULL;
+		if (p == 1)
+			ft_printf("rra\n");
+		else if (p == 2)
+			ft_printf("rrb\n");
 		return (1);
 	}
 	return (0);
 }
 
-int	ft_rotate(t_pile **pstart)
+int	ft_rotate(t_pile **pstart, int p)
 {
 	t_pile	*tmp;
 	t_pile	*tmp2;
@@ -84,6 +96,10 @@ int	ft_rotate(t_pile **pstart)
 			tmp = tmp->next;
 		tmp->next = tmp2;
 		tmp2->next = NULL;
+		if (p == 1)
+			ft_printf("ra\n");
+		else if (p == 2)
+			ft_printf("rb\n");
 		return (1);
 	}
 	return (0);
