@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:27:06 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/18 15:37:52 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/19 17:30:59 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,92 @@ int	ft_is_sort(t_begin *begin)
 void	ft_push_all_to_a(t_begin *begin)
 {
 	while (begin->pile_b)
-		if (ft_push(&begin->pile_b, &begin->pile_a))
-			ft_printf("pa\n");
+		ft_push(&begin->pile_b, &begin->pile_a, 2);
 }
 
-int	ft_median(t_begin *begin)
+int	ft_is_median(t_begin *begin)
 {
 	t_pile	*tmp;
-	int		psize;
-	int		pnbr;
+	t_pile	*pmed;
+	int		med;
+	int		more;
+	int		less;
 
 	tmp = begin->pile_a;
-	psize = ft_lstsize(begin->pile_a);
-	pnbr = 0;
+	pmed = begin->pile_a;
+	med = -1;
+	if (tmp)
+	{
+		while (med == -1)
+		{
+			while (tmp)
+			{
+				if (med == -1)
+				{
+					med = pmed->num;
+					more = 0;
+					less = 0;
+				}
+				if (med < tmp->num)
+					more++;
+				else if (med > tmp->num)
+					less++;
+				tmp = tmp->next;
+			}
+			if (less - more < -1 || less - more > 1)
+			{
+				pmed = pmed->next;
+				tmp = begin->pile_a;
+				med = -1;
+			}
+		}
+		return (med);
+	}
+	return (0);
+}
+
+int	ft_nb_rr(t_pile *pile, int med)
+{
+	t_pile	*tmp;
+	int		rra;
+	int		nb;
+
+	tmp = pile;
+	rra = 0;
 	if (tmp)
 	{
 		while (tmp)
 		{
-			pnbr += tmp->num;
+			if (tmp && tmp->num < med)
+				nb = tmp->num;
 			tmp = tmp->next;
 		}
-		pnbr /= psize;
-		return (pnbr);
+		tmp = pile;
+		while (tmp && tmp->num != nb)
+		{
+			rra++;
+			tmp = tmp->next;
+		}
+		return (ft_lstsize(pile) - rra);
+	}
+	return (0);
+}
+
+int	ft_nb_r(t_pile *pile, int med)
+{
+	t_pile	*tmp;
+	int		ra;
+
+	tmp = pile;
+	ra = 0;
+	if (tmp)
+	{
+		while (tmp && med < tmp->num)
+		{
+			ra++;
+			tmp = tmp->next;
+		}
+		return (ra);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:14 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/18 15:36:08 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/19 17:29:37 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,52 @@ t_pile	*ft_fill_pile(char **tab)
 		free(tab[i]);
 	}
 	return (ptr);
+}
+
+void	ft_fill_pile_b(t_begin *begin)
+{
+	t_pile	*tmp;
+	int		med;
+	int		mid;
+
+	tmp = begin->pile_a;
+	med = ft_is_median(begin);
+	mid = ft_lstsize(begin->pile_a) / 2;
+	if (tmp && ft_is_sort(begin) != 3)
+	{
+		while (ft_lstsize(begin->pile_a) > mid)
+		{
+			while (begin->pile_a->num > med || (begin->pile_a->num == med
+					&& !ft_lstsize(begin->pile_a) % 2))
+			{
+				if (ft_next_to_move(&begin->pile_a, med) == 'a')
+					ft_rotate(&begin->pile_a, 1);
+				else
+					ft_reverse_rotate(&begin->pile_a, 1);
+			}
+			ft_push(&begin->pile_a, &begin->pile_b, 1);
+		}
+	}
+}
+
+char	ft_next_to_move(t_pile **pile, int med)
+{
+	t_pile	*tmp;
+	int		ra;
+	int		rra;
+
+	tmp = *pile;
+	ra = 0;
+	rra = 0;
+	if (!tmp)
+		return (0);
+	ra = ft_nb_r(tmp, med);
+	tmp = *pile;
+	rra = ft_nb_rr(tmp, med);
+	if (ra <= rra)
+		return ('a');
+	else
+		return ('b');
 }
 
 void	ft_print_pile(t_pile *pile)

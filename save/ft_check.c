@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:07 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/18 15:36:55 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/19 11:26:50 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	ft_check_tab(char **tab)
 		j = -1;
 		if ((ft_strlen(tab[i]) > 9 && tab[i][9] > 55) || ft_strlen(tab[i]) > 10)
 			check = 0;
+		if (tab[i][0] == '-')
+			j = 0;
 		while (tab[i][++j] && check)
 			if (!ft_isdigit(tab[i][j]))
 				check = 0;
