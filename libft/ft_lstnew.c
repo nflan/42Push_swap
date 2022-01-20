@@ -6,21 +6,21 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:35:19 by nflan             #+#    #+#             */
-/*   Updated: 2021/11/29 16:49:43 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/18 15:40:52 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+t_pile	*ft_lstnew(int num)
 {
-	t_list	*list;
+	t_pile	*list;
 
 	list = NULL;
-	list = malloc(sizeof(t_list));
+	list = malloc(sizeof(t_pile));
 	if (list)
 	{
-		list->content = content;
+		list->num = num;
 		list->next = NULL;
 	}
 	return (list);

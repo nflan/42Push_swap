@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 17:35:02 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/19 17:53:31 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/20 10:31:11 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,28 @@ int	ft_do_swap(t_begin *begin)
 	return (nb);
 }
 
-void	ft_swappy(t_begin *begin)
+int	ft_swappy(t_begin *begin, int last)
 {
-	if (ft_do_swap(begin) == 3)
+	if (ft_do_swap(begin) && last != 10)
 	{
-		ft_swap(&begin->pile_b, 3);
-		ft_swap(&begin->pile_a, 3);
-		ft_printf("ss\n");
+		if (ft_do_swap(begin) == 3 && last != 4)
+		{
+			ft_swap(&begin->pile_b, 3);
+			ft_swap(&begin->pile_a, 3);
+			ft_printf("ss\n");
+			return (7);
+		}
+		else if (ft_do_swap(begin) == 1 && last != 5)
+		{
+			ft_swap(&begin->pile_b, 2);
+			return (8);
+		}
+		else if (ft_do_swap(begin) == 2 && last != 6)
+		{		
+			ft_swap(&begin->pile_a, 1);
+			return (9);
+		}
+		return (10);
 	}
-	else if (ft_do_swap(begin) == 1)
-		ft_swap(&begin->pile_b, 2);
-	else if (ft_do_swap(begin) == 2)
-		ft_swap(&begin->pile_a, 1);
+	return (0);
 }

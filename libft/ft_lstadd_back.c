@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void	ft_lstadd_back(t_pile **alst, t_pile *new)
 {
-	t_list	*tmp;
+	t_pile	*tmp;
 
 	tmp = NULL;
 	tmp = *alst;

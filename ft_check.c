@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_check.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 15:33:07 by nflan             #+#    #+#             */
+/*   Updated: 2022/01/20 14:38:02 by nflan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	ft_check_double(char **tab, int check)
@@ -10,8 +22,10 @@ int	ft_check_double(char **tab, int check)
 	{
 		k = i;
 		while (tab[++k] && check)
+		{
 			if (!strcmp(tab[i], tab[k]))
 				check = 0;
+		}
 	}
 	return (check);
 }
@@ -19,7 +33,7 @@ int	ft_check_double(char **tab, int check)
 int	ft_check_tab(char **tab)
 {
 	int	i;
-	int j;
+	int	j;
 	int	check;
 
 	check = 1;
@@ -27,8 +41,10 @@ int	ft_check_tab(char **tab)
 	while (tab[++i] && check)
 	{
 		j = -1;
-		if ((ft_strlen(tab[i]) > 9 && tab[i][9] > 55) || ft_strlen(tab[i]) > 10)
+		if (ft_atoi(tab[i]) < -2147483648 || ft_atoi(tab[i]) > 2147483647)
 			check = 0;
+		if (tab[i][0] == '-')
+			j = 0;
 		while (tab[i][++j] && check)
 			if (!ft_isdigit(tab[i][j]))
 				check = 0;
@@ -40,64 +56,23 @@ int	ft_check_tab(char **tab)
 	exit (EXIT_FAILURE);
 }
 
-i_list	*ft_fill_pile(char **tab, i_list *pa)
+t_pile	*ft_pilenew(int n)
 {
-	i_list	*ptr;
-	int		i;
+	t_pile		*new;
+
+	new = ft_calloc(sizeof(t_pile), 1);
+	new->num = n;
+	new->next = NULL;
+	return (new);
+}
+
+int	ft_count_line(char **tab)
+{
+	int	i;
 
 	i = -1;
-	ptr = NULL;
-	while (tab[++i])
-	{}
-	while (i--)
-	{
-		ptr = ft_calloc(sizeof(i_list), 1);
-		ptr->num = ft_atoi(tab[i]);
-//		ft_printf("tab[%i] = %i\n", i, ptr->num);
-		ptr->next = pa;
-		pa = ptr;
-		free(tab[i]);
-	}
-	return (pa);
-}
-
-void ft_print_pile(i_list *pile)
-{
-
-//	ft_printf("%d\n", pile->num);
-	ft_printf("\n");
-	while (pile)
-	{
-		ft_printf("%d\n", pile->num);
-        pile = pile->next;
-	}
-	ft_printf("\n");
-}
-
-char	**ft_fill_argv(char **tab, int ac, char **av)
-{
-	int		i;
-	int		j;
-	int		k;
-
-	i = 0;
-	j = -1;
-	if (ac == 2)
-		tab = ft_split(av[1], ' ');
-	else
-	{
-		tab = ft_calloc(sizeof(char *), ac);
-		if (!tab)
-			return (0);
-		while (av[++i])
-		{
-			k = -1;
-			tab[++j] = ft_calloc(sizeof(char), ft_strlen(av[i]) + 1);
-			if (!tab[j])
-				return (0);
-			while (av[i][++k])
-				tab[j][k] = av[i][k];
-		}
-	}
-	return (tab);
+	if (tab[++i])
+		while (tab[i])
+			i++;
+	return (i);
 }
