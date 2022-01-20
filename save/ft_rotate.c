@@ -6,13 +6,13 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 17:55:23 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/19 17:55:37 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/20 10:30:48 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		ft_do_rotate(t_begin *begin)
+int	ft_do_rotate(t_begin *begin)
 {
 	t_pile	*tmpa;
 	t_pile	*tmpb;
@@ -36,16 +36,28 @@ int		ft_do_rotate(t_begin *begin)
 	return (nb);
 }
 
-void	ft_rotaty(t_begin *begin)
+int	ft_rotaty(t_begin *begin, int last)
 {
-	if (ft_do_rotate(begin) == 3)
+	if (ft_do_rotate(begin) && last != 10)
 	{
-		ft_rotate(&begin->pile_b, 3);
-		ft_rotate(&begin->pile_a, 3);
-		ft_printf("rr\n");
+		if (ft_do_rotate(begin) == 3 && last != 4)
+		{
+			ft_rotate(&begin->pile_b, 3);
+			ft_rotate(&begin->pile_a, 3);
+			ft_printf("rr\n");
+			return (1);
+		}
+		else if (ft_do_rotate(begin) == 1 && last != 5)
+		{
+			ft_rotate(&begin->pile_b, 2);
+			return (2);
+		}
+		else if (ft_do_rotate(begin) == 2 && last != 6)
+		{
+			ft_rotate(&begin->pile_a, 1);
+			return (3);
+		}
+		return (10);
 	}
-	else if (ft_do_rotate(begin) == 1)
-		ft_rotate(&begin->pile_b, 2);
-	else if (ft_do_rotate(begin) == 2)
-		ft_rotate(&begin->pile_a, 1);
+	return (0);
 }

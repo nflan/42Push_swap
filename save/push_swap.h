@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/19 17:56:46 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/20 11:26:09 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_begin
 # include "libft/libft.h"
 
 // MAIN
-char	ft_next_to_move(t_pile **pile, int med);
 
 // CHECK
 int		ft_check_double(char **tab, int check);
@@ -58,14 +57,14 @@ int		ft_nb_r(t_pile *pile, int med);
 
 // SWAP
 int		ft_do_swap(t_begin *begin);
-void	ft_swappy(t_begin *begin);
+int		ft_swappy(t_begin *begin, int last);
 
 // ROTATE
 int		ft_do_rotate(t_begin *begin);
-void	ft_rotaty(t_begin *begin);
+int		ft_rotaty(t_begin *begin, int last);
 
 // REVERSE ROTATE
 int		ft_do_reverse_rotate(t_begin *begin);
-void	ft_reverse_rotaty(t_begin *begin);
+int		ft_reverse_rotaty(t_begin *begin, int last);
 
 #endif

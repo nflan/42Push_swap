@@ -1,19 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
+/*   Updated: 2022/01/20 15:38:12 by nflan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-typedef struct n_list
+typedef struct s_pile
 {
 	int				num;
-	struct n_list	*next;
-}	i_list;
+	struct s_pile	*next;
+}	t_pile;
 
-#include "libft/libft.h"
+typedef struct s_begin
+{
+	t_pile	*pile_a;
+	t_pile	*pile_b;
+}	t_begin;
 
-int		main(int, char **);
-int		ft_check_double(char **, int);
-int		ft_check_tab(char **);
-i_list	*ft_fill_pile(char **, i_list *);
-void	ft_print_pile(i_list *);
-char	**ft_fill_argv(char **, int, char **);
+# include "libft/libft.h"
+
+// MAIN
+
+// CHECK
+int		ft_check_double(char **tab, int check);
+int		ft_check_tab(char **tab);
+t_pile	*ft_pilenew(int n);
+int		ft_count_line(char **tab);
+
+// FILL
+t_pile	*ft_fill_pile(char **tab);
+void	ft_fill_pile_b(t_begin *begin);
+char	ft_next_to_move(t_pile **pile, int med);
+void	ft_print_pile(t_pile *pile);
+char	**ft_fill_argv(char **tab, int ac, char **av);
+
+// OP
+int		ft_swap(t_pile **pile, int p);
+int		ft_push(t_pile **pstart, t_pile **pend, int p);
+int		ft_reverse_rotate(t_pile **pstart, int p);
+int		ft_rotate(t_pile **pstart, int p);
+
+// DOUBLE / TRIPLE
+void	ft_double(t_begin *begin, int pile);
+void	ft_triple(t_begin *begin, int pile);
+void	ft_do_triple(t_pile **pile, int p);
+
+// UTILS
+int		ft_is_sort(t_begin *begin);
+void	ft_push_all_to_a(t_begin *begin);
+int		ft_nb_rr(t_pile *pile, int med);
+int		ft_nb_r(t_pile *pile, int med);
 
 #endif
