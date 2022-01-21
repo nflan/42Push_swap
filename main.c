@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/20 16:54:35 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/21 10:29:40 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,21 +106,25 @@ void	ft_back_to_a(t_begin *begin)
 
 void	ft_five(t_begin *begin)
 {
-	t_pile	*tmp;
-
-	tmp = begin->pile_a;
-	if (ft_lstsize(tmp) == 5 && ft_is_sort(begin) != 3)
+	if (ft_is_sort(begin) != 3)
 	{
-		ft_push(&begin->pile_a, &begin->pile_b, 1);
-		ft_push(&begin->pile_a, &begin->pile_b, 1);
+		while (ft_lstsize(begin->pile_a) > 3)
+			ft_push(&begin->pile_a, &begin->pile_b, 1);
 		ft_triple(begin, 1);
 		while (ft_lstsize(begin->pile_b))
 			ft_back_to_a(begin);
-	//	if (ft_is_sort(begin) != 3)
-	//		ft_reverse_rotate(&begin->pile_a, 1);
 	}
 }
 
+void	ft_sort(t_begin *begin)
+{
+	if (ft_lstsize(begin->pile_a) == 2)
+		ft_double(begin, 1);
+	else if (ft_lstsize(begin->pile_a) == 3)
+		ft_triple(begin, 1);
+	else
+		ft_five(begin);
+}
 int	main(int ac, char **av)
 {
 	char	**tab;
@@ -134,15 +138,13 @@ int	main(int ac, char **av)
 		return (0);
 	tab = ft_fill_argv(tab, ac, av);
 	begin->pile_a = ft_fill_pile(tab);
-	ft_double(begin, 1);
-	ft_triple(begin, 1);
-	ft_five(begin);
+	ft_sort(begin);
 	//	ft_fill_pile_b(begin);
 	//	ft_sort(begin, 0);
 	//	ft_push_all_to_a(begin);
-	ft_print_pile(begin->pile_a);
-	ft_print_pile(begin->pile_b);
-	//	free(pa);
+//	ft_print_pile(begin->pile_a);
+//	ft_print_pile(begin->pile_b);
+	free(begin);
 	//	while (1){}
 	return (0);
 }
