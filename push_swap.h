@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/20 15:38:12 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/21 12:08:09 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ typedef struct s_pile
 	int				num;
 	struct s_pile	*next;
 }	t_pile;
+
+typedef struct s_chunk
+{
+	int				min;
+	int				max;
+	int				index;
+	struct s_chunk	*next;
+}	t_chunk;
 
 typedef struct s_begin
 {
@@ -52,6 +60,12 @@ int		ft_rotate(t_pile **pstart, int p);
 void	ft_double(t_begin *begin, int pile);
 void	ft_triple(t_begin *begin, int pile);
 void	ft_do_triple(t_pile **pile, int p);
+
+// FIVE
+int		ft_pile_min(t_begin *begin, int pile);
+int		ft_pile_max(t_begin *begin, int pile);
+void	ft_back_to_a(t_begin *begin);
+void	ft_five(t_begin *begin);
 
 // UTILS
 int		ft_is_sort(t_begin *begin);

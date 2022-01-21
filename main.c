@@ -6,114 +6,86 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/21 10:29:40 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/21 13:29:44 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/*void	ft_sort(t_begin *begin, int last)
-  {
-  }*/
-
-int		ft_pile_min(t_begin *begin, int pile)
+void	ft_print_chunk(t_chunk *chunk)
 {
-	t_pile	*tmp;
-	int		min;
+	t_chunk	*tmp;
 
-	tmp = NULL;
-	min = 2147483647;
-	if (pile == 1 && begin->pile_a)
-		tmp = begin->pile_a;
-	else if (pile == 2 && begin->pile_b)
-		tmp = begin->pile_b;
-	if (tmp)
+	tmp = chunk;
+	while (tmp)
 	{
-		while (tmp)
-		{
-			if (min > tmp->num)
-				min = tmp->num;
-			tmp = tmp->next;
-		}
+		ft_printf("min %d\n", tmp->min);
+		ft_printf("max %d\n", tmp->max);
+		ft_printf("index %d\n", tmp->index);
+		tmp = tmp->next;
 	}
-	return (min);
+	ft_printf("\n");
 }
 
-int		ft_pile_max(t_begin *begin, int pile)
+int		pile_is_sort(t_pile *pile)
 {
 	t_pile	*tmp;
-	int		max;
 
-	tmp = NULL;
-	max = 0;
-	if (pile == 1 && begin->pile_a)
-		tmp = begin->pile_a;
-	else if (pile == 2 && begin->pile_b)
-		tmp = begin->pile_b;
-	if (tmp)
+	tmp = pile;
+	while (tmp->next)
 	{
-		while (tmp)
-		{
-			if (max < tmp->num)
-				max = tmp->num;
+		if (tmp->num < tmp->next->num)
 			tmp = tmp->next;
-		}
-	}
-	return (max);
-}
-
-void	ft_back_to_a(t_begin *begin)
-{
-	int	pile_max;
-	int	pile_min;
-	int	numb;
-	int pilesize;
-	int	ra;
-
-	pile_max = ft_pile_max(begin, 1);
-	pile_min = ft_pile_min(begin, 1);
-	numb = begin->pile_b->num;
-	pilesize = ft_lstsize(begin->pile_a);
-	ra = 0;
-//	ft_print_pile(begin->pile_a);
-//	ft_print_pile(begin->pile_b);
-	while (pilesize == ft_lstsize(begin->pile_a))
-	{
-		if (numb > pile_max || numb < pile_min)
-		{
-			if (begin->pile_a->num == pile_min)
-			{
-				ft_push(&begin->pile_b, &begin->pile_a, 2);
-				if (begin->pile_a->num > begin->pile_a->next->num)
-					ft_rotate(&begin->pile_a, 1);
-			}
-		}
-		else if (numb > begin->pile_a->num && numb < begin->pile_a->next->num)
-		{
-			ft_rotate(&begin->pile_a, 1);
-			ft_push(&begin->pile_b, &begin->pile_a, 2);
-			ft_reverse_rotate(&begin->pile_a, 1);
-			while (ra-- > 0)
-				ft_reverse_rotate(&begin->pile_a, 1);
-		}
 		else
+			return (0);
+	}
+	return (1);
+}
+
+void	sort_pile(t_pile **pile)
+{
+	t_pile	*tmp;
+	t_pile	*begin;
+	int		vtmp;
+
+	tmp = *pile;
+	begin = *pile;
+	while (!pile_is_sort(*pile) && begin)
+	{
+		while (tmp)
 		{
-			ft_rotate(&begin->pile_a, 1);
-			ra++;
+			if (tmp->num > begin->num)
+			{
+				vtmp = begin->num;
+				begin->num = tmp->num;
+				tmp->num = vtmp;
+			}
+			tmp = tmp->next;
 		}
+		tmp = *pile;
+		begin = begin->next;
 	}
 }
 
-void	ft_five(t_begin *begin)
+t_chunk	*ft_chunks(t_begin *begin)
 {
-	if (ft_is_sort(begin) != 3)
+	static t_chunk	*chunk;
+	t_pile			*pile;
+
+	pile = begin->pile_a;
+	sort_pile(&pile);
+	if (!chunk)
 	{
-		while (ft_lstsize(begin->pile_a) > 3)
-			ft_push(&begin->pile_a, &begin->pile_b, 1);
-		ft_triple(begin, 1);
-		while (ft_lstsize(begin->pile_b))
-			ft_back_to_a(begin);
+		chunk = ft_calloc(sizeof(t_chunk), 1);
+		chunk->min = pile->num;
+		while (pile->next)
+			pile = pile->next;
+		chunk->max = pile->num;
+		chunk->index = 1;
+		chunk->next = NULL;
+		ft_print_chunk(chunk);
 	}
+	return (chunk);
 }
 
 void	ft_sort(t_begin *begin)
@@ -138,12 +110,13 @@ int	main(int ac, char **av)
 		return (0);
 	tab = ft_fill_argv(tab, ac, av);
 	begin->pile_a = ft_fill_pile(tab);
-	ft_sort(begin);
+//	ft_sort(begin);
+	ft_chunks(begin);
 	//	ft_fill_pile_b(begin);
 	//	ft_sort(begin, 0);
 	//	ft_push_all_to_a(begin);
-//	ft_print_pile(begin->pile_a);
-//	ft_print_pile(begin->pile_b);
+	//	ft_print_pile(begin->pile_a);
+	//	ft_print_pile(begin->pile_b);
 	free(begin);
 	//	while (1){}
 	return (0);
