@@ -56,9 +56,21 @@ int	ft_check_tab(char **tab)
 	exit (EXIT_FAILURE);
 }
 
+t_chunk	*ft_chunknew(int min, int max, int index)
+{
+	t_chunk	*new;
+
+	new = ft_calloc(sizeof(t_chunk), 1);
+	new->min = min;
+	new->max = max;
+	new->index = index;
+	new->next = NULL;
+	return (new);
+}
+
 t_pile	*ft_pilenew(int n)
 {
-	t_pile		*new;
+	t_pile	*new;
 
 	new = ft_calloc(sizeof(t_pile), 1);
 	new->num = n;

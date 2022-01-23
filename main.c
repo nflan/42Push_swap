@@ -67,26 +67,85 @@ void	sort_pile(t_pile **pile)
 	}
 }
 
+int	ft_chsize(t_chunk *chunk)
+{
+	int	i;
+
+	i = 0;
+	if (chunk)
+	{
+		while (chunk)
+		{
+			i++;
+			chunk = chunk->next;
+		}
+	}
+	return (i);
+}
+
+t_chunk	*ft_fill_chunks(t_pile *pile, int i, int index)
+{
+	t_chunk	*chunk;
+	t_chunk	*tmp;
+	int		min;
+
+	chunk = NULL;
+	tmp = NULL;
+	while (++i && pile)
+	{
+		if (i == 1)
+			min = pile->num;
+		if (i == 20 || !pile->next)
+		{
+			chunk = ft_chunknew(min, pile->num, index);
+			chunk->next = tmp;
+			tmp = chunk;
+			index++;
+			i = 0;
+		}
+		pile = pile->next;
+	}	
+	return (chunk);
+}
+
 t_chunk	*ft_chunks(t_begin *begin)
+{
+	t_pile	*pile;
+
+	pile = begin->pile_a;
+	sort_pile(&pile);
+	if (pile)
+		return (ft_fill_chunks(pile, 0, 1));
+	return (NULL);
+}
+
+/*t_chunk	*ft_chunks(t_begin *begin)
 {
 	static t_chunk	*chunk;
 	t_pile			*pile;
+	int				i;
 
+	i = 0;
 	pile = begin->pile_a;
 	sort_pile(&pile);
 	if (!chunk)
 	{
 		chunk = ft_calloc(sizeof(t_chunk), 1);
 		chunk->min = pile->num;
-		while (pile->next)
-			pile = pile->next;
+		if (ft_lstsize(pile) > 18)
+			while (i++ < 19)
+				pile = pile->next;
 		chunk->max = pile->num;
 		chunk->index = 1;
 		chunk->next = NULL;
 		ft_print_chunk(chunk);
 	}
+	else
+	{
+		chunk = ft_more_chunks(chunk, begin);
+	}
 	return (chunk);
-}
+}*/
 
 void	ft_sort(t_begin *begin)
 {
@@ -101,6 +160,7 @@ int	main(int ac, char **av)
 {
 	char	**tab;
 	t_begin	*begin;
+	t_chunk	*chunk;
 
 	begin = NULL;
 	tab = NULL;
@@ -111,13 +171,15 @@ int	main(int ac, char **av)
 	tab = ft_fill_argv(tab, ac, av);
 	begin->pile_a = ft_fill_pile(tab);
 //	ft_sort(begin);
-	ft_chunks(begin);
+	chunk = ft_chunks(begin);
+	ft_print_chunk(chunk);
 	//	ft_fill_pile_b(begin);
 	//	ft_sort(begin, 0);
 	//	ft_push_all_to_a(begin);
 	//	ft_print_pile(begin->pile_a);
 	//	ft_print_pile(begin->pile_b);
 	free(begin);
+	free(chunk);
 	//	while (1){}
 	return (0);
 }
