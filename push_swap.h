@@ -40,6 +40,7 @@ typedef struct s_begin
 // CHECK
 int		ft_check_double(char **tab, int check);
 int		ft_check_tab(char **tab);
+t_chunk	*ft_chunknew(int min, int max, int index);
 t_pile	*ft_pilenew(int n);
 int		ft_count_line(char **tab);
 
