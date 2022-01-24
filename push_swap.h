@@ -71,7 +71,7 @@ void	ft_five(t_begin *begin);
 // UTILS
 int		ft_is_sort(t_begin *begin);
 void	ft_push_all_to_a(t_begin *begin);
-int		ft_nb_rr(t_pile *pile, int med);
-int		ft_nb_r(t_pile *pile, int med);
+int		ft_nb_rr(t_pile *pile, t_chunk *chunk, int ind);
+int		ft_nb_r(t_pile *pile, t_chunk *chunk, int ind);
 
 #endif

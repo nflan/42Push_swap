@@ -37,7 +37,7 @@ t_pile	*ft_fill_pile(char **tab)
 {
 }*/
 
-char	ft_next_to_move(t_pile **pile, int med)
+/*char	ft_next_to_move(t_pile **pile, int med)
 {
 	t_pile	*tmp;
 	int		ra;
@@ -55,7 +55,7 @@ char	ft_next_to_move(t_pile **pile, int med)
 		return ('a');
 	else
 		return ('b');
-}
+}*/
 
 void	ft_print_pile(t_pile *pile)
 {

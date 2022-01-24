@@ -42,15 +42,15 @@ int		pile_is_sort(t_pile *pile)
 	return (1);
 }
 
-void	sort_pile(t_pile **pile)
+t_pile	*sort_pile(t_pile *pile)
 {
 	t_pile	*tmp;
 	t_pile	*begin;
 	int		vtmp;
 
-	tmp = *pile;
-	begin = *pile;
-	while (!pile_is_sort(*pile) && begin)
+	tmp = pile;
+	begin = pile;
+	while (!pile_is_sort(pile) && begin)
 	{
 		while (tmp)
 		{
@@ -62,9 +62,10 @@ void	sort_pile(t_pile **pile)
 			}
 			tmp = tmp->next;
 		}
-		tmp = *pile;
+		tmp = pile;
 		begin = begin->next;
 	}
+	return (pile);
 }
 
 int	ft_chsize(t_chunk *chunk)
@@ -95,7 +96,7 @@ t_chunk	*ft_fill_chunks(t_pile *pile, int i, int index)
 	{
 		if (i == 1)
 			min = pile->num;
-		if (i == 20 || !pile->next)
+		if (i == 4 || !pile->next)
 		{
 			chunk = ft_chunknew(min, pile->num, index);
 			chunk->next = tmp;
@@ -104,16 +105,28 @@ t_chunk	*ft_fill_chunks(t_pile *pile, int i, int index)
 			i = 0;
 		}
 		pile = pile->next;
-	}	
+	}
 	return (chunk);
 }
 
 t_chunk	*ft_chunks(t_begin *begin)
 {
 	t_pile	*pile;
+	t_pile	*tmp;
+	t_pile	*ptr;
 
-	pile = begin->pile_a;
-	sort_pile(&pile);
+	pile = NULL;
+	ptr = NULL;
+	tmp = begin->pile_a;
+	while (tmp)
+	{
+		pile = ft_calloc(sizeof(t_pile), 1);
+		pile->num = tmp->num;
+		pile->next = ptr;
+		ptr = pile;
+		tmp = tmp->next;
+	}
+	pile = sort_pile(pile);
 	if (pile)
 		return (ft_fill_chunks(pile, 0, 1));
 	return (NULL);
@@ -156,6 +169,30 @@ void	ft_sort(t_begin *begin)
 	else
 		ft_five(begin);
 }
+
+void	ft_fill_b(t_begin *begin, t_chunk *chunk)
+{
+	int	ind;
+	int	ra;
+	int	rra;
+
+	ind = 1;
+//	ft_printf("ra = %d\n", ra);
+//	ft_printf("rra = %d\n", rra);
+	while (ft_lstsize(begin->pile_b) != 5)
+	{
+		ra = ft_nb_r(begin->pile_a, chunk, ind);
+		rra = ft_nb_rr(begin->pile_a, chunk, ind);
+		if (ra >= rra)
+			while (ra--)
+				ft_rotate(&begin->pile_a, 1);
+		else
+			while (rra--)
+				ft_reverse_rotate(&begin->pile_a, 1);
+		ft_push(&begin->pile_a, &begin->pile_b, 1);
+	} 
+}
+
 int	main(int ac, char **av)
 {
 	char	**tab;
@@ -165,7 +202,7 @@ int	main(int ac, char **av)
 	begin = NULL;
 	tab = NULL;
 	begin = ft_calloc(sizeof(t_begin), 1);
-	begin->pile_b = NULL;
+	begin->pile_b = ft_calloc(sizeof(t_pile), 1);
 	if (ac == 1)
 		return (0);
 	tab = ft_fill_argv(tab, ac, av);
@@ -173,11 +210,12 @@ int	main(int ac, char **av)
 //	ft_sort(begin);
 	chunk = ft_chunks(begin);
 	ft_print_chunk(chunk);
+	ft_fill_b(begin, chunk);
 	//	ft_fill_pile_b(begin);
 	//	ft_sort(begin, 0);
 	//	ft_push_all_to_a(begin);
-	//	ft_print_pile(begin->pile_a);
-	//	ft_print_pile(begin->pile_b);
+	ft_print_pile(begin->pile_a);
+	ft_print_pile(begin->pile_b);
 	free(begin);
 	free(chunk);
 	//	while (1){}
