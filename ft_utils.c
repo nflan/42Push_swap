@@ -88,19 +88,25 @@ int	ft_is_median(t_begin *begin)
 	return (0);
 }
 
-int	ft_nb_rr(t_pile *pile, int med)
+int	ft_nb_rr(t_pile *pile, t_chunk *chunk, int ind)
 {
 	t_pile	*tmp;
+	t_chunk	*ctmp;
 	int		rra;
 	int		nb;
 
 	tmp = pile;
+	ctmp = chunk;
 	rra = 0;
-	if (tmp)
+	if (!ctmp || !tmp)
+		return (0);
+	else
 	{
+		while (ctmp && ctmp->index != ind)
+			ctmp = ctmp->next;
 		while (tmp)
 		{
-			if (tmp && tmp->num <= med)
+			if (tmp && tmp->num >= ctmp->min && tmp->num <= ctmp->max)
 				nb = tmp->num;
 			tmp = tmp->next;
 		}
@@ -112,24 +118,28 @@ int	ft_nb_rr(t_pile *pile, int med)
 		}
 		return (ft_lstsize(pile) - rra);
 	}
-	return (0);
 }
 
-int	ft_nb_r(t_pile *pile, int med)
+int	ft_nb_r(t_pile *pile, t_chunk *chunk, int ind)
 {
 	t_pile	*tmp;
+	t_chunk	*ctmp;
 	int		ra;
 
 	tmp = pile;
+	ctmp = chunk;
 	ra = 0;
-	if (tmp)
+	if (!ctmp || !tmp)
+		return (0);
+	else
 	{
-		while (tmp && med < tmp->num)
+		while (ctmp && ctmp->index != ind)
+			ctmp = ctmp->next;
+		while (tmp && !(tmp->num >= ctmp->min && tmp->num <= ctmp->max))
 		{
 			ra++;
 			tmp = tmp->next;
 		}
 		return (ra);
 	}
-	return (0);
 }
