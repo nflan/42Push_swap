@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:14 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/25 12:05:56 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/25 14:59:27 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,21 @@ t_pile	*ft_fill_pile(char **tab)
 {
 }*/
 
-/*char	ft_next_to_move(t_pile **pile, int med)
+/*char	ft_next_to_move(t_pile **pile, t_chunk *chunk, int ind)
 {
 	t_pile	*tmp;
-	int		ra;
-	int		rra;
+	int		r;
+	int		rr;
 
 	tmp = *pile;
-	ra = 0;
-	rra = 0;
+	r = 0;
+	rr = 0;
 	if (!tmp)
 		return (0);
-	ra = ft_nb_r(tmp, med);
+	r = ft_nb_r(tmp, chunk, ind);
 	tmp = *pile;
-	rra = ft_nb_rr(tmp, med);
-	if (ra < rra)
+	rr = ft_nb_rr(tmp, chunk, ind);
+	if (r < rr)
 		return ('a');
 	else
 		return ('b');
