@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/21 12:08:09 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/25 12:19:35 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,13 @@ int		ft_is_sort(t_begin *begin);
 void	ft_push_all_to_a(t_begin *begin);
 int		ft_nb_rr(t_pile *pile, t_chunk *chunk, int ind);
 int		ft_nb_r(t_pile *pile, t_chunk *chunk, int ind);
+
+// CHUNKS
+void	ft_print_chunk(t_chunk *chunk);
+int		pile_is_sort(t_pile *pile);
+t_pile	*sort_pile(t_pile *pile);
+int		ft_chsize(t_chunk *chunk);
+t_chunk	*ft_fill_chunks(t_pile *pile, int i, int index);
+t_chunk	*ft_chunks(t_begin *begin);
 
 #endif

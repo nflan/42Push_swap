@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 16:50:07 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/21 10:02:27 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/25 11:59:36 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_pile	*ft_lstlast(t_pile *lst);
 void	ft_lstadd_back(t_pile **alst, t_pile *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_pileclear(t_pile **pile);
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 //t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
