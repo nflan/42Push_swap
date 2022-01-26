@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/25 17:51:12 by nflan            ###   ########.fr       */
+/*   Updated: 2022/01/26 17:50:11 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,14 @@ int		ft_max_pile(t_begin *begin)
 
 int		ft_nb_rb(t_begin *begin, t_chunk *chunk, int ind)
 {
+	(void) begin;
+	(void) chunk;
+	(void) ind;
+	return (0);
+}
+
+/*int		ft_nb_rb(t_begin *begin, t_chunk *chunk, int ind)
+{
 	t_pile	*tmp;
 	int		rb;
 	int		nb;
@@ -151,7 +159,7 @@ int		ft_nb_rb(t_begin *begin, t_chunk *chunk, int ind)
 		else
 			return (rb - ft_lstsize(begin->pile_b));
 	}
-}
+}*/
 
 /*int		ft_nb_rrb(t_begin *begin)
 {
