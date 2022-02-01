@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:16:04 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/25 12:39:19 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/01 18:12:42 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_chunk	*ft_fill_chunks(t_pile *pile, int i, int index)
 	{
 		if (i == 1)
 			min = pile->num;
-		if (i == 5 || !pile->next)
+		if (i == 46 || !pile->next)
 		{
 			chunk = ft_chunknew(min, pile->num, index);
 			chunk->next = tmp;

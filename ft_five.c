@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:42:08 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/21 11:45:19 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/01 17:54:31 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int		ft_pile_min(t_begin *begin, int pile)
 	int		min;
 
 	tmp = NULL;
-	min = 2147483647;
 	if (pile == 1 && begin->pile_a)
 		tmp = begin->pile_a;
 	else if (pile == 2 && begin->pile_b)
 		tmp = begin->pile_b;
+	min = tmp->num;
 	if (tmp)
 	{
 		while (tmp)
@@ -41,11 +41,11 @@ int		ft_pile_max(t_begin *begin, int pile)
 	int		max;
 
 	tmp = NULL;
-	max = 0;
 	if (pile == 1 && begin->pile_a)
 		tmp = begin->pile_a;
 	else if (pile == 2 && begin->pile_b)
 		tmp = begin->pile_b;
+	max = tmp->num;
 	if (tmp)
 	{
 		while (tmp)
