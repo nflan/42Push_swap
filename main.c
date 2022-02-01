@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/26 17:50:11 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/01 18:13:41 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,42 +72,27 @@ int		ft_min_max_chunk(t_chunk *chunk, int ind, int ext)
 	return (0);
 }
 
-int		ft_max_pile(t_begin *begin)
-{
-	t_pile	*tmp;
-	int		max;
-
-	tmp = begin->pile_b;
-	max = begin->pile_b->num;
-	if (!tmp)
-		return (0);
-	while (tmp)
-	{
-		if (max < tmp->num)
-			max = tmp->num;
-		tmp = tmp->next;
-	}
-	return (max);
-}
-
-int		ft_nb_rb(t_begin *begin, t_chunk *chunk, int ind)
+int		ft_nb_rb(t_begin *begin)
 {
 	t_pile	*tmp;
 	int		top;
 	int		nb;
-	(void)	chunk;
-	(void)	ind;
 
 	tmp = begin->pile_b;
-	top = 0;
 	nb = 0;
 	if (!tmp || !begin->pile_a)
 		return (0);
-	while (tmp)
+	if (begin->pile_a->num > ft_pile_max(begin, 2) || begin->pile_a->num < ft_pile_min(begin, 2))
+		top = ft_pile_max(begin, 2);
+	else
 	{
-		if (top < begin->pile_a->num && begin->pile_a->num > tmp->num)
-			top = tmp->num;
-		tmp = tmp->next;
+		top = ft_pile_min(begin, 2);
+		while (tmp)
+		{
+			if (begin->pile_a->num > top && top < tmp->num && begin->pile_a->num > tmp->num)
+				top = tmp->num;
+			tmp = tmp->next;
+		}
 	}
 	tmp = begin->pile_b;
 	while (tmp && tmp->num != top)
@@ -144,7 +129,7 @@ int		ft_nb_rb(t_begin *begin, t_chunk *chunk, int ind)
 		if (n == ft_lstsize(begin->pile_b) && !ft_is_b_sort(begin))
 			rb++;
 		if (begin->pile_a->num == ft_min_max_chunk(chunk, ind, -1))
-			nb = ft_max_pile(begin);
+			nb = ft_pile_max(begin, 2);
 		tmp = begin->pile_b;
 		if (begin->pile_a->num > ft_max_pile(begin))
 			return (rb);
@@ -154,7 +139,7 @@ int		ft_nb_rb(t_begin *begin, t_chunk *chunk, int ind)
 			{
 				rb++;
 				tmp = tmp->next;
-				if (tmp && tmp->num == nb && nb != ft_max_pile(begin))
+				if (tmp && tmp->num == nb && nb != ft_pile_max(begin, 2))
 					rb++;
 			}
 		}
@@ -164,7 +149,7 @@ int		ft_nb_rb(t_begin *begin, t_chunk *chunk, int ind)
 			{
 				rb++;
 				tmp = tmp->next;
-				if (tmp && tmp->num == nb && nb != ft_max_pile(begin))
+				if (tmp && tmp->num == nb && nb != ft_pile_max(begin, 2))
 					rb++;
 			}
 		}
@@ -227,15 +212,15 @@ int		ft_nb_rb(t_begin *begin, t_chunk *chunk, int ind)
 	}
 }*/
 
-int		ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind)
+void	ft_next_to_b(t_begin *begin)
 {
 	t_pile	*tmp;
 	int		rb;
 
 	tmp = begin->pile_b;
-	rb = ft_nb_rb(begin, chunk, ind);
-	ft_printf("\nrb = %d\n", rb);
-	ft_print_pile(begin->pile_b);
+	rb = ft_nb_rb(begin);
+//	ft_printf("num a = %d\n", begin->pile_a->num);
+//	ft_printf("rb = %d\n", rb);
 	if (tmp && rb)
 	{
 		if (rb <= ft_lstsize(begin->pile_b) / 2)
@@ -243,13 +228,42 @@ int		ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind)
 				ft_rotate(&begin->pile_b, 2);
 		else
 		{
-			rb = rb - ft_lstsize(begin->pile_b) / 2 + ft_lstsize(begin->pile_b) % 2;
+			rb = ft_lstsize(begin->pile_b) - rb;
+//			ft_printf("rb reverse = %d\n", rb);
 			if (ft_lstsize(begin->pile_b) > 1)
 				while (rb--)
 					ft_reverse_rotate(&begin->pile_b, 2);
 		}
 	}
-	return (ind + 1);
+}
+
+void	ft_b_clean(t_begin *begin)
+{
+	t_pile	*tmp;
+	int		max;
+	int		i;
+
+	tmp = begin->pile_b;
+	max = ft_pile_max(begin, 2);
+	i = 0;
+	if (tmp)
+	{
+		while (tmp->num != max)
+		{
+			i++;
+			tmp = tmp->next;
+		}
+		if (i <= ft_lstsize(begin->pile_b) / 2)
+			while (i--)
+				ft_rotate(&begin->pile_b, 2);
+		else
+		{
+			i = ft_lstsize(begin->pile_b) - i;
+			if (ft_lstsize(begin->pile_b) > 1)
+				while (i--)
+					ft_reverse_rotate(&begin->pile_b, 2);
+		}
+	}
 }
 
 void	ft_fill_b(t_begin *begin, t_chunk *chunk)
@@ -271,11 +285,16 @@ void	ft_fill_b(t_begin *begin, t_chunk *chunk)
 		else if (ra > rra && ra && rra)
 			while (rra--)
 				ft_reverse_rotate(&begin->pile_a, 1);
-		ft_next_to_b(begin, chunk, ind);
+		ft_next_to_b(begin);
 		ft_push(&begin->pile_a, &begin->pile_b, 1);
-		if (!(ft_lstsize(begin->pile_b) % 5))
-			ind = ft_next_to_b(begin, chunk, ind); 
+//		ft_print_pile(begin->pile_b);
+		if (!(ft_lstsize(begin->pile_b) % 46))
+		{
+			ind++;
+			ft_b_clean(begin);
+		}
 	}
+	ft_b_clean(begin);
 }
 
 int	main(int ac, char **av)
@@ -286,6 +305,7 @@ int	main(int ac, char **av)
 
 	begin = NULL;
 	tab = NULL;
+	chunk = NULL;
 	begin = ft_calloc(sizeof(t_begin), 1);
 	begin->pile_b = ft_calloc(sizeof(t_pile), 1);
 	begin->pile_b = NULL;
@@ -293,17 +313,22 @@ int	main(int ac, char **av)
 		return (0);
 	tab = ft_fill_argv(tab, ac, av);
 	begin->pile_a = ft_fill_pile(tab);
-	ft_print_pile(begin->pile_a);
-//	ft_sort(begin);
-	chunk = ft_chunks(begin);
-	ft_print_chunk(chunk);
-	ft_fill_b(begin, chunk);
+//	ft_print_pile(begin->pile_a);
+	if (ft_lstsize(begin->pile_a) < 15)
+		ft_sort(begin);
+	else
+	{
+		chunk = ft_chunks(begin);
+	//	ft_print_chunk(chunk);
+		ft_fill_b(begin, chunk);
+	}
 	//	ft_fill_pile_b(begin);
 	//	ft_sort(begin, 0);
-	//	ft_push_all_to_a(begin);
-	ft_print_pile(begin->pile_a);
-	ft_print_pile(begin->pile_b);
-	ft_pileclear(&begin->pile_a);
+	ft_push_all_to_a(begin);
+//	ft_print_pile(begin->pile_a);
+//	ft_print_pile(begin->pile_b);
+//	ft_pileclear(&begin->pile_a);
+//	ft_print_chunk(chunk);
 	free(begin->pile_b);
 	free(begin);
 	free(chunk);

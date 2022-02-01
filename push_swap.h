@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/25 12:19:35 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/01 17:43:39 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_begin
 # include "libft/libft.h"
 
 // MAIN
+void	ft_b_clean(t_begin *begin);
 
 // CHECK
 int		ft_check_double(char **tab, int check);
