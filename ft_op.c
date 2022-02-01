@@ -89,9 +89,9 @@ int	ft_rotate(t_pile **pstart, int p)
 
 	tmp = *pstart;
 	tmp2 = *pstart;
-	*pstart = tmp->next;
-	if (*pstart)
+	if (tmp->next)
 	{
+		*pstart = tmp->next;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = tmp2;

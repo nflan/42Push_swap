@@ -92,10 +92,30 @@ int		ft_max_pile(t_begin *begin)
 
 int		ft_nb_rb(t_begin *begin, t_chunk *chunk, int ind)
 {
-	(void) begin;
-	(void) chunk;
-	(void) ind;
-	return (0);
+	t_pile	*tmp;
+	int		top;
+	int		nb;
+	(void)	chunk;
+	(void)	ind;
+
+	tmp = begin->pile_b;
+	top = 0;
+	nb = 0;
+	if (!tmp || !begin->pile_a)
+		return (0);
+	while (tmp)
+	{
+		if (top < begin->pile_a->num && begin->pile_a->num > tmp->num)
+			top = tmp->num;
+		tmp = tmp->next;
+	}
+	tmp = begin->pile_b;
+	while (tmp && tmp->num != top)
+	{
+		nb++;
+		tmp = tmp->next;
+	}
+	return (nb);
 }
 
 /*int		ft_nb_rb(t_begin *begin, t_chunk *chunk, int ind)
@@ -215,14 +235,19 @@ int		ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind)
 	tmp = begin->pile_b;
 	rb = ft_nb_rb(begin, chunk, ind);
 	ft_printf("\nrb = %d\n", rb);
-	if (tmp)
+	ft_print_pile(begin->pile_b);
+	if (tmp && rb)
 	{
-		if (rb > 0)
+		if (rb <= ft_lstsize(begin->pile_b) / 2)
 			while (rb--)
 				ft_rotate(&begin->pile_b, 2);
-		else if  (rb < 0)
-			while (rb++)
-				ft_reverse_rotate(&begin->pile_b, 2);
+		else
+		{
+			rb = rb - ft_lstsize(begin->pile_b) / 2 + ft_lstsize(begin->pile_b) % 2;
+			if (ft_lstsize(begin->pile_b) > 1)
+				while (rb--)
+					ft_reverse_rotate(&begin->pile_b, 2);
+		}
 	}
 	return (ind + 1);
 }
