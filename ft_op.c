@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:19 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/25 12:51:24 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/02 17:47:03 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	ft_reverse_rotate(t_pile **pstart, int p)
 			ft_printf("rra\n");
 		else if (p == 2)
 			ft_printf("rrb\n");
+		else if (p == 3)
+			ft_printf("rrr\n");
 		return (1);
 	}
 	return (0);
@@ -100,6 +102,8 @@ int	ft_rotate(t_pile **pstart, int p)
 			ft_printf("ra\n");
 		else if (p == 2)
 			ft_printf("rb\n");
+		else if (p == 3)
+			ft_printf("rr\n");
 		return (1);
 	}
 	return (0);
