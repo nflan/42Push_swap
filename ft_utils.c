@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:27:06 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/25 14:46:49 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/02 11:49:26 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	ft_is_median(t_begin *begin)
 	return (0);
 }
 
-int	ft_nb_rr(t_pile *pile, t_chunk *chunk, int ind)
+int	ft_nb_rra(t_pile *pile, t_chunk *chunk, int ind)
 {
 	t_pile	*tmp;
 	t_chunk	*ctmp;
@@ -120,7 +120,7 @@ int	ft_nb_rr(t_pile *pile, t_chunk *chunk, int ind)
 	}
 }
 
-int	ft_nb_r(t_pile *pile, t_chunk *chunk, int ind)
+int	ft_nb_ra(t_pile *pile, t_chunk *chunk, int ind)
 {
 	t_pile	*tmp;
 	t_chunk	*ctmp;

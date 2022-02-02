@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:07 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/26 17:49:48 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/02 10:02:14 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_check_tab(char **tab)
 	exit (EXIT_FAILURE);
 }
 
-t_chunk	*ft_chunknew(int min, int max, int index)
+t_chunk	*ft_chunknew(int min, int max, int index, int i)
 {
 	t_chunk	*new;
 
@@ -64,6 +64,7 @@ t_chunk	*ft_chunknew(int min, int max, int index)
 	new->min = min;
 	new->max = max;
 	new->index = index;
+	new->size = i;
 	new->next = NULL;
 	return (new);
 }

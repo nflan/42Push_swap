@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/01 17:43:39 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/02 17:52:11 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_chunk
 	int				min;
 	int				max;
 	int				index;
+	int				size;
 	struct s_chunk	*next;
 }	t_chunk;
 
@@ -41,7 +42,7 @@ void	ft_b_clean(t_begin *begin);
 // CHECK
 int		ft_check_double(char **tab, int check);
 int		ft_check_tab(char **tab);
-t_chunk	*ft_chunknew(int min, int max, int index);
+t_chunk	*ft_chunknew(int min, int max, int index, int i);
 t_pile	*ft_pilenew(int n);
 int		ft_count_line(char **tab);
 
@@ -72,8 +73,8 @@ void	ft_five(t_begin *begin);
 // UTILS
 int		ft_is_sort(t_begin *begin);
 void	ft_push_all_to_a(t_begin *begin);
-int		ft_nb_rr(t_pile *pile, t_chunk *chunk, int ind);
-int		ft_nb_r(t_pile *pile, t_chunk *chunk, int ind);
+int		ft_nb_rra(t_pile *pile, t_chunk *chunk, int ind);
+int		ft_nb_ra(t_pile *pile, t_chunk *chunk, int ind);
 
 // CHUNKS
 void	ft_print_chunk(t_chunk *chunk);
@@ -82,5 +83,21 @@ t_pile	*sort_pile(t_pile *pile);
 int		ft_chsize(t_chunk *chunk);
 t_chunk	*ft_fill_chunks(t_pile *pile, int i, int index);
 t_chunk	*ft_chunks(t_begin *begin);
+
+// MANAGE A
+int		ft_nb_next_p(t_begin *begin, t_chunk *chunk, int ind);
+int		ft_nb_ra_rra(t_begin *begin, int nbr);
+
+// MANAGE B
+int		ft_is_b_sort(t_begin *begin);
+int		ft_min_or_max(t_begin *begin, t_chunk *chunk, int ind);
+int		ft_min_max_chunk(t_chunk *chunk, int ind, int ext);
+int		ft_nb_rb(t_begin *begin, int nbr);
+
+// MABAGE B 2
+void	ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind);
+void	ft_move_both(t_begin *begin, t_chunk *chunk, int ind);
+void	ft_fill_b(t_begin *begin, t_chunk *chunk);
+void	ft_b_clean(t_begin *begin);
 
 #endif

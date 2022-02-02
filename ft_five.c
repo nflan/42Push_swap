@@ -6,13 +6,13 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:42:08 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/01 17:54:31 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/02 17:46:46 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		ft_pile_min(t_begin *begin, int pile)
+int	ft_pile_min(t_begin *begin, int pile)
 {
 	t_pile	*tmp;
 	int		min;
@@ -35,7 +35,7 @@ int		ft_pile_min(t_begin *begin, int pile)
 	return (min);
 }
 
-int		ft_pile_max(t_begin *begin, int pile)
+int	ft_pile_max(t_begin *begin, int pile)
 {
 	t_pile	*tmp;
 	int		max;
@@ -63,7 +63,7 @@ void	ft_back_to_a(t_begin *begin)
 	int	pile_max;
 	int	pile_min;
 	int	numb;
-	int pilesize;
+	int	pilesize;
 	int	ra;
 
 	pile_max = ft_pile_max(begin, 1);

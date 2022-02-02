@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:16:04 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/01 18:12:42 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/02 17:46:14 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ void	ft_print_chunk(t_chunk *chunk)
 		ft_printf("min %d\n", tmp->min);
 		ft_printf("max %d\n", tmp->max);
 		ft_printf("index %d\n", tmp->index);
+		ft_printf("size %d\n", tmp->size);
 		tmp = tmp->next;
 	}
 	ft_printf("\n");
 }
 
-int		pile_is_sort(t_pile *pile)
+int	pile_is_sort(t_pile *pile)
 {
 	t_pile	*tmp;
 
@@ -68,37 +69,28 @@ t_pile	*sort_pile(t_pile *pile)
 	return (pile);
 }
 
-int	ft_chsize(t_chunk *chunk)
-{
-	int	i;
-
-	i = 0;
-	if (chunk)
-	{
-		while (chunk)
-		{
-			i++;
-			chunk = chunk->next;
-		}
-	}
-	return (i);
-}
-
 t_chunk	*ft_fill_chunks(t_pile *pile, int i, int index)
 {
 	t_chunk	*chunk;
 	t_chunk	*tmp;
 	int		min;
+	int		size;
 
 	chunk = NULL;
 	tmp = NULL;
+	if (ft_lstsize(pile) < 25)
+		size = 5;
+	else if (ft_lstsize(pile) < 101)
+		size = ft_lstsize(pile) / 5 + ft_lstsize(pile) % 5;
+	else
+		size = ft_lstsize(pile) / 13 + ft_lstsize(pile) % 13;
 	while (++i && pile)
 	{
 		if (i == 1)
 			min = pile->num;
-		if (i == 46 || !pile->next)
+		if (i == size || !pile->next)
 		{
-			chunk = ft_chunknew(min, pile->num, index);
+			chunk = ft_chunknew(min, pile->num, index, size);
 			chunk->next = tmp;
 			tmp = chunk;
 			index++;
