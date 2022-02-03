@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 17:50:46 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 12:58:01 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/02 17:51:18 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_nb_next_p(t_begin *begin, t_chunk *chunk, int ind)
 			tmp = tmp->next;
 		}
 	}
-	ft_printf("nbr = %d & nbtmp = %d & y = %d\n", nbr, nbtmp, y);
+//	ft_printf("nbr = %d & nbtmp = %d & y = %d\n", nbr, nbtmp, y);
 //	ft_print_pile(begin->pile_a);
 	if (i <= y)
 		return (nbr);

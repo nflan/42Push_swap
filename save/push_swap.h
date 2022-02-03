@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 12:30:55 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/03 10:30:53 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,14 @@ typedef struct s_chunk
 
 typedef struct s_begin
 {
-	t_pile			*pile_a;
-	t_pile			*pile_b;
-	int				moves;
-	struct s_begin	*next;
+	t_pile	*pile_a;
+	t_pile	*pile_b;
 }	t_begin;
 
 # include "libft/libft.h"
 
 // MAIN
+void	ft_b_clean(t_begin *begin);
 
 // CHECK
 int		ft_check_double(char **tab, int check);
@@ -73,7 +72,7 @@ void	ft_five(t_begin *begin);
 
 // UTILS
 int		ft_is_sort(t_begin *begin);
-int		ft_push_all_to_a(t_begin *begin, int moves);
+void	ft_push_all_to_a(t_begin *begin);
 int		ft_nb_rra(t_pile *pile, t_chunk *chunk, int ind);
 int		ft_nb_ra(t_pile *pile, t_chunk *chunk, int ind);
 
@@ -83,7 +82,7 @@ int		pile_is_sort(t_pile *pile);
 t_pile	*sort_pile(t_pile *pile);
 int		ft_chsize(t_chunk *chunk);
 t_chunk	*ft_fill_chunks(t_pile *pile, int i, int index);
-t_pile	*ft_pile_chunk(t_begin *begin);
+t_chunk	*ft_chunks(t_begin *begin);
 
 // MANAGE A
 int		ft_nb_next_p(t_begin *begin, t_chunk *chunk, int ind);
@@ -96,10 +95,9 @@ int		ft_min_max_chunk(t_chunk *chunk, int ind, int ext);
 int		ft_nb_rb(t_begin *begin, int nbr);
 
 // MABAGE B 2
-int		ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind, int moves);
-int		ft_finish_rotate_a(t_begin *begin, t_chunk *chunk, int ind, int ra);
-int		ft_move_both(t_begin *begin, t_chunk *chunk, int ind, int moves);
-int		ft_fill_b(t_begin *begin, t_chunk *chunk, int moves);
-int		ft_b_clean(t_begin *begin, int moves);
+void	ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind);
+void	ft_move_both(t_begin *begin, t_chunk *chunk, int ind);
+void	ft_fill_b(t_begin *begin, t_chunk *chunk);
+void	ft_b_clean(t_begin *begin);
 
 #endif

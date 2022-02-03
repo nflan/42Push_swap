@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:19 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 12:22:02 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/02 17:47:03 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ int	ft_swap(t_pile **pile, int p)
 	{
 		elem1->num = elem2->num;
 		elem2->num = tmp;
-		(void) p;
-	/*	if (p == 1)
+		if (p == 1)
 			ft_printf("sa\n");
 		else if (p == 2)
 			ft_printf("sb\n");
-	*/	return (1);
+		return (1);
 	}
 	return (0);
 }
@@ -51,12 +50,11 @@ int	ft_push(t_pile **pstart, t_pile **pend, int p)
 		tmpend->next = *pend;
 		*pend = tmpend;
 		*pstart = tmpstart->next;
-		(void) p;
-	/*	if (p == 1)
+		if (p == 1)
 			ft_printf("pb\n");
 		else if (p == 2)
 			ft_printf("pa\n");
-	*/	return (1);
+		return (1);
 	}
 	return (0);
 }
@@ -75,14 +73,13 @@ int	ft_reverse_rotate(t_pile **pstart, int p)
 		tmp->next->next = tmp2;
 		*pstart = tmp->next;
 		tmp->next = NULL;
-		(void) p;
-	/*	if (p == 1)
+		if (p == 1)
 			ft_printf("rra\n");
 		else if (p == 2)
 			ft_printf("rrb\n");
 		else if (p == 3)
 			ft_printf("rrr\n");
-	*/	return (1);
+		return (1);
 	}
 	return (0);
 }
@@ -101,14 +98,13 @@ int	ft_rotate(t_pile **pstart, int p)
 			tmp = tmp->next;
 		tmp->next = tmp2;
 		tmp2->next = NULL;
-		(void) p;
-	/*	if (p == 1)
+		if (p == 1)
 			ft_printf("ra\n");
 		else if (p == 2)
 			ft_printf("rb\n");
 		else if (p == 3)
 			ft_printf("rr\n");
-	*/	return (1);
+		return (1);
 	}
 	return (0);
 }

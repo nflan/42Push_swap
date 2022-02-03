@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:16:04 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 12:16:03 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/02 17:46:14 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,28 @@ t_pile	*sort_pile(t_pile *pile)
 	return (pile);
 }
 
-t_chunk	*ft_fill_chunks(t_pile *pile, int sizec, int index)
+t_chunk	*ft_fill_chunks(t_pile *pile, int i, int index)
 {
 	t_chunk	*chunk;
 	t_chunk	*tmp;
 	int		min;
-	int		i;
+	int		size;
 
 	chunk = NULL;
 	tmp = NULL;
-	i = 0;
+	if (ft_lstsize(pile) < 25)
+		size = 5;
+	else if (ft_lstsize(pile) < 101)
+		size = ft_lstsize(pile) / 5 + ft_lstsize(pile) % 5;
+	else
+		size = ft_lstsize(pile) / 13 + ft_lstsize(pile) % 13;
 	while (++i && pile)
 	{
 		if (i == 1)
 			min = pile->num;
-		if (i == sizec || !pile->next)
+		if (i == size || !pile->next)
 		{
-			chunk = ft_chunknew(min, pile->num, index, sizec);
+			chunk = ft_chunknew(min, pile->num, index, size);
 			chunk->next = tmp;
 			tmp = chunk;
 			index++;
@@ -96,7 +101,7 @@ t_chunk	*ft_fill_chunks(t_pile *pile, int sizec, int index)
 	return (chunk);
 }
 
-t_pile	*ft_pile_chunk(t_begin *begin)
+t_chunk	*ft_chunks(t_begin *begin)
 {
 	t_pile	*pile;
 	t_pile	*tmp;
@@ -114,5 +119,7 @@ t_pile	*ft_pile_chunk(t_begin *begin)
 		tmp = tmp->next;
 	}
 	pile = sort_pile(pile);
-	return (pile);
+	if (pile)
+		return (ft_fill_chunks(pile, 0, 1));
+	return (NULL);
 }
