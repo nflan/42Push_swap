@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/02 17:52:11 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/03 10:30:53 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		ft_nb_ra_rra(t_begin *begin, int nbr);
 
 // MANAGE B
 int		ft_is_b_sort(t_begin *begin);
-int		ft_min_or_max(t_begin *begin, t_chunk *chunk, int ind);
+int		ft_min_in_max(t_pile *pile, t_chunk *chunk, int ind);
 int		ft_min_max_chunk(t_chunk *chunk, int ind, int ext);
 int		ft_nb_rb(t_begin *begin, int nbr);
 
