@@ -6,13 +6,13 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 10:41:17 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 12:48:06 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/02 17:48:46 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind, int moves)
+void	ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind)
 {
 	t_pile	*tmp;
 	int		rb;
@@ -23,33 +23,28 @@ int	ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind, int moves)
 	{
 		if (rb <= ft_lstsize(begin->pile_b) / 2)
 			while (rb--)
-				moves += ft_rotate(&begin->pile_b, 2);
+				ft_rotate(&begin->pile_b, 2);
 		else
 		{
 			rb = ft_lstsize(begin->pile_b) - rb;
 			if (ft_lstsize(begin->pile_b) > 1)
 				while (rb--)
-					moves += ft_reverse_rotate(&begin->pile_b, 2);
+					ft_reverse_rotate(&begin->pile_b, 2);
 		}
 	}
-	return (moves);
 }
 
-int	ft_finish_rotate_a(t_begin *begin, t_chunk *chunk, int ind, int ra)
+void	ft_finish_rotate_a(t_begin *begin, t_chunk *chunk, int ind, int ra)
 {
-	int	moves;
-
-	moves = 0;
 	if (ra > 0)
 		while (begin->pile_a->num != ft_nb_next_p(begin, chunk, ind))
-			moves += ft_rotate(&begin->pile_a, 1);
+			ft_rotate(&begin->pile_a, 1);
 	else if (ra < 0)
 		while (begin->pile_a->num != ft_nb_next_p(begin, chunk, ind))
-			moves += ft_reverse_rotate(&begin->pile_a, 1);
-	return (moves);
+			ft_reverse_rotate(&begin->pile_a, 1);
 }
 
-int	ft_move_both(t_begin *begin, t_chunk *chunk, int ind, int moves)
+void	ft_move_both(t_begin *begin, t_chunk *chunk, int ind)
 {
 	int	ra;
 	int	rb;
@@ -61,7 +56,7 @@ int	ft_move_both(t_begin *begin, t_chunk *chunk, int ind, int moves)
 //		while (ra-- && rb--)
 		while (begin->pile_a->num != ft_nb_next_p(begin, chunk, ind) && rb--)
 		{
-			moves += ft_rotate(&begin->pile_a, 3);
+			ft_rotate(&begin->pile_a, 3);
 			ft_rotate(&begin->pile_b, 0);
 		}
 	}
@@ -71,38 +66,36 @@ int	ft_move_both(t_begin *begin, t_chunk *chunk, int ind, int moves)
 	//	while (ra++ && rb--)
 		while (begin->pile_a->num != ft_nb_next_p(begin, chunk, ind) && rb--)
 		{
-			moves += ft_reverse_rotate(&begin->pile_a, 3);
+			ft_reverse_rotate(&begin->pile_a, 3);
 			ft_reverse_rotate(&begin->pile_b, 0);
 		}
 	}
-	moves += ft_finish_rotate_a(begin, chunk, ind, ra);
-	return (moves);
+	ft_finish_rotate_a(begin, chunk, ind, ra);
 }
 
-int	ft_fill_b(t_begin *begin, t_chunk *chunk, int moves)
+void	ft_fill_b(t_begin *begin, t_chunk *chunk)
 {
 	int	ind;
 
-	ind = 0;
+	ind = 1;
 	while (begin->pile_a)
 	{
-		moves = ft_move_both(begin, chunk, ind, moves);
+		ft_move_both(begin, chunk, ind);
 	//	ft_printf("ft_nb_next_p = %d\n", ft_nb_next_p(begin, chunk, ind));
-		moves = ft_next_to_b(begin, chunk, ind, moves);
-		moves += ft_push(&begin->pile_a, &begin->pile_b, 1);
-		if (begin->pile_a && !(ft_lstsize(begin->pile_b) % chunk->size))
+		ft_next_to_b(begin, chunk, ind);
+		ft_push(&begin->pile_a, &begin->pile_b, 1);
+		if (!(ft_lstsize(begin->pile_b) % chunk->size))
 		{
 			ind++;
-			moves = ft_b_clean(begin, moves);
+			ft_b_clean(begin);
 	//		ft_print_pile(begin->pile_b);
 		}
 	}
-	moves = ft_b_clean(begin, moves);
+	ft_b_clean(begin);
 //	ft_print_chunk(chunk);
-	return (moves);
 }
 
-int ft_b_clean(t_begin *begin, int moves)
+void	ft_b_clean(t_begin *begin)
 {
 	t_pile	*tmp;
 	int		max;
@@ -120,14 +113,13 @@ int ft_b_clean(t_begin *begin, int moves)
 		}
 		if (i <= ft_lstsize(begin->pile_b) / 2)
 			while (i--)
-				moves += ft_rotate(&begin->pile_b, 2);
+				ft_rotate(&begin->pile_b, 2);
 		else
 		{
 			i = ft_lstsize(begin->pile_b) - i;
 			if (ft_lstsize(begin->pile_b) > 1)
 				while (i--)
-					moves += ft_reverse_rotate(&begin->pile_b, 2);
+					ft_reverse_rotate(&begin->pile_b, 2);
 		}
 	}
-	return (moves);
 }

@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:27:06 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 12:30:21 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/02 11:49:26 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,51 @@ int	ft_is_sort(t_begin *begin)
 	return (b);
 }
 
-int	ft_push_all_to_a(t_begin *begin, int moves)
+void	ft_push_all_to_a(t_begin *begin)
 {
 	while (begin->pile_b)
-		moves += ft_push(&begin->pile_b, &begin->pile_a, 2);
-	return (moves);
+		ft_push(&begin->pile_b, &begin->pile_a, 2);
+}
+
+int	ft_is_median(t_begin *begin)
+{
+	t_pile	*tmp;
+	t_pile	*pmed;
+	int		med;
+	int		more;
+	int		less;
+
+	tmp = begin->pile_a;
+	pmed = begin->pile_a;
+	med = -1;
+	if (tmp)
+	{
+		while (med == -1)
+		{
+			while (tmp)
+			{
+				if (med == -1)
+				{
+					med = pmed->num;
+					more = 0;
+					less = 0;
+				}
+				if (med < tmp->num)
+					more++;
+				else if (med > tmp->num)
+					less++;
+				tmp = tmp->next;
+			}
+			if (less - more < -1 || less - more > 1)
+			{
+				pmed = pmed->next;
+				tmp = begin->pile_a;
+				med = -1;
+			}
+		}
+		return (med);
+	}
+	return (0);
 }
 
 int	ft_nb_rra(t_pile *pile, t_chunk *chunk, int ind)

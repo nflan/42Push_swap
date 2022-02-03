@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 10:39:31 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 12:44:07 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/02 17:51:41 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	ft_min_in_max(t_pile *pile, t_chunk *chunk, int ind)
 	ctmp = chunk;
 	if (ctmp)
 	{
-		ft_printf("ctmp->index == %d && ind == %d\n", ctmp->index, ind);
 		while (ctmp->index != ind)
 			ctmp = ctmp->next;
 		if (pile->num == ctmp->min)
