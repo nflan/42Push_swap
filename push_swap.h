@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 12:30:55 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/03 17:54:15 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_begin
 # include "libft/libft.h"
 
 // MAIN
+void	ft_print_begin(t_begin *begin);
 
 // CHECK
 int		ft_check_double(char **tab, int check);
@@ -73,7 +74,7 @@ void	ft_five(t_begin *begin);
 
 // UTILS
 int		ft_is_sort(t_begin *begin);
-int		ft_push_all_to_a(t_begin *begin, int moves);
+void	ft_push_all_to_a(t_begin *begin);
 int		ft_nb_rra(t_pile *pile, t_chunk *chunk, int ind);
 int		ft_nb_ra(t_pile *pile, t_chunk *chunk, int ind);
 
@@ -96,10 +97,10 @@ int		ft_min_max_chunk(t_chunk *chunk, int ind, int ext);
 int		ft_nb_rb(t_begin *begin, int nbr);
 
 // MABAGE B 2
-int		ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind, int moves);
-int		ft_finish_rotate_a(t_begin *begin, t_chunk *chunk, int ind, int ra);
-int		ft_move_both(t_begin *begin, t_chunk *chunk, int ind, int moves);
-int		ft_fill_b(t_begin *begin, t_chunk *chunk, int moves);
-int		ft_b_clean(t_begin *begin, int moves);
+void	ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind);
+void	ft_finish_rotate_a(t_begin *begin, t_pile *pile, t_chunk *chunk, int ind, int ra);
+void	ft_move_both(t_begin *begin, t_chunk *chunk, int ind);
+void	ft_fill_b(t_begin *begin, t_chunk *chunk);
+void	ft_b_clean(t_begin *begin);
 
 #endif
