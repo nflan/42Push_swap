@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 12:58:00 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/03 18:05:56 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ void	ft_print_begin(t_begin *begin)
 	t_begin	*tmp;
 
 	tmp = begin;
+	int i = 3;
 	if (begin)
 	{
-		while (begin)
+		while (i--)
 		{
 			ft_printf("pile_a =\n");
 			ft_print_pile(begin->pile_a);
@@ -95,9 +96,9 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk)
 			else
 				size = ft_lstsize(tmp);
 			chunk = ft_fill_chunks(tmp, size, 0);
-			ft_print_chunk(chunk);
-			begin->moves = ft_fill_b(begin, chunk, 0);
-			begin->moves = ft_push_all_to_a(begin, begin->moves);
+	//		ft_print_chunk(chunk);
+			ft_fill_b(begin, chunk);
+			ft_printf("JE SUIS SORTI\n");
 			ft_print_begin(btmp);
 			if (begin->moves < nb || nb == 0)
 			{

@@ -6,54 +6,66 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 10:41:17 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 12:48:06 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/03 17:54:37 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind, int moves)
+void	ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind)
 {
 	t_pile	*tmp;
 	int		rb;
 
+	if (ind == 0)
+	{
+		ft_printf("ICI c'est le debut \n");
+		ft_print_begin(begin);
+//		ft_print_pile(begin->pile_a);
+	}
 	tmp = begin->pile_b;
 	rb = ft_nb_rb(begin, ft_nb_next_p(begin, chunk, ind));
 	if (tmp && rb)
 	{
 		if (rb <= ft_lstsize(begin->pile_b) / 2)
 			while (rb--)
-				moves += ft_rotate(&begin->pile_b, 2);
+				begin->moves += ft_rotate(&begin->pile_b, 2);
 		else
 		{
 			rb = ft_lstsize(begin->pile_b) - rb;
 			if (ft_lstsize(begin->pile_b) > 1)
 				while (rb--)
-					moves += ft_reverse_rotate(&begin->pile_b, 2);
+					begin->moves += ft_reverse_rotate(&begin->pile_b, 2);
 		}
 	}
-	return (moves);
+	if (ind == 0)
+	{
+		ft_printf("ICI c'est la fin \n");
+		ft_print_begin(begin);
+//	ft_print_pile(begin->pile_a);
+	}
 }
 
-int	ft_finish_rotate_a(t_begin *begin, t_chunk *chunk, int ind, int ra)
+void	ft_finish_rotate_a(t_begin *begin, t_pile *pile, t_chunk *chunk, int ind, int ra)
 {
-	int	moves;
+	t_pile	*tmp;
 
-	moves = 0;
+	tmp = pile;
 	if (ra > 0)
-		while (begin->pile_a->num != ft_nb_next_p(begin, chunk, ind))
-			moves += ft_rotate(&begin->pile_a, 1);
+		while (tmp->num != ft_nb_next_p(begin, chunk, ind))
+			begin->moves += ft_rotate(&tmp, 1);
 	else if (ra < 0)
-		while (begin->pile_a->num != ft_nb_next_p(begin, chunk, ind))
-			moves += ft_reverse_rotate(&begin->pile_a, 1);
-	return (moves);
+		while (tmp->num != ft_nb_next_p(begin, chunk, ind))
+			begin->moves += ft_reverse_rotate(&tmp, 1);
 }
 
-int	ft_move_both(t_begin *begin, t_chunk *chunk, int ind, int moves)
+void	ft_move_both(t_begin *begin, t_chunk *chunk, int ind)
 {
+	t_pile	*tmp;
 	int	ra;
 	int	rb;
 
+	tmp = begin->pile_a;
 	ra = ft_nb_ra_rra(begin, ft_nb_next_p(begin, chunk, ind));
 	rb = ft_nb_rb(begin, ft_nb_next_p(begin, chunk, ind));
 	if (ra > 0 && rb && rb <= ft_lstsize(begin->pile_b) / 2)
@@ -61,7 +73,7 @@ int	ft_move_both(t_begin *begin, t_chunk *chunk, int ind, int moves)
 //		while (ra-- && rb--)
 		while (begin->pile_a->num != ft_nb_next_p(begin, chunk, ind) && rb--)
 		{
-			moves += ft_rotate(&begin->pile_a, 3);
+			begin->moves += ft_rotate(&begin->pile_a, 3);
 			ft_rotate(&begin->pile_b, 0);
 		}
 	}
@@ -71,38 +83,47 @@ int	ft_move_both(t_begin *begin, t_chunk *chunk, int ind, int moves)
 	//	while (ra++ && rb--)
 		while (begin->pile_a->num != ft_nb_next_p(begin, chunk, ind) && rb--)
 		{
-			moves += ft_reverse_rotate(&begin->pile_a, 3);
+			begin->moves += ft_reverse_rotate(&begin->pile_a, 3);
 			ft_reverse_rotate(&begin->pile_b, 0);
 		}
 	}
-	moves += ft_finish_rotate_a(begin, chunk, ind, ra);
-	return (moves);
+	ft_finish_rotate_a(begin, tmp, chunk, ind, ra);
 }
 
-int	ft_fill_b(t_begin *begin, t_chunk *chunk, int moves)
+void	ft_fill_b(t_begin *begin, t_chunk *chunk)
 {
-	int	ind;
+	t_pile	*tmp;
+	int		ind;
 
+	tmp = begin->pile_a;
 	ind = 0;
+//	ft_printf("ICI c'est le debut \n");
+//	ft_print_pile(begin->pile_a);
 	while (begin->pile_a)
 	{
-		moves = ft_move_both(begin, chunk, ind, moves);
+		ft_move_both(begin, chunk, ind);
 	//	ft_printf("ft_nb_next_p = %d\n", ft_nb_next_p(begin, chunk, ind));
-		moves = ft_next_to_b(begin, chunk, ind, moves);
-		moves += ft_push(&begin->pile_a, &begin->pile_b, 1);
-		if (begin->pile_a && !(ft_lstsize(begin->pile_b) % chunk->size))
+		ft_next_to_b(begin, chunk, ind);
+		begin->moves += ft_push(&begin->pile_a, &begin->pile_b, 1);
+		if (!(ft_lstsize(begin->pile_b) % chunk->size))
 		{
+	//		ft_print_begin(begin);
+		//	ft_printf("ICI c'est la taille du chunk \n");
+		//	ft_print_pile(begin->pile_a);
 			ind++;
-			moves = ft_b_clean(begin, moves);
-	//		ft_print_pile(begin->pile_b);
+			ft_b_clean(begin);
+//			ft_print_pile(begin->pile_b);
 		}
 	}
-	moves = ft_b_clean(begin, moves);
+	ft_b_clean(begin);
+	ft_push_all_to_a(begin);
+//	ft_printf("ICI c'est la fin \n");
+//	ft_print_pile(begin->pile_a);
+//	ft_print_begin(begin);
 //	ft_print_chunk(chunk);
-	return (moves);
 }
 
-int ft_b_clean(t_begin *begin, int moves)
+void	ft_b_clean(t_begin *begin)
 {
 	t_pile	*tmp;
 	int		max;
@@ -120,14 +141,13 @@ int ft_b_clean(t_begin *begin, int moves)
 		}
 		if (i <= ft_lstsize(begin->pile_b) / 2)
 			while (i--)
-				moves += ft_rotate(&begin->pile_b, 2);
+				begin->moves += ft_rotate(&begin->pile_b, 2);
 		else
 		{
 			i = ft_lstsize(begin->pile_b) - i;
 			if (ft_lstsize(begin->pile_b) > 1)
 				while (i--)
-					moves += ft_reverse_rotate(&begin->pile_b, 2);
+					begin->moves += ft_reverse_rotate(&begin->pile_b, 2);
 		}
 	}
-	return (moves);
 }
