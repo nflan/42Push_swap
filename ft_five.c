@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:42:08 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 17:39:03 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/04 14:38:43 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,22 @@ void	ft_back_to_a(t_begin *begin)
 		{
 			if (begin->pile_a->num == pile_min)
 			{
-				ft_push(&begin->pile_b, &begin->pile_a, 2);
+				ft_push(begin, &begin->pile_b, &begin->pile_a, 2);
 				if (begin->pile_a->num > begin->pile_a->next->num)
-					ft_rotate(&begin->pile_a, 1);
+					ft_rotate(begin, &begin->pile_a, 1);
 			}
 		}
 		else if (numb > begin->pile_a->num && numb < begin->pile_a->next->num)
 		{
-			ft_rotate(&begin->pile_a, 1);
-			ft_push(&begin->pile_b, &begin->pile_a, 2);
-			ft_reverse_rotate(&begin->pile_a, 1);
+			ft_rotate(begin, &begin->pile_a, 1);
+			ft_push(begin, &begin->pile_b, &begin->pile_a, 2);
+			ft_reverse_rotate(begin, &begin->pile_a, 1);
 			while (ra-- > 0)
-				ft_reverse_rotate(&begin->pile_a, 1);
+				ft_reverse_rotate(begin, &begin->pile_a, 1);
 		}
 		else
 		{
-			ft_rotate(&begin->pile_a, 1);
+			ft_rotate(begin, &begin->pile_a, 1);
 			ra++;
 		}
 	}
@@ -103,7 +103,7 @@ void	ft_five(t_begin *begin)
 	if (ft_is_sort(begin) != 3)
 	{
 		while (ft_lstsize(begin->pile_a) > 3)
-			ft_push(&begin->pile_a, &begin->pile_b, 1);
+			ft_push(begin, &begin->pile_a, &begin->pile_b, 1);
 		ft_triple(begin, 1);
 		while (ft_lstsize(begin->pile_b))
 			ft_back_to_a(begin);

@@ -6,17 +6,17 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 10:39:31 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 15:11:27 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/04 11:24:02 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_is_b_sort(t_begin *begin)
+int	ft_is_b_sort(t_begin *btmp)
 {
 	t_pile	*tmp;
 
-	tmp = begin->pile_b;
+	tmp = btmp->pile_b;
 	if (!tmp)
 		return (0);
 	while (tmp->next)
@@ -65,21 +65,21 @@ int	ft_min_max_chunk(t_chunk *chunk, int ind, int ext)
 	return (0);
 }
 
-int	ft_nb_rb(t_begin *begin, int nbr)
+int	ft_nb_rb(t_begin *btmp, int nbr)
 {
 	t_pile	*tmp;
 	int		top;
 	int		rb;
 
-	tmp = begin->pile_b;
+	tmp = btmp->pile_b;
 	rb = 0;
-	if (!tmp || !begin->pile_a)
+	if (!tmp || !btmp->pile_a)
 		return (0);
-	if (nbr > ft_pile_max(begin, 2) || nbr < ft_pile_min(begin, 2))
-		top = ft_pile_max(begin, 2);
+	if (nbr > ft_pile_max(btmp, 2) || nbr < ft_pile_min(btmp, 2))
+		top = ft_pile_max(btmp, 2);
 	else
 	{
-		top = ft_pile_min(begin, 2);
+		top = ft_pile_min(btmp, 2);
 		while (tmp)
 		{
 			if (nbr > top && top < tmp->num && nbr > tmp->num)
@@ -87,7 +87,7 @@ int	ft_nb_rb(t_begin *begin, int nbr)
 			tmp = tmp->next;
 		}
 	}
-	tmp = begin->pile_b;
+	tmp = btmp->pile_b;
 	while (tmp && tmp->num != top)
 	{
 		rb++;
