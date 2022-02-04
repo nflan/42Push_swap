@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 17:54:15 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/04 14:37:41 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_begin
 	t_pile			*pile_a;
 	t_pile			*pile_b;
 	int				moves;
-	struct s_begin	*next;
+	int				print;
 }	t_begin;
 
 # include "libft/libft.h"
@@ -56,15 +56,15 @@ void	ft_print_pile(t_pile *pile);
 char	**ft_fill_argv(char **tab, int ac, char **av);
 
 // OP
-int		ft_swap(t_pile **pile, int p);
-int		ft_push(t_pile **pstart, t_pile **pend, int p);
-int		ft_reverse_rotate(t_pile **pstart, int p);
-int		ft_rotate(t_pile **pstart, int p);
+int		ft_swap(t_begin *begin, t_pile **pile, int p);
+int		ft_push(t_begin *begin, t_pile **pstart, t_pile **pend, int p);
+int		ft_reverse_rotate(t_begin *begin, t_pile **pstart, int p);
+int		ft_rotate(t_begin *begin, t_pile **pstart, int p);
 
 // DOUBLE / TRIPLE
 void	ft_double(t_begin *begin, int pile);
 void	ft_triple(t_begin *begin, int pile);
-void	ft_do_triple(t_pile **pile, int p);
+void	ft_do_triple(t_begin *begin, t_pile **pile, int p);
 
 // FIVE
 int		ft_pile_min(t_begin *begin, int pile);
@@ -87,20 +87,20 @@ t_chunk	*ft_fill_chunks(t_pile *pile, int i, int index);
 t_pile	*ft_pile_chunk(t_begin *begin);
 
 // MANAGE A
-int		ft_nb_next_p(t_begin *begin, t_chunk *chunk, int ind);
-int		ft_nb_ra_rra(t_begin *begin, int nbr);
+int		ft_nb_next_p(t_begin *btmp, t_chunk *chunk, int ind);
+int		ft_nb_ra_rra(t_begin *btmp, int nbr);
 
 // MANAGE B
-int		ft_is_b_sort(t_begin *begin);
+int		ft_is_b_sort(t_begin *btmp);
 int		ft_min_in_max(t_pile *pile, t_chunk *chunk, int ind);
 int		ft_min_max_chunk(t_chunk *chunk, int ind, int ext);
-int		ft_nb_rb(t_begin *begin, int nbr);
+int		ft_nb_rb(t_begin *btmp, int nbr);
 
 // MABAGE B 2
-void	ft_next_to_b(t_begin *begin, t_chunk *chunk, int ind);
-void	ft_finish_rotate_a(t_begin *begin, t_pile *pile, t_chunk *chunk, int ind, int ra);
-void	ft_move_both(t_begin *begin, t_chunk *chunk, int ind);
-void	ft_fill_b(t_begin *begin, t_chunk *chunk);
-void	ft_b_clean(t_begin *begin);
+void	ft_next_to_b(t_begin *btmp, t_chunk *chunk, int ind);
+void	ft_finish_rotate_a(t_begin *btmp, t_chunk *chunk, int ind, int ra);
+void	ft_move_both(t_begin *btmp, t_chunk *chunk, int ind);
+void	ft_fill_b(t_begin *btmp, t_chunk *chunk);
+void	ft_b_clean(t_begin *btmp);
 
 #endif
