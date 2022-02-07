@@ -24,6 +24,7 @@ void	ft_print_begin(t_begin *begin)
 		ft_printf("pile_b =\n");
 		ft_print_pile(begin->pile_b);
 		ft_printf("moves = %d\n", begin->moves);
+		ft_printf("bmoves = %d\n", begin->bmoves);
 		ft_printf("\n");
 	}
 }
@@ -57,7 +58,7 @@ t_pile	*ft_fill_cpy(t_pile *pile)
 	return (new);
 }
 
-t_begin	*ft_begin_cpy(t_begin *begin)
+t_begin	*ft_begin_cpy(t_begin *begin, int bmoves)
 {
 	t_begin	*new;
 
@@ -67,6 +68,7 @@ t_begin	*ft_begin_cpy(t_begin *begin)
 	new->pile_b = ft_calloc(sizeof(t_pile), 1);
 	new->pile_b = NULL;
 	new->moves = 0;
+	new->bmoves = bmoves;
 	new->print = 0;
 	return (new);
 }
@@ -113,44 +115,46 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk)
 	int		size;
 
 	i = 0;
-	nb = 0;
+	nb = 2147483647;
 	size = 0;
 	if (ft_lstsize(begin->pile_a) < 10)
 		ft_sort(begin);
 	else
 	{
 		tmp = ft_pile_chunk(begin);
-		while (i++ < 100 && (ft_lstsize(tmp) - i) > -1)
+		while (i++ < 50 && (ft_lstsize(tmp) - i) > -1)
 		{
-				btmp = ft_begin_cpy(begin);
+				btmp = ft_begin_cpy(begin, nb - ft_lstsize(begin->pile_a));
 		//	if (ft_nb_chunk(btmp, size, i))
 		//	{
 		//		size = ft_nb_chunk(btmp, size, i);
 				//	ft_print_begin(begin);
-				//	ft_print_begin(btmp);
+	//				ft_print_begin(btmp);
 				chunk = ft_fill_chunks(tmp, i, 1);
 				//		ft_print_chunk(chunk);
 				ft_fill_b(btmp, chunk);
 				//	ft_print_begin(btmp);
-				if ((btmp->moves < nb && btmp->moves > 0) || nb == 0)
+				if (btmp->moves < nb && btmp->moves > 0 && !(btmp->pile_b))
 				{
 					nb = btmp->moves;
 					index = i;
 				}
 					//	ft_printf("nb chunks = %i\n", size);
+	//				ft_print_begin(btmp);
 				//		ft_print_chunk(chunk);
-			//			ft_printf("best moves / nb = %i\n", nb);
+						ft_printf("best moves / nb = %i\n", nb);
 			//			ft_printf("moves / nb = %i\n", btmp->moves);
-			//			ft_printf("best index / chunks = %i\n", index);
+						ft_printf("best index / chunks = %i\n", index);
 //				tofree = btmp;
 //				free(tofree);
 	//		}
 		}
+		begin->bmoves = nb;
 		chunk = ft_fill_chunks(tmp, index, 1);
 		ft_fill_b(begin, chunk);
-	//	ft_print_chunk(chunk);
-	//	ft_print_begin(btmp);
-		//ft_print_chunk(chunk);
+		ft_print_chunk(chunk);
+		ft_printf("moves begin = %i\n", begin->moves);
+	//	ft_print_begin(begin);
 	}
 }
 
@@ -160,6 +164,7 @@ t_begin *ft_create_begin(t_begin *begin)
 	begin->pile_b = ft_calloc(sizeof(t_pile), 1);
 	begin->pile_b = NULL;
 	begin->moves = 0;
+	begin->bmoves = 0;
 	begin->print = 1;
 	return (begin);
 }

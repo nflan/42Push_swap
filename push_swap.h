@@ -33,6 +33,7 @@ typedef struct s_begin
 	t_pile			*pile_a;
 	t_pile			*pile_b;
 	int				moves;
+	int				bmoves;
 	int				print;
 }	t_begin;
 

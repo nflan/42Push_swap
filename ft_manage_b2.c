@@ -36,11 +36,11 @@ void	ft_next_to_b(t_begin *btmp, t_chunk *chunk, int ind)
 
 void	ft_finish_rotate_a(t_begin *btmp, t_chunk *chunk, int ind, int ra)
 {
-	if (ra > 0)
-		while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind))
+	if (ra > 0 && btmp->bmoves > btmp->moves)
+		while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && btmp->bmoves > btmp->moves)
 			btmp->moves += ft_rotate(btmp, &btmp->pile_a, 1);
-	else if (ra < 0)
-		while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind))
+	else if (ra < 0 && btmp->bmoves > btmp->moves)
+		while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && btmp->bmoves > btmp->moves)
 			btmp->moves += ft_reverse_rotate(btmp, &btmp->pile_a, 1);
 }
 
@@ -51,18 +51,18 @@ void	ft_move_both(t_begin *btmp, t_chunk *chunk, int ind)
 
 	ra = ft_nb_ra_rra(btmp, ft_nb_next_p(btmp, chunk, ind));
 	rb = ft_nb_rb(btmp, ft_nb_next_p(btmp, chunk, ind));
-	if (ra > 0 && rb && rb <= ft_lstsize(btmp->pile_b) / 2)
+	if (ra > 0 && rb && rb <= ft_lstsize(btmp->pile_b) / 2 && btmp->bmoves > btmp->moves)
 	{
-		while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && rb--)
+		while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && rb-- && btmp->bmoves > btmp->moves)
 		{
 			btmp->moves += ft_rotate(btmp, &btmp->pile_a, 3);
 			ft_rotate(btmp, &btmp->pile_b, 0);
 		}
 	}
-	else if (ra < 0 && rb && rb > ft_lstsize(btmp->pile_b) / 2)
+	else if (ra < 0 && rb && rb > ft_lstsize(btmp->pile_b) / 2 && btmp->bmoves > btmp->moves)
 	{
 		rb = ft_lstsize(btmp->pile_b) - rb;
-		while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && rb--)
+		while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && rb-- && btmp->bmoves > btmp->moves)
 		{
 			btmp->moves += ft_reverse_rotate(btmp, &btmp->pile_a, 3);
 			ft_reverse_rotate(btmp, &btmp->pile_b, 0);
@@ -74,11 +74,13 @@ void	ft_move_both(t_begin *btmp, t_chunk *chunk, int ind)
 void	ft_fill_b(t_begin *btmp, t_chunk *chunk)
 {
 	int		ind;
+	t_pile	*tmp;
 
 	ind = 1;
+	tmp = btmp->pile_a;
 //	ft_printf("ICI c'est le debut \n");
 //	ft_print_pile(btmp->pile_a);
-	while (btmp->pile_a)
+	while (btmp->pile_a && btmp->bmoves > btmp->moves)// && btmp->moves <= nb - ft_lstsize(tmp))
 	{
 		ft_move_both(btmp, chunk, ind);
 	//	ft_printf("ft_nb_next_p = %d\n", ft_nb_next_p(btmp, chunk, ind));
@@ -94,8 +96,11 @@ void	ft_fill_b(t_begin *btmp, t_chunk *chunk)
 //			ft_print_pile(btmp->pile_b);
 		}
 	}
-	ft_b_clean(btmp);
-	ft_push_all_to_a(btmp);
+	if (btmp->bmoves >= btmp->moves)
+	{
+		ft_b_clean(btmp);
+		ft_push_all_to_a(btmp);
+	}
 //	ft_print_btmp(btmp);
 //	ft_print_chunk(chunk);
 }
