@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/08 12:53:07 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/08 14:57:20 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ int	main(int ac, char **av)
 	tab = NULL;
 	chunk = NULL;
 	begin = ft_create_begin(begin);
-	if (ac < 3)
+	if (ac < 2)
 		return (0);
 	tab = ft_fill_argv(tab, ac, av);
 	begin->pile_a = ft_fill_pile(tab);
