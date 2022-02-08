@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 10:41:17 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/08 12:54:41 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/08 17:34:21 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,15 @@ void	ft_move_both(t_begin *btmp, t_chunk *chunk, int ind)
 	rb = ft_nb_rb_rrb(btmp, ft_nb_next_p(btmp, chunk, ind), roll);
 	rolling = ft_rr_rrr(roll);
 //	ft_print_roll(roll);
-	if ((ra > 0 && rb > 0) || (ra < 0 && rb < 0) || rolling == 0)
+//	ft_printf("%d\n", rolling);
+	if (ra && rb)
 	{
 	//	if (ra > 0 && rb > 0 && btmp->bmoves > btmp->moves)
-		if (rolling > 0 && btmp->bmoves > btmp->moves)
+		if (rolling > 0 && ra > 0 && btmp->bmoves > btmp->moves)
 			while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && rb-- && btmp->bmoves > btmp->moves)
 				ft_do_rr_rrr(btmp, 1);
 	//	else if (ra < 0 && rb < 0 && btmp->bmoves > btmp->moves)
-		else if (rolling < 0 && btmp->bmoves > btmp->moves)
+		else if (rolling < 0 && ra < 0 && btmp->bmoves > btmp->moves)
 			while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && rb++ && btmp->bmoves > btmp->moves)
 				ft_do_rr_rrr(btmp, -1);
 	}
@@ -112,7 +113,7 @@ void	ft_fill_b(t_begin *btmp, t_chunk *chunk)
 //			ft_print_pile(btmp->pile_b);
 		}
 	}
-	if (btmp->bmoves >= btmp->moves + ft_lstsize(btmp->pile_a) + ft_lstsize(btmp->pile_a))
+	if (btmp->bmoves > btmp->moves)
 	{
 		ft_b_clean(btmp);
 		ft_push_all_to_a(btmp);
@@ -138,13 +139,13 @@ void	ft_b_clean(t_begin *begin)
 			tmp = tmp->next;
 		}
 		if (i <= ft_lstsize(begin->pile_b) / 2)
-			while (i--)
+			while (i-- && begin->bmoves > begin->moves)
 				begin->moves += ft_rotate(begin, &begin->pile_b, 2);
 		else
 		{
 			i = ft_lstsize(begin->pile_b) - i;
 			if (ft_lstsize(begin->pile_b) > 1)
-				while (i--)
+				while (i-- && begin->bmoves > begin->moves)
 					begin->moves += ft_reverse_rotate(begin, &begin->pile_b, 2);
 		}
 	}
