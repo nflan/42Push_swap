@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 10:41:17 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/04 14:39:22 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/08 12:54:41 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,16 @@ void	ft_next_to_b(t_begin *btmp, t_chunk *chunk, int ind)
 	int		rb;
 
 	tmp = btmp->pile_b;
-	rb = ft_nb_rb(btmp, ft_nb_next_p(btmp, chunk, ind));
+	rb = ft_nb_rb_rrb_bis(btmp, ft_nb_next_p(btmp, chunk, ind));
 	if (tmp && rb)
 	{
-		if (rb <= ft_lstsize(btmp->pile_b) / 2)
+		if (rb > 0)
 			while (rb--)
 				btmp->moves += ft_rotate(btmp, &btmp->pile_b, 2);
 		else
 		{
-			rb = ft_lstsize(btmp->pile_b) - rb;
 			if (ft_lstsize(btmp->pile_b) > 1)
-				while (rb--)
+				while (rb++)
 					btmp->moves += ft_reverse_rotate(btmp, &btmp->pile_b, 2);
 		}
 	}
@@ -44,46 +43,63 @@ void	ft_finish_rotate_a(t_begin *btmp, t_chunk *chunk, int ind, int ra)
 			btmp->moves += ft_reverse_rotate(btmp, &btmp->pile_a, 1);
 }
 
+void	ft_do_rr_rrr(t_begin *btmp, int rr_rrr)
+{
+	if (rr_rrr == 1)
+	{
+		btmp->moves += ft_rotate(btmp, &btmp->pile_a, 3);
+		ft_rotate(btmp, &btmp->pile_b, 0);
+	}
+	else
+	{
+		btmp->moves += ft_reverse_rotate(btmp, &btmp->pile_a, 3);
+		ft_reverse_rotate(btmp, &btmp->pile_b, 0);
+	}
+}
+
+void	ft_print_roll(t_roll *roll)
+{
+	ft_printf("roll->ra = %d\n", roll->ra);
+	ft_printf("roll->rra = %d\n", roll->rra);
+	ft_printf("roll->rb = %d\n", roll->rb);
+	ft_printf("roll->rrb = %d\n", roll->rrb);
+}
+
 void	ft_move_both(t_begin *btmp, t_chunk *chunk, int ind)
 {
-	int	ra;
-	int	rb;
+	t_roll	*roll;
+	int		rolling;
+	int		ra;
+	int		rb;
 
-	ra = ft_nb_ra_rra(btmp, ft_nb_next_p(btmp, chunk, ind));
-	rb = ft_nb_rb(btmp, ft_nb_next_p(btmp, chunk, ind));
-	if (ra > 0 && rb && rb <= ft_lstsize(btmp->pile_b) / 2 && btmp->bmoves > btmp->moves)
+	roll = ft_calloc(sizeof(roll), 1);
+	ra = ft_nb_ra_rra(btmp, ft_nb_next_p(btmp, chunk, ind), roll);
+	rb = ft_nb_rb_rrb(btmp, ft_nb_next_p(btmp, chunk, ind), roll);
+	rolling = ft_rr_rrr(roll);
+//	ft_print_roll(roll);
+	if ((ra > 0 && rb > 0) || (ra < 0 && rb < 0) || rolling == 0)
 	{
-		while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && rb-- && btmp->bmoves > btmp->moves)
-		{
-			btmp->moves += ft_rotate(btmp, &btmp->pile_a, 3);
-			ft_rotate(btmp, &btmp->pile_b, 0);
-		}
-	}
-	else if (ra < 0 && rb && rb > ft_lstsize(btmp->pile_b) / 2 && btmp->bmoves > btmp->moves)
-	{
-		rb = ft_lstsize(btmp->pile_b) - rb;
-		while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && rb-- && btmp->bmoves > btmp->moves)
-		{
-			btmp->moves += ft_reverse_rotate(btmp, &btmp->pile_a, 3);
-			ft_reverse_rotate(btmp, &btmp->pile_b, 0);
-		}
+	//	if (ra > 0 && rb > 0 && btmp->bmoves > btmp->moves)
+		if (rolling > 0 && btmp->bmoves > btmp->moves)
+			while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && rb-- && btmp->bmoves > btmp->moves)
+				ft_do_rr_rrr(btmp, 1);
+	//	else if (ra < 0 && rb < 0 && btmp->bmoves > btmp->moves)
+		else if (rolling < 0 && btmp->bmoves > btmp->moves)
+			while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && rb++ && btmp->bmoves > btmp->moves)
+				ft_do_rr_rrr(btmp, -1);
 	}
 	ft_finish_rotate_a(btmp, chunk, ind, ra);
+	free(roll);
 }
 
 void	ft_fill_b(t_begin *btmp, t_chunk *chunk)
 {
 	int		ind;
-	t_pile	*tmp;
 
 	ind = 1;
-	tmp = btmp->pile_a;
-//	ft_printf("ICI c'est le debut \n");
-//	ft_print_pile(btmp->pile_a);
-	while (btmp->pile_a && btmp->bmoves > btmp->moves)// && btmp->moves <= nb - ft_lstsize(tmp))
+	while (btmp->pile_a && btmp->bmoves > btmp->moves)
 	{
 		ft_move_both(btmp, chunk, ind);
-	//	ft_printf("ft_nb_next_p = %d\n", ft_nb_next_p(btmp, chunk, ind));
 		ft_next_to_b(btmp, chunk, ind);
 		btmp->moves += ft_push(btmp, &btmp->pile_a, &btmp->pile_b, 1);
 		if (!(ft_lstsize(btmp->pile_b) % chunk->size))
@@ -96,7 +112,7 @@ void	ft_fill_b(t_begin *btmp, t_chunk *chunk)
 //			ft_print_pile(btmp->pile_b);
 		}
 	}
-	if (btmp->bmoves >= btmp->moves)
+	if (btmp->bmoves >= btmp->moves + ft_lstsize(btmp->pile_a) + ft_lstsize(btmp->pile_a))
 	{
 		ft_b_clean(btmp);
 		ft_push_all_to_a(btmp);

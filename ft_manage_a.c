@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 17:50:46 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/04 11:28:28 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/08 12:25:14 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_nb_next_p(t_begin *btmp, t_chunk *chunk, int ind)
 	return (nbtmp);
 }
 
-int	ft_nb_ra_rra(t_begin *btmp, int nbr)
+int	ft_nb_ra_rra(t_begin *btmp, int nbr, t_roll *roll)
 {
 	t_pile	*tmp;
 	int		ra;
@@ -80,6 +80,8 @@ int	ft_nb_ra_rra(t_begin *btmp, int nbr)
 		tmp = tmp->next;
 	}
 //	ft_printf("\nrra = %i\n", rra);
+	roll->ra = ra;
+	roll->rra = rra;
 	if (ra <= (rra * -1))
 		return (ra);
 	else

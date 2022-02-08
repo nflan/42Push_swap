@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/04 15:09:23 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/08 12:53:07 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_print_begin(t_begin *begin)
 {
-	t_begin	*tmp;
-
-	tmp = begin;
 	if (begin)
 	{
 		ft_printf("pile_a =\n");
@@ -39,6 +36,26 @@ void	ft_sort(t_begin *begin)
 		ft_five(begin);
 }
 
+int		ft_rr_rrr(t_roll *roll)
+{
+	int	rolling;
+	int rrolling;
+
+	if (roll->ra >= roll->rb)
+		rolling = roll->ra - roll->rb;
+	else
+		rolling = roll->rb - roll->ra;
+	if (roll->rra <= roll->rrb)
+		rrolling = roll->rra - roll->rrb;
+	else
+		rrolling = roll->rrb - roll->rra;
+	if (rolling <= (rrolling * -1))
+		return (rolling);
+	else if (rolling > (rrolling * -1))
+		return (rrolling);
+	else
+		return (0);
+}
 
 t_pile	*ft_fill_cpy(t_pile *pile)
 {
@@ -112,11 +129,9 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk)
 	int		i;
 	int		index;
 	int		nb;
-	int		size;
 
 	i = 0;
 	nb = 2147483647;
-	size = 0;
 	if (ft_lstsize(begin->pile_a) < 10)
 		ft_sort(begin);
 	else
@@ -124,36 +139,32 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk)
 		tmp = ft_pile_chunk(begin);
 		while (i++ < 50 && (ft_lstsize(tmp) - i) > -1)
 		{
-				btmp = ft_begin_cpy(begin, nb - ft_lstsize(begin->pile_a));
-		//	if (ft_nb_chunk(btmp, size, i))
-		//	{
-		//		size = ft_nb_chunk(btmp, size, i);
-				//	ft_print_begin(begin);
-	//				ft_print_begin(btmp);
-				chunk = ft_fill_chunks(tmp, i, 1);
-				//		ft_print_chunk(chunk);
-				ft_fill_b(btmp, chunk);
-				//	ft_print_begin(btmp);
-				if (btmp->moves < nb && btmp->moves > 0 && !(btmp->pile_b))
-				{
-					nb = btmp->moves;
-					index = i;
-				}
-					//	ft_printf("nb chunks = %i\n", size);
-	//				ft_print_begin(btmp);
-				//		ft_print_chunk(chunk);
-						ft_printf("best moves / nb = %i\n", nb);
-			//			ft_printf("moves / nb = %i\n", btmp->moves);
-						ft_printf("best index / chunks = %i\n", index);
-//				tofree = btmp;
-//				free(tofree);
-	//		}
+			btmp = ft_begin_cpy(begin, nb);
+			chunk = ft_fill_chunks(tmp, i, 1);
+		//	ft_print_chunk(chunk);
+			ft_fill_b(btmp, chunk);
+		//	ft_print_begin(btmp);
+			if (btmp->moves < nb && btmp->moves > 0 && pile_is_sort(btmp->pile_a) && !(btmp->pile_b))
+			{
+				nb = btmp->moves;
+	//			ft_printf("best moves / nb = %i\n", nb);
+				index = i;
+	//			ft_printf("best index / chunks = %i\n", index);
+	//			ft_print_begin(btmp);
+			}
+		//	ft_printf("nb chunks = %i\n", size);
+		//	ft_print_begin(btmp);
+		//	ft_print_chunk(chunk);
+		//	ft_printf("moves / nb = %i\n", btmp->moves);
+		//	tofree = btmp;
+		//	free(tofree);
 		}
+	//	ft_printf("best moves / nb = %i\n", nb);
 		begin->bmoves = nb;
 		chunk = ft_fill_chunks(tmp, index, 1);
 		ft_fill_b(begin, chunk);
-		ft_print_chunk(chunk);
-		ft_printf("moves begin = %i\n", begin->moves);
+	//	ft_print_chunk(chunk);
+	//	ft_printf("moves begin = %i\n", begin->moves);
 	//	ft_print_begin(begin);
 	}
 }
