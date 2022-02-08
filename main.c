@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/08 14:57:20 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/08 17:37:05 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,33 @@ void	ft_sort(t_begin *begin)
 int		ft_rr_rrr(t_roll *roll)
 {
 	int	rolling;
+	int oui;
 	int rrolling;
+	int	non;
 
-	if (roll->ra >= roll->rb)
-		rolling = roll->ra - roll->rb;
+	if (roll->ra <= roll->rb)
+	{
+		rolling = roll->ra;
+		oui = roll->rb - roll->ra;
+	}
 	else
-		rolling = roll->rb - roll->ra;
-	if (roll->rra <= roll->rrb)
-		rrolling = roll->rra - roll->rrb;
+	{
+		rolling = roll->rb;
+		oui = roll->ra - roll->rb;
+	}
+	if (roll->rra >= roll->rrb)
+	{
+		rrolling = roll->rra;
+		non = roll->rrb - roll->rra;
+	}
 	else
-		rrolling = roll->rrb - roll->rra;
-	if (rolling <= (rrolling * -1))
+	{
+		rrolling = roll->rrb;
+		non = roll->rra - roll->rrb;
+	}
+	if (rolling + oui <= (rrolling * -1))// || ((roll->ra + roll->rb) < ((roll->rra + roll->rrb) * - 1)))
 		return (rolling);
-	else if (rolling > (rrolling * -1))
+	else if	(rolling > ((rrolling - non) * -1))// || ((roll->ra + roll->rb) > ((roll->rra + roll->rrb) * - 1)))
 		return (rrolling);
 	else
 		return (0);
@@ -84,7 +98,7 @@ t_begin	*ft_begin_cpy(t_begin *begin, int bmoves)
 	new->pile_a = ft_fill_cpy(begin->pile_a);
 	new->pile_b = ft_calloc(sizeof(t_pile), 1);
 	new->pile_b = NULL;
-	new->moves = 0;
+	new->moves = ft_lstsize(begin->pile_a);
 	new->bmoves = bmoves;
 	new->print = 0;
 	return (new);
@@ -130,8 +144,12 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk)
 	int		index;
 	int		nb;
 
-	i = 0;
+	if (ft_lstsize(begin->pile_a) > 100)
+		i = 20;
+	else
+		i = 0;
 	nb = 2147483647;
+//	ft_print_begin(begin);
 	if (ft_lstsize(begin->pile_a) < 10)
 		ft_sort(begin);
 	else
@@ -147,9 +165,9 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk)
 			if (btmp->moves < nb && btmp->moves > 0 && pile_is_sort(btmp->pile_a) && !(btmp->pile_b))
 			{
 				nb = btmp->moves;
-	//			ft_printf("best moves / nb = %i\n", nb);
+			//	ft_printf("best moves / nb = %i\n", nb);
 				index = i;
-	//			ft_printf("best index / chunks = %i\n", index);
+			//	ft_printf("best index / chunks = %i\n", index);
 	//			ft_print_begin(btmp);
 			}
 		//	ft_printf("nb chunks = %i\n", size);
