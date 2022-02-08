@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 10:39:31 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/04 11:24:02 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/08 12:38:06 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,16 @@ int	ft_min_max_chunk(t_chunk *chunk, int ind, int ext)
 	return (0);
 }
 
-int	ft_nb_rb(t_begin *btmp, int nbr)
+int	ft_nb_rb_rrb(t_begin *btmp, int nbr, t_roll *roll)
 {
 	t_pile	*tmp;
 	int		top;
 	int		rb;
+	int		rrb;
 
 	tmp = btmp->pile_b;
 	rb = 0;
+	rrb = -1;
 	if (!tmp || !btmp->pile_a)
 		return (0);
 	if (nbr > ft_pile_max(btmp, 2) || nbr < ft_pile_min(btmp, 2))
@@ -93,5 +95,56 @@ int	ft_nb_rb(t_begin *btmp, int nbr)
 		rb++;
 		tmp = tmp->next;
 	}
-	return (rb);
+	while (tmp && tmp->next)
+	{
+		rrb--;
+		tmp = tmp->next;
+	}
+	roll->rb = rb;
+	roll->rrb = rrb;
+	if (rb <= (rrb * -1))
+		return (rb);
+	else
+		return (rrb);
+}
+
+int	ft_nb_rb_rrb_bis(t_begin *btmp, int nbr)
+{
+	t_pile	*tmp;
+	int		top;
+	int		rb;
+	int		rrb;
+
+	tmp = btmp->pile_b;
+	rb = 0;
+	rrb = -1;
+	if (!tmp || !btmp->pile_a)
+		return (0);
+	if (nbr > ft_pile_max(btmp, 2) || nbr < ft_pile_min(btmp, 2))
+		top = ft_pile_max(btmp, 2);
+	else
+	{
+		top = ft_pile_min(btmp, 2);
+		while (tmp)
+		{
+			if (nbr > top && top < tmp->num && nbr > tmp->num)
+				top = tmp->num;
+			tmp = tmp->next;
+		}
+	}
+	tmp = btmp->pile_b;
+	while (tmp && tmp->num != top)
+	{
+		rb++;
+		tmp = tmp->next;
+	}
+	while (tmp && tmp->next)
+	{
+		rrb--;
+		tmp = tmp->next;
+	}
+	if (rb <= (rrb * -1))
+		return (rb);
+	else
+		return (rrb);
 }

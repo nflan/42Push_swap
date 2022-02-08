@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/04 14:37:41 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/08 12:38:29 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ typedef struct s_pile
 	int				num;
 	struct s_pile	*next;
 }	t_pile;
+
+typedef struct s_roll
+{
+	int	ra;
+	int rra;
+	int rb;
+	int rrb;
+}	t_roll;
 
 typedef struct s_chunk
 {
@@ -41,6 +49,7 @@ typedef struct s_begin
 
 // MAIN
 void	ft_print_begin(t_begin *begin);
+int		ft_rr_rrr(t_roll *roll);
 
 // CHECK
 int		ft_check_double(char **tab, int check);
@@ -89,13 +98,14 @@ t_pile	*ft_pile_chunk(t_begin *begin);
 
 // MANAGE A
 int		ft_nb_next_p(t_begin *btmp, t_chunk *chunk, int ind);
-int		ft_nb_ra_rra(t_begin *btmp, int nbr);
+int		ft_nb_ra_rra(t_begin *btmp, int nbr, t_roll *roll);
 
 // MANAGE B
 int		ft_is_b_sort(t_begin *btmp);
 int		ft_min_in_max(t_pile *pile, t_chunk *chunk, int ind);
 int		ft_min_max_chunk(t_chunk *chunk, int ind, int ext);
-int		ft_nb_rb(t_begin *btmp, int nbr);
+int		ft_nb_rb_rrb(t_begin *btmp, int nbr, t_roll *roll);
+int		ft_nb_rb_rrb_bis(t_begin *btmp, int nbr);
 
 // MABAGE B 2
 void	ft_next_to_b(t_begin *btmp, t_chunk *chunk, int ind);

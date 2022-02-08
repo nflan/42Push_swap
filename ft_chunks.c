@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:16:04 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/03 16:55:07 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/08 10:14:51 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,15 @@ int	pile_is_sort(t_pile *pile)
 	t_pile	*tmp;
 
 	tmp = pile;
-	while (tmp->next)
+	if (tmp)
 	{
-		if (tmp->num < tmp->next->num)
-			tmp = tmp->next;
-		else
-			return (0);
+		while (tmp->next)
+		{
+			if (tmp->num < tmp->next->num)
+				tmp = tmp->next;
+			else
+				return (0);
+		}
 	}
 	return (1);
 }
