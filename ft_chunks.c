@@ -6,26 +6,27 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:16:04 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/08 10:14:51 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/09 15:46:25 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_print_chunk(t_chunk *chunk)
+int	ft_min_max_chunk(t_chunk *chunk, int ind, int ext)
 {
-	t_chunk	*tmp;
+	t_chunk	*ctmp;
 
-	tmp = chunk;
-	while (tmp)
+	ctmp = chunk;
+	if (ctmp)
 	{
-		ft_printf("min %d\n", tmp->min);
-		ft_printf("max %d\n", tmp->max);
-		ft_printf("index %d\n", tmp->index);
-		ft_printf("size %d\n", tmp->size);
-		tmp = tmp->next;
+		while (ctmp->index != ind)
+			ctmp = ctmp->next;
+		if (ext == -1)
+			return (ctmp->min);
+		else if (ext == 1)
+			return (ctmp->max);
 	}
-	ft_printf("\n");
+	return (0);
 }
 
 int	pile_is_sort(t_pile *pile)

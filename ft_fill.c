@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:14 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/08 15:04:34 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/09 15:46:17 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,40 +32,6 @@ t_pile	*ft_fill_pile(char **tab)
 	}
 	free(tab);
 	return (ptr);
-}
-
-/*void	ft_fill_pile_b(t_begin *begin)
-{
-}*/
-
-/*char	ft_next_to_move(t_pile **pile, t_chunk *chunk, int ind)
-{
-	t_pile	*tmp;
-	int		r;
-	int		rr;
-
-	tmp = *pile;
-	r = 0;
-	rr = 0;
-	if (!tmp)
-		return (0);
-	r = ft_nb_r(tmp, chunk, ind);
-	tmp = *pile;
-	rr = ft_nb_rr(tmp, chunk, ind);
-	if (r < rr)
-		return ('a');
-	else
-		return ('b');
-}*/
-
-void	ft_print_pile(t_pile *pile)
-{
-	while (pile)
-	{
-		ft_printf("%d\n", pile->num);
-		pile = pile->next;
-	}
-	ft_printf("\n");
 }
 
 char	**ft_fill_argv(char **tab, int ac, char **av)

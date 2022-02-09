@@ -6,106 +6,99 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:42:08 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/04 14:38:43 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/09 17:50:56 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_pile_min(t_begin *begin, int pile)
+int	ft_five_clean_a(t_pile *tmp, int ra, int pile_min)
+{
+	while (tmp && tmp->num != pile_min)
+	{
+		ra++;
+		tmp = tmp->next;
+	}
+	return (ra);
+}
+
+int	ft_five_ra_rra(t_begin *begin, int numb, int pile_min, int pile_max)
 {
 	t_pile	*tmp;
-	int		min;
+	int		ra;
+	int		rra;
 
-	tmp = NULL;
-	if (pile == 1 && begin->pile_a)
-		tmp = begin->pile_a;
-	else if (pile == 2 && begin->pile_b)
-		tmp = begin->pile_b;
-	min = tmp->num;
-	if (tmp)
+	tmp = begin->pile_a;
+	ra = 0;
+	if (!tmp || numb < pile_min || numb > pile_max)
+		return (0);
+	if (numb == pile_min)
+		ra = ft_five_clean_a(tmp, ra, pile_min);
+	else
 	{
-		while (tmp)
+		while (tmp && tmp->num < numb)
 		{
-			if (min > tmp->num)
-				min = tmp->num;
+			ra++;
 			tmp = tmp->next;
 		}
 	}
-	return (min);
+	rra = (ft_lstsize(begin->pile_a) * -1) + ra;
+	if (ra <= (rra * -1))
+		return (ra);
+	return (rra);
 }
 
-int	ft_pile_max(t_begin *begin, int pile)
+void	ft_back_to_a(t_begin *begin, int pile_min, int pile_max)
 {
-	t_pile	*tmp;
-	int		max;
-
-	tmp = NULL;
-	if (pile == 1 && begin->pile_a)
-		tmp = begin->pile_a;
-	else if (pile == 2 && begin->pile_b)
-		tmp = begin->pile_b;
-	max = tmp->num;
-	if (tmp)
-	{
-		while (tmp)
-		{
-			if (max < tmp->num)
-				max = tmp->num;
-			tmp = tmp->next;
-		}
-	}
-	return (max);
-}
-
-void	ft_back_to_a(t_begin *begin)
-{
-	int	pile_max;
-	int	pile_min;
 	int	numb;
-	int	pilesize;
 	int	ra;
 
-	pile_max = ft_pile_max(begin, 1);
-	pile_min = ft_pile_min(begin, 1);
-	numb = begin->pile_b->num;
-	pilesize = ft_lstsize(begin->pile_a);
-	ra = 0;
-	while (pilesize == ft_lstsize(begin->pile_a))
+	if (begin->pile_b)
 	{
-		if (numb > pile_max || numb < pile_min)
+		while (begin->pile_b)
 		{
-			if (begin->pile_a->num == pile_min)
+			numb = begin->pile_b->num;
+			ra = ft_five_ra_rra(begin, numb, pile_min, pile_max);
+			if (ra > 0)
 			{
-				ft_push(begin, &begin->pile_b, &begin->pile_a, 2);
-				if (begin->pile_a->num > begin->pile_a->next->num)
+				while (ra--)
 					ft_rotate(begin, &begin->pile_a, 1);
 			}
-		}
-		else if (numb > begin->pile_a->num && numb < begin->pile_a->next->num)
-		{
-			ft_rotate(begin, &begin->pile_a, 1);
+			else if (ra < 0)
+			{
+				while (ra++)
+					ft_reverse_rotate(begin, &begin->pile_a, 1);
+			}
 			ft_push(begin, &begin->pile_b, &begin->pile_a, 2);
-			ft_reverse_rotate(begin, &begin->pile_a, 1);
-			while (ra-- > 0)
-				ft_reverse_rotate(begin, &begin->pile_a, 1);
-		}
-		else
-		{
-			ft_rotate(begin, &begin->pile_a, 1);
-			ra++;
 		}
 	}
 }
 
 void	ft_five(t_begin *begin)
 {
+	int	pile_max;
+	int	pile_min;
+//	int	ra;
+
+	pile_max = ft_pile_max(begin, 1);
+	pile_min = ft_pile_min(begin, 1);
 	if (ft_is_sort(begin) != 3)
 	{
 		while (ft_lstsize(begin->pile_a) > 3)
 			ft_push(begin, &begin->pile_a, &begin->pile_b, 1);
 		ft_triple(begin, 1);
-		while (ft_lstsize(begin->pile_b))
-			ft_back_to_a(begin);
-	}
+		ft_back_to_a(begin, pile_min, pile_max);
+/*		ra = ft_five_ra_rra(begin, pile_min, pile_min, pile_max);
+		if (ra > 0)
+		{
+			while (ra--)
+				ft_rotate(begin, &begin->pile_a, 1);
+		}
+		else if (ra < 0)
+		{
+			while (ra++)
+				ft_reverse_rotate(begin, &begin->pile_a, 1);
+		}
+*/	}
+	ft_print_pile(begin->pile_a);
 }

@@ -6,25 +6,11 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/08 17:37:05 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/09 16:33:36 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	ft_print_begin(t_begin *begin)
-{
-	if (begin)
-	{
-		ft_printf("pile_a =\n");
-		ft_print_pile(begin->pile_a);
-		ft_printf("pile_b =\n");
-		ft_print_pile(begin->pile_b);
-		ft_printf("moves = %d\n", begin->moves);
-		ft_printf("bmoves = %d\n", begin->bmoves);
-		ft_printf("\n");
-	}
-}
 
 void	ft_sort(t_begin *begin)
 {
@@ -63,7 +49,7 @@ int		ft_rr_rrr(t_roll *roll)
 		rrolling = roll->rrb;
 		non = roll->rra - roll->rrb;
 	}
-	if (rolling + oui <= (rrolling * -1))// || ((roll->ra + roll->rb) < ((roll->rra + roll->rrb) * - 1)))
+	if (rolling + oui <= ((rrolling + non) * -1))// || ((roll->ra + roll->rb) < ((roll->rra + roll->rrb) * - 1)))
 		return (rolling);
 	else if	(rolling > ((rrolling - non) * -1))// || ((roll->ra + roll->rb) > ((roll->rra + roll->rrb) * - 1)))
 		return (rrolling);
@@ -98,27 +84,12 @@ t_begin	*ft_begin_cpy(t_begin *begin, int bmoves)
 	new->pile_a = ft_fill_cpy(begin->pile_a);
 	new->pile_b = ft_calloc(sizeof(t_pile), 1);
 	new->pile_b = NULL;
-	new->moves = ft_lstsize(begin->pile_a);
+	new->moves = 0;
+	//new->moves = ft_lstsize(begin->pile_a);
 	new->bmoves = bmoves;
 	new->print = 0;
 	return (new);
 }
-
-/*t_begin	*ft_fill_begin(t_begin *begin)
-  {
-  t_begin	*tmp;
-  int		i;
-
-  tmp = begin;
-  i = 20;
-  while (i--)
-  {
-  begin = ft_beginnew(begin);
-  begin->next = tmp;
-  tmp = begin;
-  }
-  return (begin);
-  }*/
 
 int		ft_nb_chunk(t_begin *btmp, int nbsize, int i)
 {
@@ -144,20 +115,20 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk)
 	int		index;
 	int		nb;
 
-	if (ft_lstsize(begin->pile_a) > 100)
+	if (ft_lstsize(begin->pile_a) > 239)
 		i = 20;
 	else
 		i = 0;
-	nb = 2147483647;
+	nb = 2147483646;
 //	ft_print_begin(begin);
 	if (ft_lstsize(begin->pile_a) < 10)
 		ft_sort(begin);
 	else
 	{
 		tmp = ft_pile_chunk(begin);
-		while (i++ < 50 && (ft_lstsize(tmp) - i) > -1)
+		while (i++ < 75 && (ft_lstsize(tmp) - i) > -1)
 		{
-			btmp = ft_begin_cpy(begin, nb);
+			btmp = ft_begin_cpy(begin, nb + 1);
 			chunk = ft_fill_chunks(tmp, i, 1);
 		//	ft_print_chunk(chunk);
 			ft_fill_b(btmp, chunk);
@@ -172,16 +143,16 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk)
 			}
 		//	ft_printf("nb chunks = %i\n", size);
 		//	ft_print_begin(btmp);
-		//	ft_print_chunk(chunk);
-		//	ft_printf("moves / nb = %i\n", btmp->moves);
+//			ft_print_chunk(chunk);
+//			ft_printf("moves / nb = %i\n", btmp->moves);
 		//	tofree = btmp;
 		//	free(tofree);
 		}
-	//	ft_printf("best moves / nb = %i\n", nb);
+//		ft_printf("best moves / nb = %i\n", nb);
 		begin->bmoves = nb;
 		chunk = ft_fill_chunks(tmp, index, 1);
 		ft_fill_b(begin, chunk);
-	//	ft_print_chunk(chunk);
+//		ft_print_chunk(chunk);
 	//	ft_printf("moves begin = %i\n", begin->moves);
 	//	ft_print_begin(begin);
 	}
@@ -216,6 +187,8 @@ int	main(int ac, char **av)
 	//	ft_print_pile(begin->pile_a);
 	//	ft_print_pile(begin->pile_b);
 	//	ft_pileclear(&begin->pile_a);
+//	ft_print_begin(begin);
+//	ft_print_chunk(chunk);
 	free(begin->pile_b);
 	free(begin);
 	free(chunk);
