@@ -6,18 +6,17 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 10:41:17 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/09 15:53:15 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/10 14:49:36 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_next_to_b(t_begin *btmp, t_chunk *chunk, int ind, t_roll *roll)
+void	ft_next_to_b(t_begin *btmp, t_chunk *chunk, int ind)
 {
 	t_pile	*tmp;
 	int		rb;
 
-	roll = NULL;
 	tmp = btmp->pile_b;
 	rb = ft_nb_rb_rrb_bis(btmp, ft_nb_next_p(btmp, chunk, ind));
 	if (tmp && rb)
@@ -82,9 +81,9 @@ void	ft_fill_b(t_begin *btmp, t_chunk *chunk)
 	ind = 1;
 	while (btmp->pile_a && btmp->bmoves > btmp->moves)
 	{
-		roll = ft_calloc(sizeof(roll), 1);
+		roll = ft_calloc(sizeof(t_roll), 1);
 		ft_move_both(btmp, chunk, ind, roll);
-		ft_next_to_b(btmp, chunk, ind, roll);
+		ft_next_to_b(btmp, chunk, ind);
 		free(roll);
 		btmp->moves += ft_push(btmp, &btmp->pile_a, &btmp->pile_b, 1);
 		if (!(ft_lstsize(btmp->pile_b) % chunk->size))
