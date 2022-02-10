@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/09 17:49:07 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/10 12:20:34 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ void	ft_do_triple(t_begin *begin, t_pile **pile, int p);
 
 // FIVE
 int		ft_five_clean_a(t_pile *tmp, int ra, int pile_min);
-int		ft_five_ra_rra(t_begin *begin, int numb, int pile_min, int pile_max);
-void	ft_back_to_a(t_begin *begin, int pile_min, int pile_max);
+int		ft_five_next_a(t_begin *begin, int numb, int pile_min, int pile_max);
+int		ft_five_ra_rra(t_begin *begin, int next);
+void	ft_back_to_a(t_begin *begin);
 void	ft_five(t_begin *begin);
 
 // FIVE_TOOLS
@@ -112,7 +113,7 @@ int		ft_nb_rb_rrb(t_begin *btmp, int nbr, t_roll *roll);
 int		ft_nb_rb_rrb_bis(t_begin *btmp, int nbr);
 
 // MABAGE B 2
-void	ft_next_to_b(t_begin *btmp, t_chunk *chunk, int ind, t_roll *roll);
+void	ft_next_to_b(t_begin *btmp, t_chunk *chunk, int ind);
 void	ft_do_rr_rrr(t_begin *btmp, int rr_rrr);
 void	ft_move_both(t_begin *btmp, t_chunk *chunk, int ind, t_roll *roll);
 void	ft_fill_b(t_begin *btmp, t_chunk *chunk);
