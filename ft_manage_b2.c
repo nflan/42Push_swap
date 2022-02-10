@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 10:41:17 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 14:49:36 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/10 17:07:01 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,19 @@ void	ft_do_rr_rrr(t_begin *btmp, int rr_rrr)
 	}
 }
 
+int	ft_le_plus_grand(int nb1, int nb2)
+{
+	if (nb1 >= 0 && nb2 >= 0)
+	{
+		if (nb1 > nb2)
+			return (nb1);
+		return (nb2);
+	}
+	if (nb1 < nb2)
+		return (nb1);
+	return (nb2);
+}
+
 void	ft_move_both(t_begin *btmp, t_chunk *chunk, int ind, t_roll *roll)
 {
 	int		rolling;
@@ -56,18 +69,19 @@ void	ft_move_both(t_begin *btmp, t_chunk *chunk, int ind, t_roll *roll)
 	ra = ft_nb_ra_rra(btmp, ft_nb_next_p(btmp, chunk, ind), roll);
 	rb = ft_nb_rb_rrb(btmp, ft_nb_next_p(btmp, chunk, ind), roll);
 	rolling = ft_rr_rrr(roll);
+//	ft_printf("rolling = %i\n", rolling);
 //	ft_print_roll(roll);
-//	ft_printf("%d\n", rolling);
 	if (ra && rb)
 	{
 		if (rolling > 0 && ra > 0 && btmp->bmoves > btmp->moves
-			&& roll->rb - roll->ra < (roll->rrb * -1))
+			&& ft_le_plus_grand(roll->ra, roll->rb) < (roll->ra - roll->rrb))
 			while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && rb--
 				&& rolling-- && btmp->bmoves > btmp->moves)
 				ft_do_rr_rrr(btmp, 1);
-		else if (rolling < 0 && ra < 0 && btmp->bmoves > btmp->moves)
-			while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind)
-				&& rb++ && btmp->bmoves > btmp->moves)
+		else if (rolling < 0 && ra < 0 && btmp->bmoves > btmp->moves
+			&& ft_le_plus_grand(roll->rra, roll->rrb) > (roll->rra - roll->rb))
+			while (btmp->pile_a->num != ft_nb_next_p(btmp, chunk, ind) && rb++
+				&& rolling++ && btmp->bmoves > btmp->moves)
 				ft_do_rr_rrr(btmp, -1);
 	}
 	ft_finish_rotate_a(btmp, chunk, ind, ra);
@@ -94,8 +108,6 @@ void	ft_fill_b(t_begin *btmp, t_chunk *chunk)
 		ft_b_clean(btmp);
 		ft_push_all_to_a(btmp);
 	}
-//	ft_print_btmp(btmp);
-//	ft_print_chunk(chunk);
 }
 
 void	ft_b_clean(t_begin *begin)
