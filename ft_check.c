@@ -6,25 +6,32 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:07 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/04 10:58:05 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/10 15:15:18 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_check_double(char **tab, int check)
+int	ft_check_double(t_pile *ptr)
 {
-	int	i;
-	int	k;
+	t_pile *tmp;
+	t_pile *tmp2;
+	int		check;
 
-	i = -1;
-	while (tab[++i] && check)
+	tmp = ptr;
+	check = 1;
+	if (tmp)
 	{
-		k = i;
-		while (tab[++k] && check)
+		while (tmp && check)
 		{
-			if (!strcmp(tab[i], tab[k]))
-				check = 0;
+			tmp2 = tmp->next;
+			while (tmp2 && check)
+			{
+				if (tmp->num == tmp2->num)
+					check = 0;
+				tmp2 = tmp2->next;
+			}
+			tmp = tmp->next;
 		}
 	}
 	return (check);
@@ -49,11 +56,10 @@ int	ft_check_tab(char **tab)
 			if (!ft_isdigit(tab[i][j]))
 				check = 0;
 	}
-	check = ft_check_double(tab, check);
 	if (check)
 		return (1);
 	ft_putstr_fd("Error\n", 2);
-	exit (EXIT_FAILURE);
+	exit (0);
 }
 
 t_chunk	*ft_chunknew(int min, int max, int index, int i)

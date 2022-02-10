@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 12:17:50 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/10 15:15:54 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ int	main(int ac, char **av)
 	//	ft_print_pile(begin->pile_a);
 	//	ft_print_pile(begin->pile_b);
 	//	ft_pileclear(&begin->pile_a);
-//	ft_print_begin(begin);
+//	ft_print_pile(begin->pile_a);
 //	ft_print_chunk(chunk);
 	free(begin->pile_b);
 	free(begin);

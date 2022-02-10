@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 17:18:26 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/21 10:11:39 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/10 14:58:19 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ long	ft_atoi(const char *str)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		integer = (integer * 10) + (str[i] - '0');
+		if (str[i] != '0')
+			integer = (integer * 10) + (str[i] - '0');
 		i++;
 	}
 	return (integer * minus);
