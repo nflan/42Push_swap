@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:14 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 15:15:26 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/10 17:16:43 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ char	**ft_fill_argv(char **tab, int ac, char **av)
 	else
 	{
 		tab = ft_calloc(sizeof(char *), ac);
-		if (!tab)
-			return (0);
 		while (av[++i])
 		{
 			k = -1;

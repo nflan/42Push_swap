@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:07 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 15:15:18 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/10 15:22:30 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_check_double(t_pile *ptr)
 {
-	t_pile *tmp;
-	t_pile *tmp2;
+	t_pile	*tmp;
+	t_pile	*tmp2;
 	int		check;
 
 	tmp = ptr;

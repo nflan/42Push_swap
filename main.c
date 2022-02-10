@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 15:15:54 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/10 17:20:59 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		ft_rr_rrr(t_roll *roll)
 	}
 	if (rolling + oui <= ((rrolling + non) * -1))// || ((roll->ra + roll->rb) < ((roll->rra + roll->rrb) * - 1)))
 		return (rolling);
-	else if	(rolling > ((rrolling - non) * -1))// || ((roll->ra + roll->rb) > ((roll->rra + roll->rrb) * - 1)))
+	else if	(rolling + oui > ((rrolling - non) * -1))// || ((roll->ra + roll->rb) > ((roll->rra + roll->rrb) * - 1)))
 		return (rrolling);
 	else
 		return (0);
@@ -189,9 +189,14 @@ int	main(int ac, char **av)
 	//	ft_pileclear(&begin->pile_a);
 //	ft_print_pile(begin->pile_a);
 //	ft_print_chunk(chunk);
+	while (begin->pile_a)
+	{
+		free(begin->pile_a);
+		begin->pile_a = begin->pile_a->next;
+	}
 	free(begin->pile_b);
 	free(begin);
 	free(chunk);
-	//	while (1){}
+		while (1){}
 	return (0);
 }

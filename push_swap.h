@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 15:13:23 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/10 15:55:59 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ t_pile	*ft_pile_chunk(t_begin *begin);
 
 // MANAGE A
 void	ft_finish_rotate_a(t_begin *btmp, t_chunk *chunk, int ind, int ra);
+int		ft_find_last(t_pile *pile, t_chunk *chunk, int ind, int nbtmp);
+int		ft_find_rra_rrb(t_pile *pile, t_chunk *chunk, int ind, int nbtmp);
 int		ft_nb_next_p(t_begin *btmp, t_chunk *chunk, int ind);
 int		ft_nb_ra_rra(t_begin *btmp, int nbr, t_roll *roll);
 
