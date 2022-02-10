@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 12:20:34 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/10 15:13:23 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_print_begin(t_begin *begin);
 int		ft_rr_rrr(t_roll *roll);
 
 // CHECK
-int		ft_check_double(char **tab, int check);
+int		ft_check_double(t_pile *ptr);
 int		ft_check_tab(char **tab);
 t_chunk	*ft_chunknew(int min, int max, int index, int i);
 t_pile	*ft_pilenew(int n);
@@ -61,8 +61,6 @@ int		ft_count_line(char **tab);
 
 // FILL
 t_pile	*ft_fill_pile(char **tab);
-void	ft_fill_pile_b(t_begin *begin);
-char	ft_next_to_move(t_pile **pile, int med);
 char	**ft_fill_argv(char **tab, int ac, char **av);
 
 // OP
