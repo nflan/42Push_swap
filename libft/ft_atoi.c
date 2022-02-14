@@ -29,10 +29,11 @@ long	ft_atoi(const char *str)
 			minus *= -1;
 		i++;
 	}
+	while (str[i] == '0')
+		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (str[i] != '0')
-			integer = (integer * 10) + (str[i] - '0');
+		integer = (integer * 10) + (str[i] - '0');
 		i++;
 	}
 	return (integer * minus);

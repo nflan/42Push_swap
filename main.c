@@ -116,7 +116,7 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk)
 	int		nb;
 
 	if (ft_lstsize(begin->pile_a) > 239)
-		i = 20;
+		i = 30;
 	else
 		i = 0;
 	nb = 2147483646;
@@ -126,7 +126,7 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk)
 	else
 	{
 		tmp = ft_pile_chunk(begin);
-		while (i++ < 75 && (ft_lstsize(tmp) - i) > -1)
+		while (i++ < 55 && (ft_lstsize(tmp) - i) > -1)
 		{
 			btmp = ft_begin_cpy(begin, nb + 1);
 			chunk = ft_fill_chunks(tmp, i, 1);
@@ -189,7 +189,7 @@ int	main(int ac, char **av)
 	//	ft_pileclear(&begin->pile_a);
 //	ft_print_pile(begin->pile_a);
 //	ft_print_chunk(chunk);
-	while (begin->pile_a)
+/*	while (begin->pile_a)
 	{
 		free(begin->pile_a);
 		begin->pile_a = begin->pile_a->next;
@@ -198,5 +198,5 @@ int	main(int ac, char **av)
 	free(begin);
 	free(chunk);
 		while (1){}
-	return (0);
+*/	return (0);
 }
