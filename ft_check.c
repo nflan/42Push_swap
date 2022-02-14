@@ -28,7 +28,10 @@ int	ft_check_double(t_pile *ptr)
 			while (tmp2 && check)
 			{
 				if (tmp->num == tmp2->num)
+				{
+					ft_printf("tmp->num = %i & tmp2->num = %i\n", tmp->num, tmp2->num);
 					check = 0;
+				}
 				tmp2 = tmp2->next;
 			}
 			tmp = tmp->next;

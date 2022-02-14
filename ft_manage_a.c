@@ -83,13 +83,13 @@ int	ft_nb_next_p(t_begin *btmp, t_chunk *chunk, int ind)
 		tmp = tmp->next;
 	nbr = tmp->num;
 	nbtmp = nbr;
-	if (tmp)
-	{
-		nbtmp = ft_find_last(tmp, chunk, ind, nbtmp);
-		y = ft_find_rra_rrb(tmp, chunk, ind, nbtmp);
-	}
-	if (i <= y)
-		return (nbr);
+//	if (tmp)
+//	{
+//		nbtmp = ft_find_last(tmp, chunk, ind, nbtmp);
+//		y = ft_find_rra_rrb(tmp, chunk, ind, nbtmp);
+//	}
+//	if (i <= y)
+///		return (nbr);
 	return (nbtmp);
 }
 
