@@ -13,7 +13,7 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include "../push_swap.h"
+# include "../include/push_swap.h"
 # include <string.h>
 # include <stdio.h>
 # include <stdlib.h>

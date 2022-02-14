@@ -10,7 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../include/push_swap.h"
+
+int		ft_nb_chunk(t_begin *btmp, int nbsize, int i)
+{
+	int	nbchunk;
+
+	nbchunk = 0;
+	if (ft_lstsize(btmp->pile_a) % i)
+		nbchunk = ft_lstsize(btmp->pile_a) / i + 1;
+	else
+		nbchunk = ft_lstsize(btmp->pile_a) / i;
+	if (nbchunk == nbsize)
+		return (0);
+	else
+		return (nbchunk);
+}
 
 int	ft_min_max_chunk(t_chunk *chunk, int ind, int ext)
 {
@@ -29,24 +44,6 @@ int	ft_min_max_chunk(t_chunk *chunk, int ind, int ext)
 	return (0);
 }
 
-int	pile_is_sort(t_pile *pile)
-{
-	t_pile	*tmp;
-
-	tmp = pile;
-	if (tmp)
-	{
-		while (tmp->next)
-		{
-			if (tmp->num < tmp->next->num)
-				tmp = tmp->next;
-			else
-				return (0);
-		}
-	}
-	return (1);
-}
-
 t_pile	*sort_pile(t_pile *pile)
 {
 	t_pile	*tmp;
@@ -55,7 +52,7 @@ t_pile	*sort_pile(t_pile *pile)
 
 	tmp = pile;
 	begin = pile;
-	while (!pile_is_sort(pile) && begin)
+	while (!pile_is_incr(pile) && begin)
 	{
 		while (tmp)
 		{
