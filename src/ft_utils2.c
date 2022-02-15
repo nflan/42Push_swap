@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_utils2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/15 11:27:56 by nflan             #+#    #+#             */
+/*   Updated: 2022/02/15 12:43:41 by nflan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/push_swap.h"
 
 int	pile_is_incr(t_pile *pile)
@@ -76,21 +88,19 @@ t_begin	*ft_begin_cpy(t_begin *begin, int bmoves)
 	t_begin	*new;
 
 	new = ft_calloc(sizeof(t_begin), 1);
-	new->pile_a = ft_calloc(sizeof(t_pile), 1);
 	new->pile_a = ft_fill_cpy(begin->pile_a);
 	new->pile_b = ft_calloc(sizeof(t_pile), 1);
-	new->pile_b = NULL;
 	new->moves = 0;
 	new->bmoves = bmoves;
 	new->print = 0;
 	return (new);
 }
 
-t_begin *ft_create_begin(t_begin *begin)
+t_begin *ft_create_begin(t_begin *begin, int need_b)
 {
 	begin = ft_calloc(sizeof(t_begin), 1);
-	begin->pile_b = ft_calloc(sizeof(t_pile), 1);
-	begin->pile_b = NULL;
+	if (need_b > 3)
+		begin->pile_b = ft_calloc(sizeof(t_pile), 1);
 	begin->moves = 0;
 	begin->bmoves = 0;
 	begin->print = 1;

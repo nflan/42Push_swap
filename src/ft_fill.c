@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:14 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 17:16:43 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 11:53:41 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_pile	*ft_fill_pile(char **tab)
 		ptr = ft_pilenew(nbr);
 		ptr->next = pile;
 		pile = ptr;
-		tab[i] = NULL;
+		tab[i][0] = '\0';
 		free(tab[i]);
 	}
 	free(tab);

@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 17:50:46 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 17:26:05 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 12:57:37 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_find_last(t_pile *pile, t_chunk *chunk, int ind, int nbtmp)
 	return (nbtmp);
 }
 
-int	ft_find_rra_rrb(t_pile *pile, t_chunk *chunk, int ind, int nbtmp)
+/*int	ft_find_rra_rrb(t_pile *pile, t_chunk *chunk, int ind, int nbtmp)
 {
 	t_pile	*tmp;
 	int		y;
@@ -62,7 +62,7 @@ int	ft_find_rra_rrb(t_pile *pile, t_chunk *chunk, int ind, int nbtmp)
 		}
 	}
 	return (y);
-}
+}*/
 
 int	ft_nb_next_p(t_begin *btmp, t_chunk *chunk, int ind)
 {
@@ -70,16 +70,16 @@ int	ft_nb_next_p(t_begin *btmp, t_chunk *chunk, int ind)
 	int		nbtmp;
 	int		nbr;
 	int		i;
-	int		y;
+//	int		y;
 
 	tmp = btmp->pile_a;
 	i = 0;
-	y = 0;
+//	y = 0;
 	if (!tmp)
 		return (0);
 	if (ft_lstsize(tmp) == 1)
 		return (tmp->num);
-	while (++i && tmp && !ft_min_in_max(tmp, chunk, ind))
+	while (++i && tmp && !ft_min_in_max(tmp, chunk, ind) != 0)
 		tmp = tmp->next;
 	nbr = tmp->num;
 	nbtmp = nbr;
