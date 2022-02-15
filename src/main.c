@@ -6,11 +6,38 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 17:20:59 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 13:13:58 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
+
+void	ft_clear_begin(t_begin *begin)
+{
+	if (begin->pile_a)
+		ft_pileclear(&begin->pile_a);
+	free(begin->pile_a);
+	if (begin->pile_b)
+		ft_pileclear(&begin->pile_b);
+	free(begin->pile_b);
+	free(begin);
+}
+
+void	ft_clear_chunk(t_chunk *chunk)
+{
+	t_chunk	*tmp;
+
+	if (chunk)
+	{
+		while (chunk)
+		{
+			tmp = chunk;
+			chunk = tmp->next;
+			free(tmp);
+		}
+	}
+	chunk = NULL;
+}
 
 void	ft_sort(t_begin *begin)
 {
@@ -26,7 +53,6 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk)
 {
 	t_pile	*tmp;
 	t_begin	*btmp;
-//	t_begin	*tofree;
 	int		i;
 	int		index;
 	int		nb;
@@ -61,13 +87,14 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk)
 		//	ft_print_begin(btmp);
 //			ft_print_chunk(chunk);
 //			ft_printf("moves / nb = %i\n", btmp->moves);
-		//	tofree = btmp;
-		//	free(tofree);
+			ft_clear_begin(btmp);
+			ft_clear_chunk(chunk);
 		}
 //		ft_printf("best moves / nb = %i\n", nb);
 		begin->bmoves = nb;
 		chunk = ft_fill_chunks(tmp, index, 1);
 		ft_fill_b(begin, chunk);
+		ft_clear_chunk(chunk);
 //		ft_print_chunk(chunk);
 	//	ft_printf("moves begin = %i\n", begin->moves);
 	//	ft_print_begin(begin);
@@ -86,7 +113,7 @@ int	main(int ac, char **av)
 	if (ac < 2)
 		return (0);
 	tab = ft_fill_argv(tab, ac, av);
-	begin = ft_create_begin(begin);
+	begin = ft_create_begin(begin, ft_count_line(tab));
 	begin->pile_a = ft_fill_pile(tab);
 	ft_choose_sort(begin, chunk);
 	//	ft_print_pile(begin->pile_a);
@@ -94,15 +121,7 @@ int	main(int ac, char **av)
 	//	ft_pileclear(&begin->pile_a);
 //	ft_print_pile(begin->pile_a);
 //	ft_print_chunk(chunk);
-/*	while (begin->pile_a)
-	{
-		free(begin->pile_a);
-		begin->pile_a = begin->pile_a->next;
-	}*/
-	free(begin->pile_a);
-//	free(begin->pile_b);
-	free(begin);
-//	free(chunk);
-		while (1){}
+//	ft_print_begin(begin);
+	ft_clear_begin(begin);
 	return (0);
 }

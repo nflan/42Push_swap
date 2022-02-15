@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:07 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 15:22:30 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 12:18:15 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ int	ft_check_double(t_pile *ptr)
 			while (tmp2 && check)
 			{
 				if (tmp->num == tmp2->num)
-				{
-					ft_printf("tmp->num = %i & tmp2->num = %i\n", tmp->num, tmp2->num);
 					check = 0;
-				}
 				tmp2 = tmp2->next;
 			}
 			tmp = tmp->next;

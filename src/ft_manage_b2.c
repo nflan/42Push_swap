@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 10:41:17 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 17:07:01 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 13:24:22 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	ft_b_clean(t_begin *begin)
 			tmp = tmp->next;
 		}
 		if (i <= ft_lstsize(begin->pile_b) / 2)
-			while (i-- && begin->bmoves > begin->moves)
+			while (i-- && begin->bmoves > begin->moves)// && tmp->num != max 
 				begin->moves += ft_rotate(begin, &begin->pile_b, 2);
 		else
 		{

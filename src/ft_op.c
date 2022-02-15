@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:19 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 17:07:07 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 12:32:04 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	ft_push(t_begin *begin, t_pile **pstart, t_pile **pend, int p)
 		tmpend->next = *pend;
 		*pend = tmpend;
 		*pstart = tmpstart->next;
+		free(tmpstart);
 		if (begin->print)
 		{
 			if (p == 1)

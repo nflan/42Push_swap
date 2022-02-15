@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:21:44 by nflan             #+#    #+#             */
-/*   Updated: 2022/01/25 12:04:54 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 12:25:49 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	ft_pileclear(t_pile **pile)
 	{
 		while (*pile)
 		{
-			*pile = NULL;
 			tmp = *pile;
 			*pile = tmp->next;
 			free(tmp);

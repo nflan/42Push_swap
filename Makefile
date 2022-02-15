@@ -6,7 +6,7 @@
 #    By: nflan <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 12:13:30 by nflan             #+#    #+#              #
-#    Updated: 2021/12/03 10:53:19 by nflan            ###   ########.fr        #
+#    Updated: 2022/02/15 11:22:20 by nflan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ CC = gcc
 
 RM = rm -f
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 .c.o :
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
@@ -34,7 +34,7 @@ all: ${NAME}
 
 $(NAME): ${OBJS}
 	cd libft && make
-	${CC} ${CFLAGS} -I ${INC} libft/libft.a ${OBJS} -o ${NAME}
+	${CC} ${CFLAGS} ${OBJS} -I ${INC} libft/libft.a -o ${NAME}
 
 clean:
 	cd libft && make clean
