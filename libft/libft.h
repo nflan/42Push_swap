@@ -6,14 +6,13 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 16:50:07 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 12:24:52 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 17:27:52 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include "../include/push_swap.h"
 # include <string.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -26,6 +25,39 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+typedef struct s_pile
+{
+	int				num;
+	struct s_pile	*next;
+}	t_pile;
+
+typedef struct s_roll
+{
+	int				ra;
+	int				rra;
+	int				rb;
+	int				rrb;
+	struct s_roll	*next;
+}	t_roll;
+
+typedef struct s_chunk
+{
+	int				min;
+	int				max;
+	int				index;
+	int				size;
+	struct s_chunk	*next;
+}	t_chunk;
+
+typedef struct s_begin
+{
+	t_pile			*pile_a;
+	t_pile			*pile_b;
+	int				moves;
+	int				bmoves;
+	int				print;
+}	t_begin;
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);

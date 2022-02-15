@@ -6,49 +6,21 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 11:56:05 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 17:27:59 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-typedef struct s_pile
-{
-	int				num;
-	struct s_pile	*next;
-}	t_pile;
-
-typedef struct s_roll
-{
-	int				ra;
-	int				rra;
-	int				rb;
-	int				rrb;
-	struct s_roll	*next;
-}	t_roll;
-
-typedef struct s_chunk
-{
-	int				min;
-	int				max;
-	int				index;
-	int				size;
-	struct s_chunk	*next;
-}	t_chunk;
-
-typedef struct s_begin
-{
-	t_pile			*pile_a;
-	t_pile			*pile_b;
-	int				moves;
-	int				bmoves;
-	int				print;
-}	t_begin;
-
 # include "../libft/libft.h"
 
-// MAIN
+// SORT CLEAR
+void	ft_clear_begin(t_begin *begin);
+void	ft_clear_chunk(t_chunk *chunk);
+void	ft_sort(t_begin *begin);
+void	ft_big_sort(t_begin *begin, t_chunk *chunk, int i, int nb);
+void	ft_choose_sort(t_begin *begin, t_chunk *chunk);
 
 // CHECK
 int		ft_check_double(t_pile *ptr);
@@ -60,6 +32,7 @@ int		ft_count_line(char **tab);
 // FILL
 t_pile	*ft_fill_pile(char **tab);
 char	**ft_fill_argv(char **tab, int ac, char **av);
+t_pile	*ft_fill_cpy(t_pile *pile);
 
 // OP
 int		ft_swap(t_begin *begin, t_pile **pile, int p);
@@ -88,11 +61,12 @@ int		ft_is_sort(t_begin *begin);
 void	ft_push_all_to_a(t_begin *begin);
 int		ft_nb_rra(t_pile *pile, t_chunk *chunk, int ind);
 int		ft_nb_ra(t_pile *pile, t_chunk *chunk, int ind);
+int		ft_biggest(int nb1, int nb2);
 
 // UTILS 2
-int		pile_is_incr(t_pile *pile);
+int		pile_incr(t_pile *pile);
+int		ft_rr_rrr2(t_roll *roll, int rolling, int nbrr);
 int		ft_rr_rrr(t_roll *roll);
-t_pile	*ft_fill_cpy(t_pile *pile);
 t_begin	*ft_begin_cpy(t_begin *begin, int bmoves);
 t_begin	*ft_create_begin(t_begin *begin, int need_b);
 
@@ -120,7 +94,6 @@ int		ft_nb_rb_rrb_bis(t_begin *btmp, int nbr);
 // MABAGE B 2
 void	ft_next_to_b(t_begin *btmp, t_chunk *chunk, int ind);
 void	ft_do_rr_rrr(t_begin *btmp, int rr_rrr);
-int		ft_biggest(int nb1, int nb2);
 void	ft_move_both(t_begin *btmp, t_chunk *chunk, int ind, t_roll *roll);
 void	ft_fill_b(t_begin *btmp, t_chunk *chunk);
 void	ft_b_clean(t_begin *btmp);

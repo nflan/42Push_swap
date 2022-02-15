@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:27:06 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/09 16:03:27 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 16:42:39 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,17 @@ int	ft_nb_ra(t_pile *pile, t_chunk *chunk, int ind)
 		}
 		return (ra);
 	}
+}
+
+int	ft_biggest(int nb1, int nb2)
+{
+	if (nb1 >= 0 && nb2 >= 0)
+	{
+		if (nb1 > nb2)
+			return (nb1);
+		return (nb2);
+	}
+	if (nb1 < nb2)
+		return (nb1);
+	return (nb2);
 }
