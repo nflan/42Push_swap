@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 17:43:11 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 21:01:15 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		pile_incr(t_pile *pile);
 int		ft_rr_rrr2(t_roll *roll, int rolling, int nbrr);
 int		ft_rr_rrr(t_roll *roll);
 t_begin	*ft_begin_cpy(t_begin *begin, int bmoves);
-t_begin	*ft_create_begin(t_begin *begin, int need_b);
+t_begin	*ft_create_begin(t_begin *begin);
 
 // CHUNKS
 int		ft_nb_chunk(t_begin *btmp, int nbsize, int i);

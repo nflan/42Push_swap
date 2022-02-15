@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:27:56 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 16:55:03 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 21:00:48 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ t_begin	*ft_begin_cpy(t_begin *begin, int bmoves)
 
 	new = ft_calloc(sizeof(t_begin), 1);
 	new->pile_a = ft_fill_cpy(begin->pile_a);
-	new->pile_b = ft_calloc(sizeof(t_pile), 1);
 	new->pile_b = NULL;
 	new->moves = 0;
 	new->bmoves = bmoves;
@@ -85,14 +84,10 @@ t_begin	*ft_begin_cpy(t_begin *begin, int bmoves)
 	return (new);
 }
 
-t_begin	*ft_create_begin(t_begin *begin, int need_b)
+t_begin	*ft_create_begin(t_begin *begin)
 {
 	begin = ft_calloc(sizeof(t_begin), 1);
-	if (need_b > 3)
-	{
-		begin->pile_b = ft_calloc(sizeof(t_pile), 1);
-		begin->pile_b = NULL;
-	}
+	begin->pile_b = NULL;
 	begin->moves = 0;
 	begin->bmoves = 0;
 	begin->print = 1;

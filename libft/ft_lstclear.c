@@ -6,26 +6,26 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:21:44 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 12:25:49 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 20:53:24 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_pileclear(t_pile **pile)
+void	ft_pileclear(t_pile *pile)
 {
 	t_pile	*tmp;
 
-	if (*pile)
+	if (pile)
 	{
-		while (*pile)
+		while (pile)
 		{
-			tmp = *pile;
-			*pile = tmp->next;
+			tmp = pile;
+			pile = tmp->next;
 			free(tmp);
 		}
 	}
-	*pile = NULL;
+	pile = NULL;
 }
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))
