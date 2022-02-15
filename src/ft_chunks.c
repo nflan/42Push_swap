@@ -6,13 +6,13 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:16:04 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/09 15:46:25 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 16:55:38 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int		ft_nb_chunk(t_begin *btmp, int nbsize, int i)
+int	ft_nb_chunk(t_begin *btmp, int nbsize, int i)
 {
 	int	nbchunk;
 
@@ -52,7 +52,7 @@ t_pile	*sort_pile(t_pile *pile)
 
 	tmp = pile;
 	begin = pile;
-	while (!pile_is_incr(pile) && begin)
+	while (!pile_incr(pile) && begin)
 	{
 		while (tmp)
 		{

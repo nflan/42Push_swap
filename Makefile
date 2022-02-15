@@ -6,14 +6,14 @@
 #    By: nflan <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 12:13:30 by nflan             #+#    #+#              #
-#    Updated: 2022/02/15 11:22:20 by nflan            ###   ########.fr        #
+#    Updated: 2022/02/15 17:35:47 by nflan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = src/ft_check.c src/ft_chunks.c src/ft_double_triple.c src/ft_fill.c \
 		src/ft_five.c src/ft_five_tools.c src/ft_manage_a.c src/ft_manage_b.c \
 		src/ft_manage_b2.c src/ft_op.c src/ft_roll.c src/ft_utils.c src/main.c \
-		src/print_debug.c src/ft_utils2.c
+		src/print_debug.c src/ft_utils2.c src/ft_sort_clear.c
 
 INC =	include/push_swap.h
 
@@ -33,15 +33,15 @@ CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 all: ${NAME}
 
 $(NAME): ${OBJS}
-	cd libft && make
+	$(MAKE) -C libft/
 	${CC} ${CFLAGS} ${OBJS} -I ${INC} libft/libft.a -o ${NAME}
 
 clean:
-	cd libft && make clean
+	$(MAKE) clean -C libft/
 	${RM} ${OBJS}
 
 fclean:
-	cd libft && make fclean
+	$(MAKE) fclean -C libft/
 	${RM} ${NAME}
 	${RM} ${OBJS}
 

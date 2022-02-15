@@ -6,13 +6,13 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:27:56 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 12:43:41 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 16:55:03 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-int	pile_is_incr(t_pile *pile)
+int	pile_incr(t_pile *pile)
 {
 	t_pile	*tmp;
 
@@ -30,57 +30,45 @@ int	pile_is_incr(t_pile *pile)
 	return (1);
 }
 
-int		ft_rr_rrr(t_roll *roll)
+int	ft_rr_rrr2(t_roll *roll, int rolling, int nbrr)
 {
-	int	rolling;
-	int oui;
-	int rrolling;
-	int	non;
+	int	rrolling;
+	int	nbrrr;
 
-	if (roll->ra <= roll->rb)
-	{
-		rolling = roll->ra;
-		oui = roll->rb - roll->ra;
-	}
-	else
-	{
-		rolling = roll->rb;
-		oui = roll->ra - roll->rb;
-	}
 	if (roll->rra >= roll->rrb)
 	{
 		rrolling = roll->rra;
-		non = roll->rrb - roll->rra;
+		nbrrr = roll->rrb - roll->rra;
 	}
 	else
 	{
 		rrolling = roll->rrb;
-		non = roll->rra - roll->rrb;
+		nbrrr = roll->rra - roll->rrb;
 	}
-	if (rolling + oui <= ((rrolling + non) * -1))// || ((roll->ra + roll->rb) < ((roll->rra + roll->rrb) * - 1)))
+	if (rolling + nbrr <= ((rrolling + nbrrr) * -1))
 		return (rolling);
-	else if	(rolling + oui > ((rrolling - non) * -1))// || ((roll->ra + roll->rb) > ((roll->rra + roll->rrb) * - 1)))
+	else if (rolling + nbrr > ((rrolling - nbrrr) * -1))
 		return (rrolling);
 	else
 		return (0);
 }
 
-t_pile	*ft_fill_cpy(t_pile *pile)
+int	ft_rr_rrr(t_roll *roll)
 {
-	t_pile	*begin;
-	t_pile	*ptr;
-	t_pile	*new;
+	int	rolling;
+	int	nbrr;
 
-	begin = pile;
-	ptr = NULL;
-	new = NULL;
-	while (begin)
+	if (roll->ra <= roll->rb)
 	{
-		ptr = ft_pilenew(begin->num);
-		ft_lstadd_back(&new, ptr);
-		begin = begin->next;
+		rolling = roll->ra;
+		nbrr = roll->rb - roll->ra;
 	}
-	return (new);
+	else
+	{
+		rolling = roll->rb;
+		nbrr = roll->ra - roll->rb;
+	}
+	return (ft_rr_rrr2(roll, rolling, nbrr));
 }
 
 t_begin	*ft_begin_cpy(t_begin *begin, int bmoves)
@@ -90,17 +78,21 @@ t_begin	*ft_begin_cpy(t_begin *begin, int bmoves)
 	new = ft_calloc(sizeof(t_begin), 1);
 	new->pile_a = ft_fill_cpy(begin->pile_a);
 	new->pile_b = ft_calloc(sizeof(t_pile), 1);
+	new->pile_b = NULL;
 	new->moves = 0;
 	new->bmoves = bmoves;
 	new->print = 0;
 	return (new);
 }
 
-t_begin *ft_create_begin(t_begin *begin, int need_b)
+t_begin	*ft_create_begin(t_begin *begin, int need_b)
 {
 	begin = ft_calloc(sizeof(t_begin), 1);
 	if (need_b > 3)
+	{
 		begin->pile_b = ft_calloc(sizeof(t_pile), 1);
+		begin->pile_b = NULL;
+	}
 	begin->moves = 0;
 	begin->bmoves = 0;
 	begin->print = 1;

@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 10:41:17 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 13:24:22 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 16:34:35 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,6 @@ void	ft_do_rr_rrr(t_begin *btmp, int rr_rrr)
 	}
 }
 
-int	ft_biggest(int nb1, int nb2)
-{
-	if (nb1 >= 0 && nb2 >= 0)
-	{
-		if (nb1 > nb2)
-			return (nb1);
-		return (nb2);
-	}
-	if (nb1 < nb2)
-		return (nb1);
-	return (nb2);
-}
-
 void	ft_move_both(t_begin *btmp, t_chunk *chunk, int ind, t_roll *roll)
 {
 	int		rolling;
@@ -69,8 +56,6 @@ void	ft_move_both(t_begin *btmp, t_chunk *chunk, int ind, t_roll *roll)
 	ra = ft_nb_ra_rra(btmp, ft_nb_next_p(btmp, chunk, ind), roll);
 	rb = ft_nb_rb_rrb(btmp, ft_nb_next_p(btmp, chunk, ind), roll);
 	rolling = ft_rr_rrr(roll);
-//	ft_printf("rolling = %i\n", rolling);
-//	ft_print_roll(roll);
 	if (ra && rb)
 	{
 		if (rolling > 0 && ra > 0 && btmp->bmoves > btmp->moves
@@ -127,7 +112,7 @@ void	ft_b_clean(t_begin *begin)
 			tmp = tmp->next;
 		}
 		if (i <= ft_lstsize(begin->pile_b) / 2)
-			while (i-- && begin->bmoves > begin->moves)// && tmp->num != max 
+			while (i-- && begin->bmoves > begin->moves)
 				begin->moves += ft_rotate(begin, &begin->pile_b, 2);
 		else
 		{

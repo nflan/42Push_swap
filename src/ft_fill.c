@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:14 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 11:53:41 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/15 16:33:34 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,22 @@ char	**ft_fill_argv(char **tab, int ac, char **av)
 	}
 	ft_check_tab(tab);
 	return (tab);
+}
+
+t_pile	*ft_fill_cpy(t_pile *pile)
+{
+	t_pile	*begin;
+	t_pile	*ptr;
+	t_pile	*new;
+
+	begin = pile;
+	ptr = NULL;
+	new = NULL;
+	while (begin)
+	{
+		ptr = ft_pilenew(begin->num);
+		ft_lstadd_back(&new, ptr);
+		begin = begin->next;
+	}
+	return (new);
 }
