@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 10:41:17 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/16 14:56:19 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/16 15:56:51 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void	ft_fill_b(t_begin *btmp, t_chunk *chunk, t_global *global, int r)
 		ft_b_clean(btmp);
 		ft_push_all_to_a(btmp, global);
 	}
-	ft_clear_chunk(chunk);
 }
 
 void	ft_b_clean(t_begin *begin)

@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/16 12:28:21 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/16 16:06:20 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int ac, char **av)
 	begin = ft_create_begin(begin, global);
 	begin->pile_a = ft_fill_pile(tab, global);
 	ft_choose_sort(begin, chunk, global);
+	ft_clear_begin(begin);
 	free(global);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:11:22 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/16 14:55:19 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/16 16:06:22 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_chunk	*ft_big_sort(t_begin *begin, t_chunk *chunk, int i, t_global *global)
 			index = i;
 		}
 		ft_clear_begin(btmp);
+		ft_clear_chunk(chunk);
 	}
 	begin->bmoves = nb;
 	chunk = ft_fill_chunks(tmp, index, 1, global);
@@ -83,10 +84,9 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk, t_global *global)
 
 	ctmp = NULL;
 	ctmp2 = NULL;
+	i = 0;
 	if (ft_lstsize(begin->pile_a) > 239)
 		i = 30;
-	else
-		i = 0;
 	if (ft_lstsize(begin->pile_a) < 10)
 		ft_sort(begin, global);
 	else
@@ -98,6 +98,8 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk, t_global *global)
 			ft_fill_b(begin, ctmp, global, 1);
 		else
 			ft_fill_b(begin, ctmp2, global, 2);
+		ft_clear_chunk(ctmp);
+		ft_clear_chunk(ctmp2);
+		ft_clear_chunk(chunk);
 	}
-	ft_clear_begin(begin);
 }
