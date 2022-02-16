@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 14:58:33 by nflan             #+#    #+#             */
-/*   Updated: 2021/11/30 10:38:05 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/16 12:20:07 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 
 	tab = malloc(nmemb * size);
 	if (!tab)
-		exit(EXIT_FAILURE);
+		return (0);
 	ft_bzero(tab, nmemb * size);
 	return (tab);
 }

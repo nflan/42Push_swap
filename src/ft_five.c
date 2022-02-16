@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:42:08 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/10 15:23:09 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/16 13:52:35 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_five_ra_rra(t_begin *begin, int next)
 	return (rra);
 }
 
-void	ft_back_to_a(t_begin *begin)
+void	ft_back_to_a(t_begin *begin, t_global *global)
 {
 	int	pile_max;
 	int	pile_min;
@@ -86,21 +86,21 @@ void	ft_back_to_a(t_begin *begin)
 			else if (ra < 0)
 				while (ra++)
 					ft_reverse_rotate(begin, &begin->pile_a, 1);
-			ft_push(begin, &begin->pile_b, &begin->pile_a, 2);
+			ft_push(begin, 2, global);
 		}
 	}
 }
 
-void	ft_five(t_begin *begin)
+void	ft_five(t_begin *begin, t_global *global)
 {
 	int	ra;
 
 	if (ft_is_sort(begin) != 3)
 	{
 		while (ft_lstsize(begin->pile_a) > 3)
-			ft_push(begin, &begin->pile_a, &begin->pile_b, 1);
+			ft_push(begin, 1, global);
 		ft_triple(begin, 1);
-		ft_back_to_a(begin);
+		ft_back_to_a(begin, global);
 		ra = ft_five_ra_rra(begin, ft_pile_min(begin, 1));
 		if (ra > 0)
 		{

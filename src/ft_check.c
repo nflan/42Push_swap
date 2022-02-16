@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:07 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 12:18:15 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/16 12:07:32 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ t_chunk	*ft_chunknew(int min, int max, int index, int i)
 	t_chunk	*new;
 
 	new = ft_calloc(sizeof(t_chunk), 1);
+	if (!new)
+		return (0);
 	new->min = min;
 	new->max = max;
 	new->index = index;
@@ -75,11 +77,13 @@ t_chunk	*ft_chunknew(int min, int max, int index, int i)
 	return (new);
 }
 
-t_pile	*ft_pilenew(int n)
+t_pile	*ft_pilenew(int n, t_global *global)
 {
 	t_pile	*new;
 
 	new = ft_calloc(sizeof(t_pile), 1);
+	if (!new)
+		ft_exit(global);
 	new->num = n;
 	new->next = NULL;
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:19 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 20:55:41 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/16 14:07:03 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,55 @@ int	ft_swap(t_begin *begin, t_pile **pile, int p)
 	return (0);
 }
 
-int	ft_push(t_begin *begin, t_pile **pstart, t_pile **pend, int p)
+int	ft_push_a(t_begin *begin, t_global *global)
 {
 	t_pile	*tmpstart;
 	t_pile	*tmpend;
 	int		nbr;
 
-	tmpstart = *pstart;
-	tmpend = *pend;
 	nbr = 0;
-	if (*pstart)
+	tmpstart = begin->pile_a;
+	tmpend = begin->pile_b;
+	if (!tmpstart)
+		return (0);
+	nbr = tmpstart->num;
+	tmpend = ft_pilenew(nbr, global);
+	tmpend->next = begin->pile_b;
+	begin->pile_b = tmpend;
+	begin->pile_a = tmpstart->next;
+	free(tmpstart);
+	if (begin->print)
+		ft_printf("pb\n");
+	return (1);
+}
+
+int	ft_push(t_begin *begin, int p, t_global *global)
+{
+	t_pile	*tmpstart;
+	t_pile	*tmpend;
+	int		i;
+	int		nbr;
+
+	i = 1;
+	nbr = 0;
+	if (p == 1)
+		i = ft_push_a(begin, global);
+	else
 	{
+		tmpstart = begin->pile_b;
+		tmpend = begin->pile_a;
+		if (!tmpstart)
+			return (0);
 		nbr = tmpstart->num;
-		tmpend = ft_pilenew(nbr);
-		tmpend->next = *pend;
-		*pend = tmpend;
-		*pstart = tmpstart->next;
+		tmpend = ft_pilenew(nbr, global);
+		tmpend->next = begin->pile_a;
+		begin->pile_a = tmpend;
+		begin->pile_b = tmpstart->next;
 		free(tmpstart);
 		if (begin->print)
-		{
-			if (p == 1)
-				ft_printf("pb\n");
-			else if (p == 2)
-				ft_printf("pa\n");
-		}
-		return (1);
+			ft_printf("pa\n");
 	}
-	return (0);
+	return (i);
 }
 
 int	ft_reverse_rotate(t_begin *begin, t_pile **pstart, int p)
