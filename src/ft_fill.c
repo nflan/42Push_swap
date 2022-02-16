@@ -6,13 +6,13 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:14 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 16:33:34 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/16 12:18:44 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-t_pile	*ft_fill_pile(char **tab)
+t_pile	*ft_fill_pile(char **tab, t_global *global)
 {
 	t_pile	*pile;
 	t_pile	*ptr;
@@ -25,7 +25,7 @@ t_pile	*ft_fill_pile(char **tab)
 	while (i--)
 	{
 		nbr = ft_atoi(tab[i]);
-		ptr = ft_pilenew(nbr);
+		ptr = ft_pilenew(nbr, global);
 		ptr->next = pile;
 		pile = ptr;
 		tab[i][0] = '\0';
@@ -34,6 +34,25 @@ t_pile	*ft_fill_pile(char **tab)
 	free(tab);
 	if (ft_check_double(ptr))
 		return (ptr);
+	ft_exit(global);
+	return (0);
+}
+
+void	ft_exit_tab(char **tab)
+{
+	int	i;
+
+	i = ft_count_line(tab);
+	if (i > 0)
+	{
+		while (i--)
+		{
+			tab[i][0] = '\0';
+			free(tab[i]);
+		}
+	}
+	if (tab)
+		free(tab);
 	ft_putstr_fd("Error\n", 2);
 	exit (0);
 }
@@ -51,10 +70,14 @@ char	**ft_fill_argv(char **tab, int ac, char **av)
 	else
 	{
 		tab = ft_calloc(sizeof(char *), ac);
+		if (!tab)
+			ft_exit_tab(tab);
 		while (av[++i])
 		{
 			k = -1;
 			tab[++j] = ft_calloc(sizeof(char), ft_strlen(av[i]) + 1);
+			if (!tab[j])
+				ft_exit_tab(tab);
 			while (av[i][++k])
 				tab[j][k] = av[i][k];
 		}
@@ -63,7 +86,7 @@ char	**ft_fill_argv(char **tab, int ac, char **av)
 	return (tab);
 }
 
-t_pile	*ft_fill_cpy(t_pile *pile)
+t_pile	*ft_fill_cpy(t_pile *pile, t_global *global)
 {
 	t_pile	*begin;
 	t_pile	*ptr;
@@ -74,7 +97,7 @@ t_pile	*ft_fill_cpy(t_pile *pile)
 	new = NULL;
 	while (begin)
 	{
-		ptr = ft_pilenew(begin->num);
+		ptr = ft_pilenew(begin->num, global);
 		ft_lstadd_back(&new, ptr);
 		begin = begin->next;
 	}

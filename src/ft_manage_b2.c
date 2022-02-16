@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 10:41:17 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 16:34:35 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/16 14:56:19 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_move_both(t_begin *btmp, t_chunk *chunk, int ind, t_roll *roll)
 	ft_finish_rotate_a(btmp, chunk, ind, ra);
 }
 
-void	ft_fill_b(t_begin *btmp, t_chunk *chunk)
+void	ft_fill_b(t_begin *btmp, t_chunk *chunk, t_global *global, int r)
 {
 	t_roll	*roll;
 	int		ind;
@@ -81,18 +81,24 @@ void	ft_fill_b(t_begin *btmp, t_chunk *chunk)
 	while (btmp->pile_a && btmp->bmoves > btmp->moves)
 	{
 		roll = ft_calloc(sizeof(t_roll), 1);
-		ft_move_both(btmp, chunk, ind, roll);
+		if (!roll)
+			ft_exit(global);
+		if (r == 1)
+			ft_move_both(btmp, chunk, ind, roll);
+		else
+			ft_move_both_rra(btmp, chunk, ind, roll);
 		ft_next_to_b(btmp, chunk, ind);
 		free(roll);
-		btmp->moves += ft_push(btmp, &btmp->pile_a, &btmp->pile_b, 1);
+		btmp->moves += ft_push(btmp, 1, global);
 		if (!(ft_lstsize(btmp->pile_b) % chunk->size))
 			ind++;
 	}
 	if (btmp->bmoves > btmp->moves)
 	{
 		ft_b_clean(btmp);
-		ft_push_all_to_a(btmp);
+		ft_push_all_to_a(btmp, global);
 	}
+	ft_clear_chunk(chunk);
 }
 
 void	ft_b_clean(t_begin *begin)

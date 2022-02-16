@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:16:04 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 16:55:38 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/16 14:05:21 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,13 @@ t_pile	*sort_pile(t_pile *pile)
 	return (pile);
 }
 
-t_chunk	*ft_fill_chunks(t_pile *pile, int sizec, int index)
+t_chunk	*ft_fill_chunks(t_pile *pile, int sizec, int index, t_global *global)
 {
 	t_chunk	*chunk;
 	t_chunk	*tmp;
 	int		min;
 	int		i;
 
-	chunk = NULL;
 	tmp = NULL;
 	i = 0;
 	while (++i && pile)
@@ -87,6 +86,8 @@ t_chunk	*ft_fill_chunks(t_pile *pile, int sizec, int index)
 		if (i == sizec || !pile->next)
 		{
 			chunk = ft_chunknew(min, pile->num, index, sizec);
+			if (!chunk)
+				ft_exit(global);
 			chunk->next = tmp;
 			tmp = chunk;
 			index++;
@@ -94,10 +95,11 @@ t_chunk	*ft_fill_chunks(t_pile *pile, int sizec, int index)
 		}
 		pile = pile->next;
 	}
+	global->chunk = chunk;
 	return (chunk);
 }
 
-t_pile	*ft_pile_chunk(t_begin *begin)
+t_pile	*ft_pile_chunk(t_begin *begin, t_global *global)
 {
 	t_pile	*pile;
 	t_pile	*tmp;
@@ -109,11 +111,17 @@ t_pile	*ft_pile_chunk(t_begin *begin)
 	while (tmp)
 	{
 		pile = ft_calloc(sizeof(t_pile), 1);
+		if (!pile)
+		{
+			ft_pileclear(ptr);
+			ft_exit(global);
+		}
 		pile->num = tmp->num;
 		pile->next = ptr;
 		ptr = pile;
 		tmp = tmp->next;
 	}
 	pile = sort_pile(pile);
+	global->pile = pile;
 	return (pile);
 }

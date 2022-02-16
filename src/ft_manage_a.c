@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 17:50:46 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 17:42:42 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/16 14:55:47 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,13 @@ int	ft_find_rra_rrb(t_pile *pile, t_chunk *chunk, int ind)
 int	ft_nb_next_p(t_begin *btmp, t_chunk *chunk, int ind)
 {
 	t_pile	*tmp;
-	int		nbtmp;
-	int		i;
-	int		y;
 
 	tmp = btmp->pile_a;
-	i = 0;
 	if (!tmp)
 		return (0);
 	while (tmp && !ft_min_in_max(tmp, chunk, ind))
-	{
-		i++;
 		tmp = tmp->next;
-	}
-	nbtmp = ft_find_last(tmp, chunk, ind, tmp->num);
-	y = ft_find_rra_rrb(tmp, chunk, ind);
-	if (i <= y)
-		return (tmp->num);
-	return (nbtmp);
+	return (tmp->num);
 }
 
 int	ft_nb_ra_rra(t_begin *btmp, int nbr, t_roll *roll)

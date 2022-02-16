@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 16:50:07 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 20:41:47 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/16 12:14:17 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ typedef struct s_begin
 	int				bmoves;
 	int				print;
 }	t_begin;
+
+typedef struct s_global
+{
+	t_pile	*pile;
+	t_begin	*begin;
+	t_begin	*btmp;
+	t_chunk	*chunk;
+}	t_global;
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);

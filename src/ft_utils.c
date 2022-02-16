@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:27:06 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/15 16:42:39 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/16 13:53:17 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	ft_is_sort(t_begin *begin)
 	return (b);
 }
 
-void	ft_push_all_to_a(t_begin *begin)
+void	ft_push_all_to_a(t_begin *begin, t_global *global)
 {
 	while (begin->pile_b && begin->bmoves > begin->moves)
-		begin->moves += ft_push(begin, &begin->pile_b, &begin->pile_a, 2);
+		begin->moves += ft_push(begin, 2, global);
 }
 
 int	ft_nb_rra(t_pile *pile, t_chunk *chunk, int ind)
