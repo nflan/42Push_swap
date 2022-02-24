@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/16 14:54:16 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/24 11:24:24 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	ft_exit(t_global *global);
 // SORT CLEAR
 void	ft_clear_begin(t_begin *begin);
 void	ft_clear_chunk(t_chunk *chunk);
-void	ft_sort(t_begin *begin, t_global *global);
+void	ft_sort(t_global *global);
 t_chunk	*ft_big_sort(t_begin *begin, t_chunk *chunk, int i, t_global *global);
-void	ft_choose_sort(t_begin *begin, t_chunk *chunk, t_global *global);
+void	ft_choose_sort(t_chunk *chunk, t_global *global);
 
 // SORT BIG RRA
 t_chunk	*ft_big_sort2(t_begin *begin, t_chunk *chunk, int i, t_global *global);
@@ -39,6 +39,7 @@ int		ft_count_line(char **tab);
 
 // FILL
 t_pile	*ft_fill_pile(char **tab, t_global *global);
+void	ft_exit_tab(char **tab);
 char	**ft_fill_argv(char **tab, int ac, char **av);
 t_pile	*ft_fill_cpy(t_pile *pile, t_global *global);
 
@@ -77,7 +78,7 @@ int		pile_incr(t_pile *pile);
 int		ft_rr_rrr2(t_roll *roll, int rolling, int nbrr);
 int		ft_rr_rrr(t_roll *roll);
 t_begin	*ft_begin_cpy(t_begin *begin, int bmoves, t_global *global);
-t_begin	*ft_create_begin(t_begin *begin, t_global *global);
+t_begin	*ft_create_begin(t_begin *begin, t_global *global, char **t);
 
 // CHUNKS
 int		ft_nb_chunk(t_begin *btmp, int nbsize, int i);

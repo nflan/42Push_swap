@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:07 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/16 12:07:32 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/24 11:02:27 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,15 @@ int	ft_check_tab(char **tab)
 		j = -1;
 		if (ft_atoi(tab[i]) < -2147483648 || ft_atoi(tab[i]) > 2147483647)
 			check = 0;
-		if (tab[i][0] == '-')
+		if (tab[i][0] == '-' && check)
 			j = 0;
 		while (tab[i][++j] && check)
 			if (!ft_isdigit(tab[i][j]))
 				check = 0;
 	}
-	if (check)
-		return (1);
-	ft_putstr_fd("Error\n", 2);
-	exit (0);
+	if (!check)
+		ft_exit_tab(tab);
+	return (1);
 }
 
 t_chunk	*ft_chunknew(int min, int max, int index, int i)
