@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:11:22 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/24 11:26:14 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/24 12:13:35 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_chunk	*ft_big_sort(t_begin *begin, t_chunk *chunk, int i, t_global *global)
 	tmp = ft_pile_chunk(begin, global);
 	while (i++ < 55 && (ft_lstsize(tmp) - i) > -1)
 	{
-		btmp = ft_begin_cpy(begin, nb + 1, global);
+		btmp = ft_begin_cpy(nb + 1, global);
 		chunk = ft_fill_chunks(tmp, i, 1, global);
 		ft_fill_b(btmp, chunk, global, 1);
 		if (btmp->moves < nb && btmp->moves > 0 && pile_incr(btmp->pile_a))

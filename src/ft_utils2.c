@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:27:56 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/24 11:13:55 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/24 12:12:13 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ int	ft_rr_rrr(t_roll *roll)
 	return (ft_rr_rrr2(roll, rolling, nbrr));
 }
 
-t_begin	*ft_begin_cpy(t_begin *begin, int bmoves, t_global *global)
+t_begin	*ft_begin_cpy(int bmoves, t_global *global)
 {
 	t_begin	*new;
 
 	new = ft_calloc(sizeof(t_begin), 1);
 	if (!new)
 		ft_exit(global);
-	new->pile_a = ft_fill_cpy(begin->pile_a, global);
+	new->pile_a = ft_fill_cpy(global);
 	new->pile_b = NULL;
 	new->moves = 0;
 	new->bmoves = bmoves;
