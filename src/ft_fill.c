@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:14 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/16 12:18:44 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/24 11:15:49 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ t_pile	*ft_fill_pile(char **tab, t_global *global)
 		free(tab[i]);
 	}
 	free(tab);
-	if (ft_check_double(ptr))
-		return (ptr);
-	ft_exit(global);
-	return (0);
+	if (!ft_check_double(ptr))
+		ft_exit(global);
+	return (ptr);
 }
 
 void	ft_exit_tab(char **tab)
@@ -54,7 +53,7 @@ void	ft_exit_tab(char **tab)
 	if (tab)
 		free(tab);
 	ft_putstr_fd("Error\n", 2);
-	exit (0);
+	exit (1);
 }
 
 char	**ft_fill_argv(char **tab, int ac, char **av)

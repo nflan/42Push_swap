@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:29:49 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/16 16:06:20 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/24 11:23:10 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_exit(t_global *global)
 		ft_clear_chunk(global->chunk);
 	free(global);
 	ft_putstr_fd("Error\n", 2);
-	exit (0);
+	exit (1);
 }
 
 int	main(int ac, char **av)
@@ -44,9 +44,9 @@ int	main(int ac, char **av)
 	global = ft_calloc(sizeof(t_global), 1);
 	if (!global)
 		ft_exit(global);
-	begin = ft_create_begin(begin, global);
+	begin = ft_create_begin(begin, global, tab);
 	begin->pile_a = ft_fill_pile(tab, global);
-	ft_choose_sort(begin, chunk, global);
+	ft_choose_sort(chunk, global);
 	ft_clear_begin(begin);
 	free(global);
 	return (0);

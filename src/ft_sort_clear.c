@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:11:22 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/16 16:06:22 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/24 11:26:14 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void	ft_clear_chunk(t_chunk *chunk)
 	chunk = NULL;
 }
 
-void	ft_sort(t_begin *begin, t_global *global)
+void	ft_sort(t_global *global)
 {
-	if (ft_lstsize(begin->pile_a) == 2)
-		ft_double(begin, 1);
-	else if (ft_lstsize(begin->pile_a) == 3)
-		ft_triple(begin, 1);
+	if (ft_lstsize(global->begin->pile_a) == 2)
+		ft_double(global->begin, 1);
+	else if (ft_lstsize(global->begin->pile_a) == 3)
+		ft_triple(global->begin, 1);
 	else
-		ft_five(begin, global);
+		ft_five(global->begin, global);
 }
 
 t_chunk	*ft_big_sort(t_begin *begin, t_chunk *chunk, int i, t_global *global)
@@ -75,7 +75,7 @@ t_chunk	*ft_big_sort(t_begin *begin, t_chunk *chunk, int i, t_global *global)
 	return (chunk);
 }
 
-void	ft_choose_sort(t_begin *begin, t_chunk *chunk, t_global *global)
+void	ft_choose_sort(t_chunk *chunk, t_global *global)
 {
 	t_chunk	*ctmp;
 	t_chunk	*ctmp2;
@@ -85,19 +85,19 @@ void	ft_choose_sort(t_begin *begin, t_chunk *chunk, t_global *global)
 	ctmp = NULL;
 	ctmp2 = NULL;
 	i = 0;
-	if (ft_lstsize(begin->pile_a) > 239)
+	if (ft_lstsize(global->begin->pile_a) > 239)
 		i = 30;
-	if (ft_lstsize(begin->pile_a) < 10)
-		ft_sort(begin, global);
+	if (ft_lstsize(global->begin->pile_a) < 10)
+		ft_sort(global);
 	else
 	{
-		ctmp = ft_big_sort(begin, chunk, i, global);
-		nb = begin->bmoves;
-		ctmp2 = ft_big_sort2(begin, chunk, i, global);
-		if (nb <= begin->bmoves)
-			ft_fill_b(begin, ctmp, global, 1);
+		ctmp = ft_big_sort(global->begin, chunk, i, global);
+		nb = global->begin->bmoves;
+		ctmp2 = ft_big_sort2(global->begin, chunk, i, global);
+		if (nb <= global->begin->bmoves)
+			ft_fill_b(global->begin, ctmp, global, 1);
 		else
-			ft_fill_b(begin, ctmp2, global, 2);
+			ft_fill_b(global->begin, ctmp2, global, 2);
 		ft_clear_chunk(ctmp);
 		ft_clear_chunk(ctmp2);
 		ft_clear_chunk(chunk);

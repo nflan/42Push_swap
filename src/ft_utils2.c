@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 11:27:56 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/16 12:19:49 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/24 11:13:55 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,14 @@ t_begin	*ft_begin_cpy(t_begin *begin, int bmoves, t_global *global)
 	return (new);
 }
 
-t_begin	*ft_create_begin(t_begin *begin, t_global *global)
+t_begin	*ft_create_begin(t_begin *begin, t_global *global, char **t)
 {
 	begin = ft_calloc(sizeof(t_begin), 1);
 	if (!begin)
+	{
+		ft_exit_tab(t);
 		ft_exit(global);
+	}
 	begin->pile_b = NULL;
 	begin->moves = 0;
 	begin->bmoves = 0;
