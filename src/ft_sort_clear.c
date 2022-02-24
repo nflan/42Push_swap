@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 17:11:22 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/24 12:13:35 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/24 15:19:17 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_choose_sort(t_chunk *chunk, t_global *global)
 		i = 30;
 	if (ft_lstsize(global->begin->pile_a) < 10)
 		ft_sort(global);
-	else
+	else if (ft_is_sort(global->begin) != 3)
 	{
 		ctmp = ft_big_sort(global->begin, chunk, i, global);
 		nb = global->begin->bmoves;
