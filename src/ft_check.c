@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:07 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/24 11:02:27 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/24 12:18:48 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_chunk	*ft_chunknew(int min, int max, int index, int i)
 
 	new = ft_calloc(sizeof(t_chunk), 1);
 	if (!new)
-		return (0);
+		return (NULL);
 	new->min = min;
 	new->max = max;
 	new->index = index;

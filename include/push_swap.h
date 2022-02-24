@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:14:10 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/24 11:24:24 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/24 12:12:38 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		ft_count_line(char **tab);
 t_pile	*ft_fill_pile(char **tab, t_global *global);
 void	ft_exit_tab(char **tab);
 char	**ft_fill_argv(char **tab, int ac, char **av);
-t_pile	*ft_fill_cpy(t_pile *pile, t_global *global);
+t_pile	*ft_fill_cpy(t_global *global);
 
 // OP
 int		ft_swap(t_begin *begin, t_pile **pile, int p);
@@ -77,7 +77,7 @@ int		ft_biggest(int nb1, int nb2);
 int		pile_incr(t_pile *pile);
 int		ft_rr_rrr2(t_roll *roll, int rolling, int nbrr);
 int		ft_rr_rrr(t_roll *roll);
-t_begin	*ft_begin_cpy(t_begin *begin, int bmoves, t_global *global);
+t_begin	*ft_begin_cpy(int bmoves, t_global *global);
 t_begin	*ft_create_begin(t_begin *begin, t_global *global, char **t);
 
 // CHUNKS

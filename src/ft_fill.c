@@ -6,7 +6,7 @@
 /*   By: nflan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:33:14 by nflan             #+#    #+#             */
-/*   Updated: 2022/02/24 11:15:49 by nflan            ###   ########.fr       */
+/*   Updated: 2022/02/24 12:11:39 by nflan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ char	**ft_fill_argv(char **tab, int ac, char **av)
 	return (tab);
 }
 
-t_pile	*ft_fill_cpy(t_pile *pile, t_global *global)
+t_pile	*ft_fill_cpy(t_global *global)
 {
 	t_pile	*begin;
 	t_pile	*ptr;
 	t_pile	*new;
 
-	begin = pile;
+	begin = global->begin->pile_a;
 	ptr = NULL;
 	new = NULL;
 	while (begin)
